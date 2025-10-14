@@ -3,7 +3,7 @@ import type { ParseResult } from "papaparse";
 import type { Item } from "../types";
 
 export async function loadItemBank(): Promise<Item[]> {
-  const response = await fetch("/jacet_parameters.csv");
+  const response = await fetch(`${import.meta.env.BASE_URL}jacet_parameters.csv`);
   if (!response.ok) {
     throw new Error("Failed to fetch item bank");
   }
