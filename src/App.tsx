@@ -8,6 +8,7 @@ import type { Item, OptionChoice } from "./types";
 import { estimateAbilityEap, selectNextItem, vocabFromTheta } from "./utils/cat";
 import { loadItemBank } from "./utils/data";
 import { shuffleArray } from "./utils/random";
+import { playWordAudio } from "./utils/audio";
 import { speakWord } from "./utils/speech";
 
 const TOTAL_ITEMS = 30;
@@ -188,10 +189,23 @@ function App() {
   };
 
   const handlePlayAudio = (text: string) => {
-    const success = speakWord(text);
-    if (!success) {
-      console.warn("Speech synthesis is not supported in this browser.");
-    }
+    const fallbackToSpeech = () => {
+      const success = speakWord(text);
+      if (!success) {
+        console.warn("Speech synthesis is not supported in this browser.");
+      }
+    };
+
+    playWordAudio(text)
+      .then((played) => {
+        if (!played) {
+          fallbackToSpeech();
+        }
+      })
+      .catch((error) => {
+        console.error("Audio playback failed, falling back to speech synthesis.", error);
+        fallbackToSpeech();
+      });
   };
 
   const handleDownload = () => {
