@@ -29,16 +29,18 @@ def slugify(word: str) -> str:
 
 
 def read_words(csv_path: Path) -> list[str]:
+    targets = ["CorrectAnswer", "Distractor_1", "Distractor_2", "Distractor_3"]
     with csv_path.open(newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
-        words = []
+        words: list[str] = []
         for row in reader:
-            word = row.get("CorrectAnswer")
-            if not word:
-                continue
-            word = word.strip()
-            if word:
-                words.append(word)
+            for column in targets:
+                word = row.get(column)
+                if not word:
+                    continue
+                word = word.strip()
+                if word:
+                    words.append(word)
     return words
 
 
