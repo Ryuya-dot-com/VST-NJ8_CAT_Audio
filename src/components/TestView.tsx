@@ -6,8 +6,9 @@ interface TestViewProps {
   totalQuestions: number;
   progressPct: number;
   options: OptionChoice[];
-  onSelect: (value: string) => void;
-  onPlayAudio: (value: string) => void;
+  onSelect: (label: string, value: string) => void;
+  onPlayQuestionAudio: () => void;
+  onPlayOptionAudio: (label: string, value: string) => void;
   isProcessing: boolean;
 }
 
@@ -18,7 +19,8 @@ export function TestView({
   progressPct,
   options,
   onSelect,
-  onPlayAudio,
+  onPlayQuestionAudio,
+  onPlayOptionAudio,
   isProcessing,
 }: TestViewProps) {
   const hasPartOfSpeech = Boolean(item.PartOfSpeech && item.PartOfSpeech !== "-");
@@ -41,19 +43,37 @@ export function TestView({
                 </div>
               </div>
 
-              <div className="progress modern-progress mb-4" role="progressbar">
+              <p className="test-instruction">
+                単語と選択肢の音声を確認してください。A〜Dを押すと回答します。
+              </p>
+
+              <div
+                className="progress modern-progress mb-4"
+                role="progressbar"
+                aria-label="テストの進行状況"
+                aria-valuenow={progressPct}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              >
                 <div
                   className="progress-bar"
                   style={{ width: `${progressPct}%` }}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
                 >
                   {progressPct}%
                 </div>
               </div>
 
               <div className="question-panel text-center">
+                <p className="question-label">単語</p>
                 <h2 className="question-word">{item.Item}</h2>
+                <button
+                  type="button"
+                  className="listen-button mt-3"
+                  onClick={onPlayQuestionAudio}
+                  disabled={isProcessing}
+                >
+                  この単語を聞く
+                </button>
               </div>
 
               <div className="option-grid mt-5">
@@ -64,7 +84,7 @@ export function TestView({
                       <button
                         type="button"
                         className="option-button"
-                        onClick={() => onSelect(option.text)}
+                        onClick={() => onSelect(option.label, option.text)}
                         disabled={isProcessing}
                       >
                         <span className="option-letter">{labelText}</span>
@@ -75,7 +95,7 @@ export function TestView({
                         className="option-audio"
                         onClick={(event) => {
                           event.stopPropagation();
-                          onPlayAudio(option.text);
+                          onPlayOptionAudio(option.label, option.text);
                         }}
                         aria-label={`選択肢${labelText}の音声を再生`}
                         disabled={isProcessing}

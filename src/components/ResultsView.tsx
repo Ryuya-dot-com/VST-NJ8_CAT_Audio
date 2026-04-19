@@ -6,6 +6,7 @@ interface ResultsViewProps {
   totalItems: number;
   correctAnswers: number;
   accuracy: number;
+  downloadStatus: "idle" | "success" | "error";
   onDownload: () => void;
   onRestart: () => void;
 }
@@ -18,9 +19,17 @@ export function ResultsView({
   totalItems,
   correctAnswers,
   accuracy,
+  downloadStatus,
   onDownload,
   onRestart,
 }: ResultsViewProps) {
+  const downloadMessage =
+    downloadStatus === "success"
+      ? "結果ファイルを自動で保存しました。保存先はブラウザのダウンロード設定に従います。"
+      : downloadStatus === "error"
+        ? "結果ファイルを自動保存できなかった可能性があります。下のボタンから保存してください。"
+        : "結果ファイルは自動でダウンロードされます。保存できなかった場合は下のボタンから再ダウンロードしてください。";
+
   return (
     <div className="app-shell">
       <div className="container py-5">
@@ -33,6 +42,14 @@ export function ResultsView({
                 <p className="hero-subtitle mb-0">
                   お疲れさまでした！推定結果は以下のとおりです。
                   受験者: <strong>{userName || "（未入力）"}</strong>
+                </p>
+                <p
+                  className={`download-status mt-3 mb-0 ${
+                    downloadStatus === "error" ? "status-error" : "status-success"
+                  }`}
+                  role={downloadStatus === "error" ? "alert" : "status"}
+                >
+                  {downloadMessage}
                 </p>
               </div>
 
@@ -65,7 +82,7 @@ export function ResultsView({
                   className="btn btn-gradient btn-lg"
                   onClick={onDownload}
                 >
-                  結果をExcelでダウンロード
+                  結果をExcelで再ダウンロード
                 </button>
                 <button type="button" className="btn btn-outline-secondary btn-lg" onClick={onRestart}>
                   もう一度受験する

@@ -36,20 +36,20 @@ export function LandingView({
                 </span>
                 <h1 className="hero-title mt-2 mb-3">JACET Vocabulary Size CAT</h1>
                 <p className="hero-subtitle mb-0">
-                  3PL-IRT に基づく語彙サイズ推定を、洗練されたUIで体験してください。
-                  約20〜30問で高精度の結果をお届けします。
+                  約20〜30問で語彙サイズを推定します。
+                  終了時に結果ファイルを自動で保存します。
                 </p>
               </div>
 
               <div className="row g-4 mb-4">
                 <div className="col-md-6">
                   <div className="info-block h-100">
-                    <h5 className="info-title">特徴</h5>
+                    <h5 className="info-title">受験の流れ</h5>
                     <ul className="info-list">
-                      <li>個人に最適化されたアイテム出題</li>
-                      <li>効率的な測定（通常20〜30問）</li>
-                      <li>8000語までの語彙サイズ推定</li>
-                      <li>回答に応じてリアルタイムに更新</li>
+                      <li>氏名を入力して開始します</li>
+                      <li>単語と選択肢の音声を確認します</li>
+                      <li>選択すると自動で次の問題へ進みます</li>
+                      <li>終了時にExcelファイルが保存されます</li>
                     </ul>
                   </div>
                 </div>
@@ -57,9 +57,9 @@ export function LandingView({
                   <div className="info-block h-100">
                     <h5 className="info-title">受験前に</h5>
                     <ul className="info-list">
-                      <li>各問題は4択です</li>
+                      <li>音量とヘッドホンを確認してください</li>
                       <li>迷った場合も必ず1つ選択してください</li>
-                      <li>ブラウザの戻るボタンは使用しないでください</li>
+                      <li>ダウンロードの許可を求められたら許可してください</li>
                       <li>集中できる環境で受験してください</li>
                     </ul>
                   </div>

@@ -34,7 +34,7 @@ export async function loadItemBank(): Promise<Item[]> {
 
         resolve(items);
       },
-      error: (error: Error, _file: Papa.LocalFile | string) => {
+      error: (error: Error) => {
         reject(error);
       },
     });
