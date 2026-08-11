@@ -1,0 +1,4233 @@
+{
+  "schemaVersion": "cat-simulation-v1",
+  "engineId": "cat-eap-3pl-monte-carlo-v1",
+  "randomGeneratorId": "mulberry32-v1",
+  "scoreModelId": "paper-3pl-v1",
+  "itemBankSha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+  "planSha256": "1aab9c60dd0c5036342caeec19c0e9f3d2e653d5d494cf73de42ce3bac7af60a",
+  "provenance": {
+    "nodeVersion": "v24.9.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "sourceSha256": {
+      "scripts/simulate-cat.ts": "7419d163bc27034b9b84b5ea8aa648821afe426962a1e09d3779543d761de919",
+      "src/utils/catSimulation.ts": "34914a7076851345bf2709b1e1655e31cbec245a2f7d0aead4da03862cafad49",
+      "src/utils/paperScoring.ts": "e01dfe7474a21cfbd547fbfd40680c52604704f8b4d568b5c46cc42f895ffa3e"
+    }
+  },
+  "plan": {
+    "planId": "confirmation-v1",
+    "seed": 20260813,
+    "replicationsPerTheta": 5000,
+    "trueThetas": [
+      -3.5,
+      -3,
+      -2.5,
+      -2,
+      -1.5,
+      -1,
+      -0.5,
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3,
+      3.5
+    ],
+    "rules": [
+      {
+        "id": "se040-min20-max30-maxinfo",
+        "minimumItems": 20,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": 0.4,
+        "selectionMethod": "maximum-information"
+      },
+      {
+        "id": "se030-min20-max30-randomesque5",
+        "minimumItems": 20,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": 0.3,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 5
+      },
+      {
+        "id": "se030-min20-max30-randomesque10",
+        "minimumItems": 20,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": 0.3,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 10
+      },
+      {
+        "id": "se030-min20-max30-randomesque20",
+        "minimumItems": 20,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": 0.3,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 20
+      },
+      {
+        "id": "fixed20-randomesque5",
+        "minimumItems": 20,
+        "maximumItems": 20,
+        "targetPosteriorStandardDeviation": null,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 5
+      },
+      {
+        "id": "fixed20-randomesque20",
+        "minimumItems": 20,
+        "maximumItems": 20,
+        "targetPosteriorStandardDeviation": null,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 20
+      },
+      {
+        "id": "fixed30-randomesque5",
+        "minimumItems": 30,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": null,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 5
+      }
+    ],
+    "initialLevelMinimum": 3,
+    "initialLevelMaximum": 5,
+    "highLevelFloor": 7,
+    "minimumHighLevelItems": 2,
+    "credibleMass": 0.95
+  },
+  "results": [
+    {
+      "rule": {
+        "id": "se040-min20-max30-maxinfo",
+        "minimumItems": 20,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": 0.4,
+        "selectionMethod": "maximum-information"
+      },
+      "overall": {
+        "trueTheta": null,
+        "trials": 75000,
+        "thetaBias": 0.011546655733106837,
+        "thetaRmse": 0.21977232025846538,
+        "thetaCoverage": 0.9370533333333333,
+        "meanPosteriorStandardDeviation": 0.18899485279299288,
+        "vocabularyBias": 1.769726850671318,
+        "vocabularyRmse": 183.1325421347381,
+        "vocabularyCoverage": 0.9370533333333333,
+        "meanLength": 20.040306666666666,
+        "lengthP10": 20,
+        "lengthP50": 20,
+        "lengthP90": 20,
+        "stopRates": {
+          "precision": 0.9968266666666666,
+          "fixed-length": 0,
+          "maximum-length": 0.003173333333333333,
+          "item-bank-exhausted": 0
+        },
+        "highLevelConstraintViolationRate": 0,
+        "monteCarloStandardErrors": {
+          "thetaBias": 0.0008013920365827358,
+          "thetaRmse": 0.001064904040349107,
+          "thetaCoverage": 0.0008868249268953616,
+          "vocabularyBias": 0.6686787289059735,
+          "vocabularyRmse": 1.0711648330142767,
+          "vocabularyCoverage": 0.0008868249268953616,
+          "meanLength": 0.002178746182424314,
+          "highLevelConstraintViolationRate": 0
+        }
+      },
+      "conditional": [
+        {
+          "trueTheta": -3.5,
+          "trials": 5000,
+          "thetaBias": 0.39202632445216556,
+          "thetaRmse": 0.47806753408483915,
+          "thetaCoverage": 0.8218,
+          "meanPosteriorStandardDeviation": 0.3238058649763182,
+          "vocabularyBias": 62.337728278644605,
+          "vocabularyRmse": 117.89584085063711,
+          "vocabularyCoverage": 0.8218,
+          "meanLength": 20.529,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0.9576,
+            "fixed-length": 0,
+            "maximum-length": 0.0424,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.003869855394281727,
+            "thetaRmse": 0.005203285376506897,
+            "thetaCoverage": 0.005411926828773649,
+            "vocabularyBias": 1.4153049149168397,
+            "vocabularyRmse": 11.451873048224188,
+            "vocabularyCoverage": 0.005411926828773649,
+            "meanLength": 0.02992141136663896,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -3,
+          "trials": 5000,
+          "thetaBias": 0.14635470851671029,
+          "thetaRmse": 0.2612368471680153,
+          "thetaCoverage": 0.947,
+          "meanPosteriorStandardDeviation": 0.26633813880594137,
+          "vocabularyBias": 75.19424858669628,
+          "vocabularyRmse": 115.71602787073138,
+          "vocabularyCoverage": 0.947,
+          "meanLength": 20.068,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0.9948,
+            "fixed-length": 0,
+            "maximum-length": 0.0052,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.003060534478961826,
+            "thetaRmse": 0.003882277250825963,
+            "thetaCoverage": 0.0031683118533376744,
+            "vocabularyBias": 1.2439912861416678,
+            "vocabularyRmse": 7.083237844536007,
+            "vocabularyCoverage": 0.0031683118533376744,
+            "meanLength": 0.010854435211135863,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2.5,
+          "trials": 5000,
+          "thetaBias": -0.027040305854008073,
+          "thetaRmse": 0.1733732495913002,
+          "thetaCoverage": 0.9654,
+          "meanPosteriorStandardDeviation": 0.17896547419744288,
+          "vocabularyBias": 18.606504060746552,
+          "vocabularyRmse": 122.23651413614215,
+          "vocabularyCoverage": 0.9654,
+          "meanLength": 20.003,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024221053704409513,
+            "thetaRmse": 0.004578076102608092,
+            "thetaCoverage": 0.002584679477227301,
+            "vocabularyBias": 1.708711976396899,
+            "vocabularyRmse": 8.23820922114139,
+            "vocabularyCoverage": 0.002584679477227301,
+            "meanLength": 0.001038467949981899,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2,
+          "trials": 5000,
+          "thetaBias": 0.0716730903676004,
+          "thetaRmse": 0.1627231559575015,
+          "thetaCoverage": 0.935,
+          "meanPosteriorStandardDeviation": 0.1255863014786586,
+          "vocabularyBias": 95.27383418846337,
+          "vocabularyRmse": 204.143295278177,
+          "vocabularyCoverage": 0.935,
+          "meanLength": 20.0022,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0020662072894310503,
+            "thetaRmse": 0.0048932082777055136,
+            "thetaCoverage": 0.003486402156952062,
+            "vocabularyBias": 2.5535818885057693,
+            "vocabularyRmse": 6.244948698379386,
+            "vocabularyCoverage": 0.003486402156952062,
+            "meanLength": 0.0011132294713881434,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1.5,
+          "trials": 5000,
+          "thetaBias": 0.033730772728323984,
+          "thetaRmse": 0.14935108641820072,
+          "thetaCoverage": 0.9622,
+          "meanPosteriorStandardDeviation": 0.15204639421961264,
+          "vocabularyBias": 41.09052902079464,
+          "vocabularyRmse": 203.23864976752697,
+          "vocabularyCoverage": 0.9622,
+          "meanLength": 20.0008,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0020577762963321722,
+            "thetaRmse": 0.002050262544413435,
+            "thetaCoverage": 0.002697078419327104,
+            "vocabularyBias": 2.8151533625212406,
+            "vocabularyRmse": 2.3800086118942603,
+            "vocabularyCoverage": 0.002697078419327104,
+            "meanLength": 0.0005656288422637884,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1,
+          "trials": 5000,
+          "thetaBias": 0.027596540395874985,
+          "thetaRmse": 0.16107620097395803,
+          "thetaCoverage": 0.945,
+          "meanPosteriorStandardDeviation": 0.14616131505878752,
+          "vocabularyBias": 23.334390573538343,
+          "vocabularyRmse": 173.97426606179397,
+          "vocabularyCoverage": 0.945,
+          "meanLength": 20.0006,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0022445049022284573,
+            "thetaRmse": 0.002709333764623419,
+            "thetaCoverage": 0.003224127789030703,
+            "vocabularyBias": 2.438380494005601,
+            "vocabularyRmse": 3.8290798804237998,
+            "vocabularyCoverage": 0.003224127789030703,
+            "meanLength": 0.00044717780982508155,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -0.5,
+          "trials": 5000,
+          "thetaBias": -0.005531667095938,
+          "thetaRmse": 0.13251032397634155,
+          "thetaCoverage": 0.9736,
+          "meanPosteriorStandardDeviation": 0.15328733732009642,
+          "vocabularyBias": 8.014463365318425,
+          "vocabularyRmse": 158.6798249653069,
+          "vocabularyCoverage": 0.9736,
+          "meanLength": 20.0008,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0018725326698380634,
+            "thetaRmse": 0.0014119775126292748,
+            "thetaCoverage": 0.0022672908944376758,
+            "vocabularyBias": 2.241431651593917,
+            "vocabularyRmse": 1.686487108978075,
+            "vocabularyCoverage": 0.0022672908944376758,
+            "meanLength": 0.0004898162757606504,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0,
+          "trials": 5000,
+          "thetaBias": 0.024882217475634478,
+          "thetaRmse": 0.1275725310675403,
+          "thetaCoverage": 0.9526,
+          "meanPosteriorStandardDeviation": 0.12114884690952238,
+          "vocabularyBias": 29.692210283185652,
+          "vocabularyRmse": 177.57972849422515,
+          "vocabularyCoverage": 0.9526,
+          "meanLength": 20.0002,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0017696755458564356,
+            "thetaRmse": 0.001674055672619608,
+            "thetaCoverage": 0.0030051036587778464,
+            "vocabularyBias": 2.4762497625832696,
+            "vocabularyRmse": 2.2474158150982597,
+            "vocabularyCoverage": 0.0030051036587778464,
+            "meanLength": 0.00020000000001069374,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0.5,
+          "trials": 5000,
+          "thetaBias": 0.010067834637569566,
+          "thetaRmse": 0.15109842446331812,
+          "thetaCoverage": 0.9688,
+          "meanPosteriorStandardDeviation": 0.16692269352897668,
+          "vocabularyBias": 34.15155674793514,
+          "vocabularyRmse": 220.17412035213732,
+          "vocabularyCoverage": 0.9688,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002132318895703951,
+            "thetaRmse": 0.0016576876757554752,
+            "thetaCoverage": 0.002458721619053284,
+            "vocabularyBias": 3.0763542838954705,
+            "vocabularyRmse": 2.82243856460092,
+            "vocabularyCoverage": 0.002458721619053284,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1,
+          "trials": 5000,
+          "thetaBias": -0.047775156089493766,
+          "thetaRmse": 0.1709988550854022,
+          "thetaCoverage": 0.9342,
+          "meanPosteriorStandardDeviation": 0.1559013285300504,
+          "vocabularyBias": -69.92025190714044,
+          "vocabularyRmse": 297.2788094212316,
+          "vocabularyCoverage": 0.9342,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002322220299982951,
+            "thetaRmse": 0.0018017292723085995,
+            "thetaCoverage": 0.0035062903473614382,
+            "vocabularyBias": 4.086625733145372,
+            "vocabularyRmse": 2.958399687849791,
+            "vocabularyCoverage": 0.0035062903473614382,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1.5,
+          "trials": 5000,
+          "thetaBias": -0.026898396686905215,
+          "thetaRmse": 0.1461751148749969,
+          "thetaCoverage": 0.9608,
+          "meanPosteriorStandardDeviation": 0.15722375410216038,
+          "vocabularyBias": -62.73245604801963,
+          "vocabularyRmse": 267.47576955703323,
+          "vocabularyCoverage": 0.9608,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002032130410106404,
+            "thetaRmse": 0.0015315000685646796,
+            "thetaCoverage": 0.0027445713690847982,
+            "vocabularyBias": 3.6775385939081624,
+            "vocabularyRmse": 2.7648677996806317,
+            "vocabularyCoverage": 0.0027445713690847982,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2,
+          "trials": 5000,
+          "thetaBias": -0.026780608492885966,
+          "thetaRmse": 0.16925970155226058,
+          "thetaCoverage": 0.9096,
+          "meanPosteriorStandardDeviation": 0.14659371439406552,
+          "vocabularyBias": -66.44108224442004,
+          "vocabularyRmse": 235.98336318465135,
+          "vocabularyCoverage": 0.9096,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0023637780363188108,
+            "thetaRmse": 0.0018108330669492423,
+            "thetaCoverage": 0.004055313551379228,
+            "vocabularyBias": 3.202623521038549,
+            "vocabularyRmse": 2.794629974939599,
+            "vocabularyCoverage": 0.004055313551379228,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2.5,
+          "trials": 5000,
+          "thetaBias": -0.06121716464406536,
+          "thetaRmse": 0.18026113932219295,
+          "thetaCoverage": 0.9568,
+          "meanPosteriorStandardDeviation": 0.19478860284313093,
+          "vocabularyBias": -87.16689132926854,
+          "vocabularyRmse": 138.88557521715836,
+          "vocabularyCoverage": 0.9568,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002398011157613262,
+            "thetaRmse": 0.0017449810542483283,
+            "thetaCoverage": 0.0028751959933194125,
+            "vocabularyBias": 1.5292792259324854,
+            "vocabularyRmse": 1.4661430053498279,
+            "vocabularyCoverage": 0.0028751959933194125,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3,
+          "trials": 5000,
+          "thetaBias": -0.13127275122518323,
+          "thetaRmse": 0.27059297411765576,
+          "thetaCoverage": 0.9108,
+          "meanPosteriorStandardDeviation": 0.2394859316904768,
+          "vocabularyBias": -56.67749624318066,
+          "vocabularyRmse": 82.5244009876174,
+          "vocabularyCoverage": 0.9108,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.003346616866988627,
+            "thetaRmse": 0.002225698276796824,
+            "thetaCoverage": 0.004030964152656284,
+            "vocabularyBias": 0.8483699558036246,
+            "vocabularyRmse": 1.1069009832775285,
+            "vocabularyCoverage": 0.004030964152656284,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3.5,
+          "trials": 5000,
+          "thetaBias": -0.20661560248879682,
+          "thetaRmse": 0.28509771902020004,
+          "thetaCoverage": 0.9122,
+          "meanPosteriorStandardDeviation": 0.30666709383966717,
+          "vocabularyBias": -18.211384573227996,
+          "vocabularyRmse": 26.22883222698256,
+          "vocabularyCoverage": 0.9122,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002778431999638971,
+            "thetaRmse": 0.0028733492576663256,
+            "thetaCoverage": 0.0040022783511395104,
+            "vocabularyBias": 0.2669713039239653,
+            "vocabularyRmse": 0.608292011405709,
+            "vocabularyCoverage": 0.0040022783511395104,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        }
+      ],
+      "exposure": {
+        "maximumExposureRate": 0.5831066666666667,
+        "unusedItemRate": 0.06875,
+        "topExposedItems": [
+          {
+            "itemIndex": 126,
+            "level": 7,
+            "administrations": 43733,
+            "exposureRate": 0.5831066666666667
+          },
+          {
+            "itemIndex": 154,
+            "level": 8,
+            "administrations": 43726,
+            "exposureRate": 0.5830133333333334
+          },
+          {
+            "itemIndex": 128,
+            "level": 7,
+            "administrations": 30145,
+            "exposureRate": 0.4019333333333333
+          },
+          {
+            "itemIndex": 142,
+            "level": 8,
+            "administrations": 28912,
+            "exposureRate": 0.38549333333333335
+          },
+          {
+            "itemIndex": 98,
+            "level": 5,
+            "administrations": 28205,
+            "exposureRate": 0.37606666666666666
+          },
+          {
+            "itemIndex": 34,
+            "level": 2,
+            "administrations": 27199,
+            "exposureRate": 0.3626533333333333
+          },
+          {
+            "itemIndex": 58,
+            "level": 3,
+            "administrations": 26467,
+            "exposureRate": 0.35289333333333334
+          },
+          {
+            "itemIndex": 152,
+            "level": 8,
+            "administrations": 25839,
+            "exposureRate": 0.34452
+          },
+          {
+            "itemIndex": 32,
+            "level": 2,
+            "administrations": 24256,
+            "exposureRate": 0.32341333333333333
+          },
+          {
+            "itemIndex": 103,
+            "level": 6,
+            "administrations": 23249,
+            "exposureRate": 0.3099866666666667
+          }
+        ]
+      }
+    },
+    {
+      "rule": {
+        "id": "se030-min20-max30-randomesque5",
+        "minimumItems": 20,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": 0.3,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 5
+      },
+      "overall": {
+        "trueTheta": null,
+        "trials": 75000,
+        "thetaBias": 0.011187166133240377,
+        "thetaRmse": 0.22368674134059968,
+        "thetaCoverage": 0.9362933333333333,
+        "meanPosteriorStandardDeviation": 0.1909981062541304,
+        "vocabularyBias": 1.6263842576068555,
+        "vocabularyRmse": 188.04419778793851,
+        "vocabularyCoverage": 0.9362933333333333,
+        "meanLength": 20.93016,
+        "lengthP10": 20,
+        "lengthP50": 20,
+        "lengthP90": 22,
+        "stopRates": {
+          "precision": 0.9192533333333334,
+          "fixed-length": 0,
+          "maximum-length": 0.08074666666666666,
+          "item-bank-exhausted": 0
+        },
+        "highLevelConstraintViolationRate": 0,
+        "monteCarloStandardErrors": {
+          "thetaBias": 0.0008157717903850122,
+          "thetaRmse": 0.0009939902615491367,
+          "thetaCoverage": 0.0008918006301028566,
+          "vocabularyBias": 0.6866192214215113,
+          "vocabularyRmse": 1.012507199952662,
+          "vocabularyCoverage": 0.0008918006301028566,
+          "meanLength": 0.010266165205425285,
+          "highLevelConstraintViolationRate": 0
+        }
+      },
+      "conditional": [
+        {
+          "trueTheta": -3.5,
+          "trials": 5000,
+          "thetaBias": 0.3903057333823865,
+          "thetaRmse": 0.4777401869687975,
+          "thetaCoverage": 0.8018,
+          "meanPosteriorStandardDeviation": 0.3195522353876288,
+          "vocabularyBias": 60.99972294399863,
+          "vocabularyRmse": 104.94165250027248,
+          "vocabularyCoverage": 0.8018,
+          "meanLength": 26.3278,
+          "lengthP10": 20,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.4124,
+            "fixed-length": 0,
+            "maximum-length": 0.5876,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0038964677130564787,
+            "thetaRmse": 0.004845924336380986,
+            "thetaCoverage": 0.005637672569420825,
+            "vocabularyBias": 1.207745244562703,
+            "vocabularyRmse": 12.103428654639888,
+            "vocabularyCoverage": 0.005637672569420825,
+            "meanLength": 0.06537984656503386,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -3,
+          "trials": 5000,
+          "thetaBias": 0.1471937074776809,
+          "thetaRmse": 0.26449508058753796,
+          "thetaCoverage": 0.9466,
+          "meanPosteriorStandardDeviation": 0.2671782767037277,
+          "vocabularyBias": 75.84472497834807,
+          "vocabularyRmse": 107.560416665392,
+          "vocabularyCoverage": 0.9466,
+          "meanLength": 22.259,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.8214,
+            "fixed-length": 0,
+            "maximum-length": 0.1786,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.003108096536404966,
+            "thetaRmse": 0.003031592955808398,
+            "thetaCoverage": 0.0031795735563122296,
+            "vocabularyBias": 1.0787014900421805,
+            "vocabularyRmse": 5.29592752717548,
+            "vocabularyCoverage": 0.0031795735563122296,
+            "meanLength": 0.0554808023002983,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2.5,
+          "trials": 5000,
+          "thetaBias": -0.02583258217361386,
+          "thetaRmse": 0.17247551505556327,
+          "thetaCoverage": 0.9676,
+          "meanPosteriorStandardDeviation": 0.18378464019991983,
+          "vocabularyBias": 20.58127067666366,
+          "vocabularyRmse": 112.63112026758961,
+          "vocabularyCoverage": 0.9676,
+          "meanLength": 20.1728,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0.9922,
+            "fixed-length": 0,
+            "maximum-length": 0.0078,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024118995937466234,
+            "thetaRmse": 0.003922709705140314,
+            "thetaCoverage": 0.0025040063897682043,
+            "vocabularyBias": 1.5661822037529025,
+            "vocabularyRmse": 7.136868312489992,
+            "vocabularyCoverage": 0.0025040063897682043,
+            "meanLength": 0.015380355752342445,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2,
+          "trials": 5000,
+          "thetaBias": 0.07507011586480641,
+          "thetaRmse": 0.17048373817458035,
+          "thetaCoverage": 0.9352,
+          "meanPosteriorStandardDeviation": 0.13080343965867397,
+          "vocabularyBias": 100.38098897256036,
+          "vocabularyRmse": 215.14538669797415,
+          "vocabularyCoverage": 0.9352,
+          "meanLength": 20.0076,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0021648958155031563,
+            "thetaRmse": 0.005095463313331975,
+            "thetaCoverage": 0.003481406612276135,
+            "vocabularyBias": 2.691409970923907,
+            "vocabularyRmse": 6.478274579119453,
+            "vocabularyCoverage": 0.003481406612276135,
+            "meanLength": 0.002397831920628447,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1.5,
+          "trials": 5000,
+          "thetaBias": 0.03291470030484382,
+          "thetaRmse": 0.15226424584201673,
+          "thetaCoverage": 0.961,
+          "meanPosteriorStandardDeviation": 0.15562585717141963,
+          "vocabularyBias": 39.59162543129735,
+          "vocabularyRmse": 207.2164577229447,
+          "vocabularyCoverage": 0.961,
+          "meanLength": 20.0062,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002102638540239921,
+            "thetaRmse": 0.0016023463874548919,
+            "thetaCoverage": 0.0027378458685616337,
+            "vocabularyBias": 2.8767842962182533,
+            "vocabularyRmse": 1.995944961940519,
+            "vocabularyCoverage": 0.0027378458685616337,
+            "meanLength": 0.0019882410871236962,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1,
+          "trials": 5000,
+          "thetaBias": 0.028495809990790048,
+          "thetaRmse": 0.16417633166958276,
+          "thetaCoverage": 0.948,
+          "meanPosteriorStandardDeviation": 0.14980896660921447,
+          "vocabularyBias": 23.922067408043393,
+          "vocabularyRmse": 176.8857939362041,
+          "vocabularyCoverage": 0.948,
+          "meanLength": 20.0042,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002286791906172128,
+            "thetaRmse": 0.0020235324902471204,
+            "thetaCoverage": 0.00313993630508646,
+            "vocabularyBias": 2.478808717106759,
+            "vocabularyRmse": 2.3334388649496813,
+            "vocabularyCoverage": 0.00313993630508646,
+            "meanLength": 0.0013404593862809363,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -0.5,
+          "trials": 5000,
+          "thetaBias": -0.002413715054753343,
+          "thetaRmse": 0.13529503509087645,
+          "thetaCoverage": 0.9728,
+          "meanPosteriorStandardDeviation": 0.15746798098700457,
+          "vocabularyBias": 12.480135941931126,
+          "vocabularyRmse": 162.82068253968208,
+          "vocabularyCoverage": 0.9728,
+          "meanLength": 20.0026,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0019132475540859402,
+            "thetaRmse": 0.0015101735253429964,
+            "thetaCoverage": 0.002300441696718263,
+            "vocabularyBias": 2.2960876676702258,
+            "vocabularyRmse": 1.8924153750412627,
+            "vocabularyCoverage": 0.002300441696718263,
+            "meanLength": 0.0009994237187250607,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0,
+          "trials": 5000,
+          "thetaBias": 0.02452886633690381,
+          "thetaRmse": 0.13257436096526956,
+          "thetaCoverage": 0.949,
+          "meanPosteriorStandardDeviation": 0.12561085599691232,
+          "vocabularyBias": 29.00227770024626,
+          "vocabularyRmse": 184.34320462198588,
+          "vocabularyCoverage": 0.949,
+          "meanLength": 20.002,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0018426986427445956,
+            "thetaRmse": 0.001741915757882703,
+            "thetaCoverage": 0.0031112376958374634,
+            "vocabularyBias": 2.5747976449194385,
+            "vocabularyRmse": 2.346500477448484,
+            "vocabularyCoverage": 0.0031112376958374634,
+            "meanLength": 0.0008940692769431515,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0.5,
+          "trials": 5000,
+          "thetaBias": 0.012118133904214448,
+          "thetaRmse": 0.15340427725464723,
+          "thetaCoverage": 0.9694,
+          "meanPosteriorStandardDeviation": 0.169616531260845,
+          "vocabularyBias": 37.51238825995466,
+          "vocabularyRmse": 223.42985866021363,
+          "vocabularyCoverage": 0.9694,
+          "meanLength": 20.0008,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002162900887740832,
+            "thetaRmse": 0.0015514156159873364,
+            "thetaCoverage": 0.002435719195638116,
+            "vocabularyBias": 3.115234410229449,
+            "vocabularyRmse": 2.531619825369572,
+            "vocabularyCoverage": 0.002435719195638116,
+            "meanLength": 0.00039987995798663556,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1,
+          "trials": 5000,
+          "thetaBias": -0.0484918363701849,
+          "thetaRmse": 0.17921817687859556,
+          "thetaCoverage": 0.9326,
+          "meanPosteriorStandardDeviation": 0.1596891314702336,
+          "vocabularyBias": -69.97488865637612,
+          "vocabularyRmse": 311.64765768784036,
+          "vocabularyCoverage": 0.9326,
+          "meanLength": 20.0032,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024402316061975207,
+            "thetaRmse": 0.0017816977169450305,
+            "thetaCoverage": 0.0035456237815086927,
+            "vocabularyBias": 4.2952584729022805,
+            "vocabularyRmse": 2.951352558272041,
+            "vocabularyCoverage": 0.0035456237815086927,
+            "meanLength": 0.0011992662956680816,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1.5,
+          "trials": 5000,
+          "thetaBias": -0.02872430240900503,
+          "thetaRmse": 0.1496489710286734,
+          "thetaCoverage": 0.9622,
+          "meanPosteriorStandardDeviation": 0.16061392264640867,
+          "vocabularyBias": -66.53251456246609,
+          "vocabularyRmse": 273.9090071411783,
+          "vocabularyCoverage": 0.9622,
+          "meanLength": 20.0004,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0020772117749432635,
+            "thetaRmse": 0.00160467082611397,
+            "thetaCoverage": 0.002697078419327104,
+            "vocabularyBias": 3.7580231887881896,
+            "vocabularyRmse": 2.9022332959899626,
+            "vocabularyCoverage": 0.002697078419327104,
+            "meanLength": 0.0002828144211277771,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2,
+          "trials": 5000,
+          "thetaBias": -0.02803448702187946,
+          "thetaRmse": 0.17871679809491522,
+          "thetaCoverage": 0.9182,
+          "meanPosteriorStandardDeviation": 0.150341250087726,
+          "vocabularyBias": -70.76531909996257,
+          "vocabularyRmse": 251.03216847720216,
+          "vocabularyCoverage": 0.9182,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024963971421795147,
+            "thetaRmse": 0.001964568297556023,
+            "thetaCoverage": 0.0038757905000141577,
+            "vocabularyBias": 3.4064944863519866,
+            "vocabularyRmse": 3.1355537745061715,
+            "vocabularyCoverage": 0.0038757905000141577,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2.5,
+          "trials": 5000,
+          "thetaBias": -0.06627071680543846,
+          "thetaRmse": 0.18371283945216055,
+          "thetaCoverage": 0.9594,
+          "meanPosteriorStandardDeviation": 0.19735074033208072,
+          "vocabularyBias": -92.02447245244294,
+          "vocabularyRmse": 145.5434917110526,
+          "vocabularyCoverage": 0.9594,
+          "meanLength": 20.001,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024234055528591296,
+            "thetaRmse": 0.001688856882880023,
+            "thetaCoverage": 0.0027911159058699076,
+            "vocabularyBias": 1.5948007925043544,
+            "vocabularyRmse": 1.6148551200987242,
+            "vocabularyCoverage": 0.0027911159058699076,
+            "meanLength": 0.0004470346384767851,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3,
+          "trials": 5000,
+          "thetaBias": -0.13791331205472293,
+          "thetaRmse": 0.2686526905401192,
+          "thetaCoverage": 0.9126,
+          "meanPosteriorStandardDeviation": 0.23958017613492516,
+          "vocabularyBias": -57.80918035640116,
+          "vocabularyRmse": 83.95081296699584,
+          "vocabularyCoverage": 0.9126,
+          "meanLength": 20.403,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0.9732,
+            "fixed-length": 0,
+            "maximum-length": 0.0268,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.003260822578934124,
+            "thetaRmse": 0.002310064911827867,
+            "thetaCoverage": 0.003994026539721539,
+            "vocabularyBias": 0.8609969779432012,
+            "vocabularyRmse": 1.1520668378140841,
+            "vocabularyCoverage": 0.003994026539721539,
+            "meanLength": 0.025348899647571914,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3.5,
+          "trials": 5000,
+          "thetaBias": -0.2051386233734283,
+          "thetaRmse": 0.30265548777632245,
+          "thetaCoverage": 0.908,
+          "meanPosteriorStandardDeviation": 0.2979475891652173,
+          "vocabularyBias": -18.813063321286307,
+          "vocabularyRmse": 28.542305936080766,
+          "vocabularyCoverage": 0.908,
+          "meanLength": 24.7618,
+          "lengthP10": 20,
+          "lengthP50": 23,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.5896,
+            "fixed-length": 0,
+            "maximum-length": 0.4104,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0031473288725714864,
+            "thetaRmse": 0.002914567759633715,
+            "thetaCoverage": 0.004087444189221425,
+            "vocabularyBias": 0.303586574613038,
+            "vocabularyRmse": 0.6987346002642215,
+            "vocabularyCoverage": 0.004087444189221425,
+            "meanLength": 0.06680048362790932,
+            "highLevelConstraintViolationRate": 0
+          }
+        }
+      ],
+      "exposure": {
+        "maximumExposureRate": 0.35602666666666666,
+        "unusedItemRate": 0.00625,
+        "topExposedItems": [
+          {
+            "itemIndex": 146,
+            "level": 8,
+            "administrations": 26702,
+            "exposureRate": 0.35602666666666666
+          },
+          {
+            "itemIndex": 154,
+            "level": 8,
+            "administrations": 24299,
+            "exposureRate": 0.32398666666666665
+          },
+          {
+            "itemIndex": 126,
+            "level": 7,
+            "administrations": 21579,
+            "exposureRate": 0.28772
+          },
+          {
+            "itemIndex": 36,
+            "level": 2,
+            "administrations": 20004,
+            "exposureRate": 0.26672
+          },
+          {
+            "itemIndex": 106,
+            "level": 6,
+            "administrations": 19343,
+            "exposureRate": 0.2579066666666667
+          },
+          {
+            "itemIndex": 22,
+            "level": 2,
+            "administrations": 19091,
+            "exposureRate": 0.25454666666666664
+          },
+          {
+            "itemIndex": 110,
+            "level": 6,
+            "administrations": 18300,
+            "exposureRate": 0.244
+          },
+          {
+            "itemIndex": 128,
+            "level": 7,
+            "administrations": 18266,
+            "exposureRate": 0.24354666666666666
+          },
+          {
+            "itemIndex": 124,
+            "level": 7,
+            "administrations": 17439,
+            "exposureRate": 0.23252
+          },
+          {
+            "itemIndex": 27,
+            "level": 2,
+            "administrations": 17399,
+            "exposureRate": 0.23198666666666667
+          }
+        ]
+      }
+    },
+    {
+      "rule": {
+        "id": "se030-min20-max30-randomesque10",
+        "minimumItems": 20,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": 0.3,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 10
+      },
+      "overall": {
+        "trueTheta": null,
+        "trials": 75000,
+        "thetaBias": 0.01122328297833559,
+        "thetaRmse": 0.2380776006576171,
+        "thetaCoverage": 0.9327066666666667,
+        "meanPosteriorStandardDeviation": 0.20024437199609504,
+        "vocabularyBias": 0.9287668452193008,
+        "vocabularyRmse": 199.70650993479614,
+        "vocabularyCoverage": 0.9327066666666667,
+        "meanLength": 21.094746666666666,
+        "lengthP10": 20,
+        "lengthP50": 20,
+        "lengthP90": 26,
+        "stopRates": {
+          "precision": 0.9112666666666667,
+          "fixed-length": 0,
+          "maximum-length": 0.08873333333333333,
+          "item-bank-exhausted": 0
+        },
+        "highLevelConstraintViolationRate": 0,
+        "monteCarloStandardErrors": {
+          "thetaBias": 0.000868375770662717,
+          "thetaRmse": 0.0009522996819770359,
+          "thetaCoverage": 0.0009148037357613723,
+          "vocabularyBias": 0.7292220445312414,
+          "vocabularyRmse": 0.9329085004075445,
+          "vocabularyCoverage": 0.0009148037357613723,
+          "meanLength": 0.010894872453937842,
+          "highLevelConstraintViolationRate": 0
+        }
+      },
+      "conditional": [
+        {
+          "trueTheta": -3.5,
+          "trials": 5000,
+          "thetaBias": 0.4200652680220387,
+          "thetaRmse": 0.504222132362328,
+          "thetaCoverage": 0.7858,
+          "meanPosteriorStandardDeviation": 0.32480147932928705,
+          "vocabularyBias": 69.00576946186303,
+          "vocabularyRmse": 105.51333500813908,
+          "vocabularyCoverage": 0.7858,
+          "meanLength": 26.6788,
+          "lengthP10": 20,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.3996,
+            "fixed-length": 0,
+            "maximum-length": 0.6004,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.003944634064231728,
+            "thetaRmse": 0.004091141652306114,
+            "thetaCoverage": 0.005802040330780199,
+            "vocabularyBias": 1.1289412875740519,
+            "vocabularyRmse": 6.274984699228527,
+            "vocabularyCoverage": 0.005802040330780199,
+            "meanLength": 0.0628228895792848,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -3,
+          "trials": 5000,
+          "thetaBias": 0.16998479518304233,
+          "thetaRmse": 0.2857688744554194,
+          "thetaCoverage": 0.9426,
+          "meanPosteriorStandardDeviation": 0.2743404138092273,
+          "vocabularyBias": 87.44475586873888,
+          "vocabularyRmse": 124.26877546237392,
+          "vocabularyCoverage": 0.9426,
+          "meanLength": 22.86,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.7876,
+            "fixed-length": 0,
+            "maximum-length": 0.2124,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0032489867629487876,
+            "thetaRmse": 0.0035285719478871796,
+            "thetaCoverage": 0.0032895361375124004,
+            "vocabularyBias": 1.2488156602579799,
+            "vocabularyRmse": 6.328782293019799,
+            "vocabularyCoverage": 0.0032895361375124004,
+            "meanLength": 0.05908483903372106,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2.5,
+          "trials": 5000,
+          "thetaBias": -0.013323393260415026,
+          "thetaRmse": 0.1856590058580321,
+          "thetaCoverage": 0.9654,
+          "meanPosteriorStandardDeviation": 0.19799983247295838,
+          "vocabularyBias": 33.93819335125892,
+          "vocabularyRmse": 140.68574524913046,
+          "vocabularyCoverage": 0.9654,
+          "meanLength": 20.2896,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0.9892,
+            "fixed-length": 0,
+            "maximum-length": 0.0108,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002619107228461458,
+            "thetaRmse": 0.0052496141793683575,
+            "thetaCoverage": 0.002584679477227301,
+            "vocabularyBias": 1.9310311664870532,
+            "vocabularyRmse": 8.866653081672608,
+            "vocabularyCoverage": 0.002584679477227301,
+            "meanLength": 0.02003064185997715,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2,
+          "trials": 5000,
+          "thetaBias": 0.08084777359752539,
+          "thetaRmse": 0.17825816795882607,
+          "thetaCoverage": 0.9354,
+          "meanPosteriorStandardDeviation": 0.14420202572871177,
+          "vocabularyBias": 110.07110195555086,
+          "vocabularyRmse": 225.84945997864855,
+          "vocabularyCoverage": 0.9354,
+          "meanLength": 20.0198,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0022469829051657885,
+            "thetaRmse": 0.0027305854723067517,
+            "thetaCoverage": 0.0034764015878491366,
+            "vocabularyBias": 2.789269119649796,
+            "vocabularyRmse": 3.66815777727147,
+            "vocabularyCoverage": 0.0034764015878491366,
+            "meanLength": 0.004276125471709923,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1.5,
+          "trials": 5000,
+          "thetaBias": 0.036571935248326554,
+          "thetaRmse": 0.16132481329638232,
+          "thetaCoverage": 0.959,
+          "meanPosteriorStandardDeviation": 0.16490652271426898,
+          "vocabularyBias": 43.83275530123202,
+          "vocabularyRmse": 217.24952936708883,
+          "vocabularyCoverage": 0.959,
+          "meanLength": 20.0114,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0022223018500112618,
+            "thetaRmse": 0.0018638721207256583,
+            "thetaCoverage": 0.0028042467794400705,
+            "vocabularyBias": 3.009488481248688,
+            "vocabularyRmse": 2.221231808272087,
+            "vocabularyCoverage": 0.0028042467794400705,
+            "meanLength": 0.0030357620411082115,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1,
+          "trials": 5000,
+          "thetaBias": 0.0293075024695111,
+          "thetaRmse": 0.17170996737566924,
+          "thetaCoverage": 0.9464,
+          "meanPosteriorStandardDeviation": 0.1578230008095315,
+          "vocabularyBias": 24.049652608850263,
+          "vocabularyRmse": 186.08194905548245,
+          "vocabularyCoverage": 0.9464,
+          "meanLength": 20.0036,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0023929525451640865,
+            "thetaRmse": 0.002043570693649403,
+            "thetaCoverage": 0.0031851857088716186,
+            "vocabularyBias": 2.6097860815427842,
+            "vocabularyRmse": 2.363978742969355,
+            "vocabularyCoverage": 0.0031851857088716186,
+            "meanLength": 0.0014134382057629051,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -0.5,
+          "trials": 5000,
+          "thetaBias": 0.0005000165546172843,
+          "thetaRmse": 0.1416941903214253,
+          "thetaCoverage": 0.971,
+          "meanPosteriorStandardDeviation": 0.1643854895142495,
+          "vocabularyBias": 17.324477405627594,
+          "vocabularyRmse": 171.4573961631913,
+          "vocabularyCoverage": 0.971,
+          "meanLength": 20.0032,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0020040463944849506,
+            "thetaRmse": 0.001521053989587059,
+            "thetaCoverage": 0.0023731413780051125,
+            "vocabularyBias": 2.4126053073825666,
+            "vocabularyRmse": 1.8677218039806989,
+            "vocabularyCoverage": 0.0023731413780051125,
+            "meanLength": 0.0012321751706336574,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0,
+          "trials": 5000,
+          "thetaBias": 0.022102815697102787,
+          "thetaRmse": 0.15175584681424834,
+          "thetaCoverage": 0.9398,
+          "meanPosteriorStandardDeviation": 0.1363838827337825,
+          "vocabularyBias": 25.134467765460663,
+          "vocabularyRmse": 210.51291597646596,
+          "vocabularyCoverage": 0.9398,
+          "meanLength": 20.0026,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0021234788316777773,
+            "thetaRmse": 0.0021915854037901457,
+            "thetaCoverage": 0.0033638061775316374,
+            "vocabularyBias": 2.9561016511626805,
+            "vocabularyRmse": 2.979310834236427,
+            "vocabularyCoverage": 0.0033638061775316374,
+            "meanLength": 0.0011827627765335828,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0.5,
+          "trials": 5000,
+          "thetaBias": 0.008419779881115901,
+          "thetaRmse": 0.162039657007249,
+          "thetaCoverage": 0.9684,
+          "meanPosteriorStandardDeviation": 0.17671424331254534,
+          "vocabularyBias": 33.86998424081226,
+          "vocabularyRmse": 236.12244493276106,
+          "vocabularyCoverage": 0.9684,
+          "meanLength": 20.0012,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0022887199911294635,
+            "thetaRmse": 0.0016437924156570756,
+            "thetaCoverage": 0.0024739215832358134,
+            "vocabularyBias": 3.3050735749719062,
+            "vocabularyRmse": 2.681043006594105,
+            "vocabularyCoverage": 0.0024739215832358134,
+            "meanLength": 0.0007482138496369815,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1,
+          "trials": 5000,
+          "thetaBias": -0.055320104306550016,
+          "thetaRmse": 0.186705432021464,
+          "thetaCoverage": 0.9362,
+          "meanPosteriorStandardDeviation": 0.1680669197953413,
+          "vocabularyBias": -80.62723473740633,
+          "vocabularyRmse": 322.90408047783257,
+          "vocabularyCoverage": 0.9362,
+          "meanLength": 20.0026,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0025221009257725482,
+            "thetaRmse": 0.001875445813492447,
+            "thetaCoverage": 0.0034562858678066537,
+            "vocabularyBias": 4.422348954528789,
+            "vocabularyRmse": 3.0834672505718848,
+            "vocabularyCoverage": 0.0034562858678066537,
+            "meanLength": 0.0011130569523398837,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1.5,
+          "trials": 5000,
+          "thetaBias": -0.03169793197357651,
+          "thetaRmse": 0.15498130569601298,
+          "thetaCoverage": 0.9588,
+          "meanPosteriorStandardDeviation": 0.1677698755641668,
+          "vocabularyBias": -72.74459408173816,
+          "vocabularyRmse": 283.72784833841206,
+          "vocabularyCoverage": 0.9588,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002145649087518568,
+            "thetaRmse": 0.0017093798804163306,
+            "thetaCoverage": 0.0028107849437479207,
+            "vocabularyBias": 3.8787823065186178,
+            "vocabularyRmse": 3.1306850965858124,
+            "vocabularyCoverage": 0.0028107849437479207,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2,
+          "trials": 5000,
+          "thetaBias": -0.03739665269180725,
+          "thetaRmse": 0.18727240545106577,
+          "thetaCoverage": 0.924,
+          "meanPosteriorStandardDeviation": 0.16089563050594774,
+          "vocabularyBias": -87.13101642534527,
+          "vocabularyRmse": 265.7469926798679,
+          "vocabularyCoverage": 0.924,
+          "meanLength": 20.0004,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002595348918619078,
+            "thetaRmse": 0.0020152525440794325,
+            "thetaCoverage": 0.0037476392569189463,
+            "vocabularyBias": 3.5508381699759095,
+            "vocabularyRmse": 3.207004708688888,
+            "vocabularyCoverage": 0.0037476392569189463,
+            "meanLength": 0.0002828144211277771,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2.5,
+          "trials": 5000,
+          "thetaBias": -0.07376339491959447,
+          "thetaRmse": 0.191758149627416,
+          "thetaCoverage": 0.9592,
+          "meanPosteriorStandardDeviation": 0.2072944779498318,
+          "vocabularyBias": -101.29784446639484,
+          "vocabularyRmse": 155.5388211716226,
+          "vocabularyCoverage": 0.9592,
+          "meanLength": 20.0176,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0025034542856551935,
+            "thetaRmse": 0.0018154091698661756,
+            "thetaCoverage": 0.0027976904760891597,
+            "vocabularyBias": 1.6693626550030403,
+            "vocabularyRmse": 1.7572698287798079,
+            "vocabularyCoverage": 0.0027976904760891597,
+            "meanLength": 0.003880858179841519,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3,
+          "trials": 5000,
+          "thetaBias": -0.15394003471465578,
+          "thetaRmse": 0.2850884758924622,
+          "thetaCoverage": 0.9158,
+          "meanPosteriorStandardDeviation": 0.25233814567875795,
+          "vocabularyBias": -65.74373460342474,
+          "vocabularyRmse": 93.37396476769737,
+          "vocabularyCoverage": 0.9158,
+          "meanLength": 20.871,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 23,
+          "stopRates": {
+            "precision": 0.9548,
+            "fixed-length": 0,
+            "maximum-length": 0.0452,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0033938008982046736,
+            "thetaRmse": 0.002392356380642616,
+            "thetaCoverage": 0.003927094600337508,
+            "vocabularyBias": 0.9377993521493321,
+            "vocabularyRmse": 1.2498615976057104,
+            "vocabularyCoverage": 0.003927094600337508,
+            "meanLength": 0.03428683300311468,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3.5,
+          "trials": 5000,
+          "thetaBias": -0.23400913011165103,
+          "thetaRmse": 0.3334598417709398,
+          "thetaCoverage": 0.8828,
+          "meanPosteriorStandardDeviation": 0.3057436400228256,
+          "vocabularyBias": -23.195230966794213,
+          "vocabularyRmse": 35.666413624895505,
+          "vocabularyCoverage": 0.8828,
+          "meanLength": 25.6594,
+          "lengthP10": 20,
+          "lengthP50": 28,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.5378,
+            "fixed-length": 0,
+            "maximum-length": 0.4622,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0033599548328740237,
+            "thetaRmse": 0.003221134832264025,
+            "thetaCoverage": 0.0045489374583522245,
+            "vocabularyBias": 0.38320260058937516,
+            "vocabularyRmse": 0.7921573604321859,
+            "vocabularyCoverage": 0.0045489374583522245,
+            "meanLength": 0.06410351144856276,
+            "highLevelConstraintViolationRate": 0
+          }
+        }
+      ],
+      "exposure": {
+        "maximumExposureRate": 0.2953733333333333,
+        "unusedItemRate": 0,
+        "topExposedItems": [
+          {
+            "itemIndex": 146,
+            "level": 8,
+            "administrations": 22153,
+            "exposureRate": 0.2953733333333333
+          },
+          {
+            "itemIndex": 133,
+            "level": 7,
+            "administrations": 21867,
+            "exposureRate": 0.29156
+          },
+          {
+            "itemIndex": 154,
+            "level": 8,
+            "administrations": 19475,
+            "exposureRate": 0.25966666666666666
+          },
+          {
+            "itemIndex": 124,
+            "level": 7,
+            "administrations": 18796,
+            "exposureRate": 0.25061333333333335
+          },
+          {
+            "itemIndex": 106,
+            "level": 6,
+            "administrations": 18111,
+            "exposureRate": 0.24148
+          },
+          {
+            "itemIndex": 36,
+            "level": 2,
+            "administrations": 17789,
+            "exposureRate": 0.23718666666666666
+          },
+          {
+            "itemIndex": 27,
+            "level": 2,
+            "administrations": 17758,
+            "exposureRate": 0.23677333333333334
+          },
+          {
+            "itemIndex": 23,
+            "level": 2,
+            "administrations": 17548,
+            "exposureRate": 0.23397333333333334
+          },
+          {
+            "itemIndex": 38,
+            "level": 2,
+            "administrations": 17317,
+            "exposureRate": 0.23089333333333334
+          },
+          {
+            "itemIndex": 110,
+            "level": 6,
+            "administrations": 16769,
+            "exposureRate": 0.22358666666666666
+          }
+        ]
+      }
+    },
+    {
+      "rule": {
+        "id": "se030-min20-max30-randomesque20",
+        "minimumItems": 20,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": 0.3,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 20
+      },
+      "overall": {
+        "trueTheta": null,
+        "trials": 75000,
+        "thetaBias": 0.013445459096999556,
+        "thetaRmse": 0.26582805872865434,
+        "thetaCoverage": 0.9247066666666667,
+        "meanPosteriorStandardDeviation": 0.21849823275049798,
+        "vocabularyBias": 1.483662300328852,
+        "vocabularyRmse": 223.77984023694248,
+        "vocabularyCoverage": 0.9247066666666667,
+        "meanLength": 21.470093333333335,
+        "lengthP10": 20,
+        "lengthP50": 20,
+        "lengthP90": 30,
+        "stopRates": {
+          "precision": 0.88472,
+          "fixed-length": 0,
+          "maximum-length": 0.11528,
+          "item-bank-exhausted": 0
+        },
+        "highLevelConstraintViolationRate": 0,
+        "monteCarloStandardErrors": {
+          "thetaBias": 0.0009694308724423987,
+          "thetaRmse": 0.0010039637829483763,
+          "thetaCoverage": 0.000963495354002906,
+          "vocabularyBias": 0.8171159307474418,
+          "vocabularyRmse": 0.9234574455215139,
+          "vocabularyCoverage": 0.000963495354002906,
+          "meanLength": 0.012308019289314895,
+          "highLevelConstraintViolationRate": 0
+        }
+      },
+      "conditional": [
+        {
+          "trueTheta": -3.5,
+          "trials": 5000,
+          "thetaBias": 0.49470282276166416,
+          "thetaRmse": 0.5678010854059988,
+          "thetaCoverage": 0.7272,
+          "meanPosteriorStandardDeviation": 0.3359425670483476,
+          "vocabularyBias": 89.96437315099848,
+          "vocabularyRmse": 132.5282154867867,
+          "vocabularyCoverage": 0.7272,
+          "meanLength": 27.257,
+          "lengthP10": 20,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.3424,
+            "fixed-length": 0,
+            "maximum-length": 0.6576,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0039416424567717675,
+            "thetaRmse": 0.00437013445712223,
+            "thetaCoverage": 0.006298891331020087,
+            "vocabularyBias": 1.3763745035733674,
+            "vocabularyRmse": 6.891510711089628,
+            "vocabularyCoverage": 0.006298891331020087,
+            "meanLength": 0.059183196349521586,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -3,
+          "trials": 5000,
+          "thetaBias": 0.205638466667795,
+          "thetaRmse": 0.3155996609311806,
+          "thetaCoverage": 0.9366,
+          "meanPosteriorStandardDeviation": 0.29053250163131267,
+          "vocabularyBias": 107.21721124707248,
+          "vocabularyRmse": 145.21768823986412,
+          "vocabularyCoverage": 0.9366,
+          "meanLength": 24.0236,
+          "lengthP10": 20,
+          "lengthP50": 21,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.7012,
+            "fixed-length": 0,
+            "maximum-length": 0.2988,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.00338607242961201,
+            "thetaRmse": 0.002973224587700196,
+            "thetaCoverage": 0.0034461700480388374,
+            "vocabularyBias": 1.385248389512267,
+            "vocabularyRmse": 3.240476526317828,
+            "vocabularyCoverage": 0.0034461700480388374,
+            "meanLength": 0.06358661226588416,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2.5,
+          "trials": 5000,
+          "thetaBias": 0.006417183155056388,
+          "thetaRmse": 0.20847111710136906,
+          "thetaCoverage": 0.954,
+          "meanPosteriorStandardDeviation": 0.22541987453793455,
+          "vocabularyBias": 58.66321714066058,
+          "vocabularyRmse": 165.0230504562884,
+          "vocabularyCoverage": 0.954,
+          "meanLength": 20.7426,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 22,
+          "stopRates": {
+            "precision": 0.969,
+            "fixed-length": 0,
+            "maximum-length": 0.031,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002947124427920913,
+            "thetaRmse": 0.0035718553402846725,
+            "thetaCoverage": 0.0029625664549508433,
+            "vocabularyBias": 2.181558770020806,
+            "vocabularyRmse": 5.358013957456586,
+            "vocabularyCoverage": 0.0029625664549508433,
+            "meanLength": 0.03157132239358264,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2,
+          "trials": 5000,
+          "thetaBias": 0.09673413920008654,
+          "thetaRmse": 0.21364191842713806,
+          "thetaCoverage": 0.9226,
+          "meanPosteriorStandardDeviation": 0.17308233352637517,
+          "vocabularyBias": 136.4317926647175,
+          "vocabularyRmse": 271.00501149813346,
+          "vocabularyCoverage": 0.9226,
+          "meanLength": 20.0358,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0026941653308316495,
+            "thetaRmse": 0.0027617773279165654,
+            "thetaCoverage": 0.0037791332339572265,
+            "vocabularyBias": 3.3118288125287663,
+            "vocabularyRmse": 3.6995870069090286,
+            "vocabularyCoverage": 0.0037791332339572265,
+            "meanLength": 0.005324410001904041,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1.5,
+          "trials": 5000,
+          "thetaBias": 0.03748594789005012,
+          "thetaRmse": 0.1750280769084483,
+          "thetaCoverage": 0.961,
+          "meanPosteriorStandardDeviation": 0.18368589277020247,
+          "vocabularyBias": 43.918398890129716,
+          "vocabularyRmse": 233.00159480094172,
+          "vocabularyCoverage": 0.961,
+          "meanLength": 20.0196,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024180768603481854,
+            "thetaRmse": 0.00200125803619817,
+            "thetaCoverage": 0.0027378458685616337,
+            "vocabularyBias": 3.2363989771673425,
+            "vocabularyRmse": 2.371895182657126,
+            "vocabularyCoverage": 0.0027378458685616337,
+            "meanLength": 0.003784974663936707,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1,
+          "trials": 5000,
+          "thetaBias": 0.03125027112074347,
+          "thetaRmse": 0.1876505761126423,
+          "thetaCoverage": 0.9416,
+          "meanPosteriorStandardDeviation": 0.1733295483426555,
+          "vocabularyBias": 24.920152720357688,
+          "vocabularyRmse": 206.41315003327844,
+          "vocabularyCoverage": 0.9416,
+          "meanLength": 20.0082,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.00261698329654054,
+            "thetaRmse": 0.002528664247740122,
+            "thetaCoverage": 0.0033163063790910513,
+            "vocabularyBias": 2.898060497978077,
+            "vocabularyRmse": 3.162695116307222,
+            "vocabularyCoverage": 0.0033163063790910513,
+            "meanLength": 0.0017513324735999808,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -0.5,
+          "trials": 5000,
+          "thetaBias": 0.0031791163396639793,
+          "thetaRmse": 0.1536491118389023,
+          "thetaCoverage": 0.9696,
+          "meanPosteriorStandardDeviation": 0.17577227173288568,
+          "vocabularyBias": 22.878277423426585,
+          "vocabularyRmse": 187.91246182746397,
+          "vocabularyCoverage": 0.9696,
+          "meanLength": 20.0044,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0021726786840601427,
+            "thetaRmse": 0.0016577092962452458,
+            "thetaCoverage": 0.0024279967051048477,
+            "vocabularyBias": 2.637977886925011,
+            "vocabularyRmse": 2.13009111448227,
+            "vocabularyCoverage": 0.0024279967051048477,
+            "meanLength": 0.00157372911413219,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0,
+          "trials": 5000,
+          "thetaBias": 0.01999204115452791,
+          "thetaRmse": 0.17014435666512595,
+          "thetaCoverage": 0.942,
+          "meanPosteriorStandardDeviation": 0.15658557294982708,
+          "vocabularyBias": 21.337438605293343,
+          "vocabularyRmse": 235.59185930317878,
+          "vocabularyCoverage": 0.942,
+          "meanLength": 20.0016,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.00238977536273808,
+            "thetaRmse": 0.0020637306997416224,
+            "thetaCoverage": 0.003305631558416638,
+            "vocabularyBias": 3.318410756179555,
+            "vocabularyRmse": 2.801884522240294,
+            "vocabularyCoverage": 0.003305631558416638,
+            "meanLength": 0.0006925199757313708,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0.5,
+          "trials": 5000,
+          "thetaBias": 0.009025043179188353,
+          "thetaRmse": 0.1720170837702503,
+          "thetaCoverage": 0.97,
+          "meanPosteriorStandardDeviation": 0.19228948294493778,
+          "vocabularyBias": 37.290235659799926,
+          "vocabularyRmse": 252.6225827205054,
+          "vocabularyCoverage": 0.97,
+          "meanLength": 20.0034,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002429581386582846,
+            "thetaRmse": 0.0018290837136455728,
+            "thetaCoverage": 0.0024124676163629647,
+            "vocabularyBias": 3.533839148686424,
+            "vocabularyRmse": 3.0270385149235475,
+            "vocabularyCoverage": 0.0024124676163629647,
+            "meanLength": 0.001427618863394958,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1,
+          "trials": 5000,
+          "thetaBias": -0.06272274280142719,
+          "thetaRmse": 0.20339772681949622,
+          "thetaCoverage": 0.9386,
+          "meanPosteriorStandardDeviation": 0.18676369768110107,
+          "vocabularyBias": -89.94531564511425,
+          "vocabularyRmse": 349.439744223643,
+          "vocabularyCoverage": 0.9386,
+          "meanLength": 20.0036,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002736566520555488,
+            "thetaRmse": 0.0019749813579685795,
+            "thetaCoverage": 0.003394997496317192,
+            "vocabularyBias": 4.775788588143835,
+            "vocabularyRmse": 3.220517909650039,
+            "vocabularyCoverage": 0.003394997496317192,
+            "meanLength": 0.001355645807395494,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1.5,
+          "trials": 5000,
+          "thetaBias": -0.04022760810332405,
+          "thetaRmse": 0.17467244229536982,
+          "thetaCoverage": 0.957,
+          "meanPosteriorStandardDeviation": 0.18185165990638924,
+          "vocabularyBias": -90.43483809639372,
+          "vocabularyRmse": 319.170892858376,
+          "vocabularyCoverage": 0.957,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024040790852200627,
+            "thetaRmse": 0.0019970030174693205,
+            "thetaCoverage": 0.00286883251515316,
+            "vocabularyBias": 4.32921103608237,
+            "vocabularyRmse": 3.6320712896347445,
+            "vocabularyCoverage": 0.00286883251515316,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2,
+          "trials": 5000,
+          "thetaBias": -0.04436550187574934,
+          "thetaRmse": 0.20693751369509703,
+          "thetaCoverage": 0.9294,
+          "meanPosteriorStandardDeviation": 0.1825329697837699,
+          "vocabularyBias": -105.62948522315763,
+          "vocabularyRmse": 295.28035362219777,
+          "vocabularyCoverage": 0.9294,
+          "meanLength": 20.0012,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 1,
+            "fixed-length": 0,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0028587762913353416,
+            "thetaRmse": 0.0021447643157513946,
+            "thetaCoverage": 0.0036225858167888863,
+            "vocabularyBias": 3.899951505044199,
+            "vocabularyRmse": 3.6588417869960494,
+            "vocabularyCoverage": 0.0036225858167888863,
+            "meanLength": 0.0006926817173767123,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2.5,
+          "trials": 5000,
+          "thetaBias": -0.08567984416146293,
+          "thetaRmse": 0.2099291678442725,
+          "thetaCoverage": 0.9586,
+          "meanPosteriorStandardDeviation": 0.22727337816559826,
+          "vocabularyBias": -119.54988412606394,
+          "vocabularyRmse": 182.00253604232182,
+          "vocabularyCoverage": 0.9586,
+          "meanLength": 20.1474,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0.9984,
+            "fixed-length": 0,
+            "maximum-length": 0.0016,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0027105928181739916,
+            "thetaRmse": 0.0020952180291056344,
+            "thetaCoverage": 0.0028173050952994064,
+            "vocabularyBias": 1.940954179490501,
+            "vocabularyRmse": 2.5080947061189907,
+            "vocabularyCoverage": 0.0028173050952994064,
+            "meanLength": 0.012574826967185386,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3,
+          "trials": 5000,
+          "thetaBias": -0.1900303071433124,
+          "thetaRmse": 0.32046474484213355,
+          "thetaCoverage": 0.9076,
+          "meanPosteriorStandardDeviation": 0.27019222772649854,
+          "vocabularyBias": -83.89522981121837,
+          "vocabularyRmse": 116.67327211712032,
+          "vocabularyCoverage": 0.9076,
+          "meanLength": 22.2624,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.8886,
+            "fixed-length": 0,
+            "maximum-length": 0.1114,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0036496425837262763,
+            "thetaRmse": 0.0025082809563092105,
+            "thetaCoverage": 0.004095417927391539,
+            "vocabularyBias": 1.146783148902099,
+            "vocabularyRmse": 1.6216274604216632,
+            "vocabularyCoverage": 0.004095417927391539,
+            "meanLength": 0.05093238723655033,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3.5,
+          "trials": 5000,
+          "thetaBias": -0.27971714092850763,
+          "thetaRmse": 0.3733595080065379,
+          "thetaCoverage": 0.8548,
+          "meanPosteriorStandardDeviation": 0.3222195125096485,
+          "vocabularyBias": -30.911410095569167,
+          "vocabularyRmse": 48.96784847958068,
+          "vocabularyCoverage": 0.8548,
+          "meanLength": 27.5406,
+          "lengthP10": 20,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0.3712,
+            "fixed-length": 0,
+            "maximum-length": 0.6288,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0034976528376909695,
+            "thetaRmse": 0.003734578622529029,
+            "thetaCoverage": 0.004982307898956065,
+            "vocabularyBias": 0.5371449404601664,
+            "vocabularyRmse": 1.0841530583152998,
+            "vocabularyCoverage": 0.004982307898956065,
+            "meanLength": 0.054232264895642555,
+            "highLevelConstraintViolationRate": 0
+          }
+        }
+      ],
+      "exposure": {
+        "maximumExposureRate": 0.25506666666666666,
+        "unusedItemRate": 0,
+        "topExposedItems": [
+          {
+            "itemIndex": 131,
+            "level": 7,
+            "administrations": 19130,
+            "exposureRate": 0.25506666666666666
+          },
+          {
+            "itemIndex": 135,
+            "level": 7,
+            "administrations": 18902,
+            "exposureRate": 0.2520266666666667
+          },
+          {
+            "itemIndex": 133,
+            "level": 7,
+            "administrations": 18688,
+            "exposureRate": 0.24917333333333333
+          },
+          {
+            "itemIndex": 130,
+            "level": 7,
+            "administrations": 18617,
+            "exposureRate": 0.24822666666666668
+          },
+          {
+            "itemIndex": 143,
+            "level": 8,
+            "administrations": 16310,
+            "exposureRate": 0.21746666666666667
+          },
+          {
+            "itemIndex": 94,
+            "level": 5,
+            "administrations": 16158,
+            "exposureRate": 0.21544
+          },
+          {
+            "itemIndex": 2,
+            "level": 1,
+            "administrations": 16057,
+            "exposureRate": 0.21409333333333333
+          },
+          {
+            "itemIndex": 132,
+            "level": 7,
+            "administrations": 16043,
+            "exposureRate": 0.21390666666666666
+          },
+          {
+            "itemIndex": 93,
+            "level": 5,
+            "administrations": 15790,
+            "exposureRate": 0.21053333333333332
+          },
+          {
+            "itemIndex": 29,
+            "level": 2,
+            "administrations": 15392,
+            "exposureRate": 0.20522666666666667
+          }
+        ]
+      }
+    },
+    {
+      "rule": {
+        "id": "fixed20-randomesque5",
+        "minimumItems": 20,
+        "maximumItems": 20,
+        "targetPosteriorStandardDeviation": null,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 5
+      },
+      "overall": {
+        "trueTheta": null,
+        "trials": 75000,
+        "thetaBias": 0.012696419839921468,
+        "thetaRmse": 0.2273090315159856,
+        "thetaCoverage": 0.9371733333333333,
+        "meanPosteriorStandardDeviation": 0.1932099941553036,
+        "vocabularyBias": 2.343223977311465,
+        "vocabularyRmse": 189.68365118332537,
+        "vocabularyCoverage": 0.9371733333333333,
+        "meanLength": 20,
+        "lengthP10": 20,
+        "lengthP50": 20,
+        "lengthP90": 20,
+        "stopRates": {
+          "precision": 0,
+          "fixed-length": 1,
+          "maximum-length": 0,
+          "item-bank-exhausted": 0
+        },
+        "highLevelConstraintViolationRate": 0,
+        "monteCarloStandardErrors": {
+          "thetaBias": 0.0008287249927215288,
+          "thetaRmse": 0.0010440772884145395,
+          "thetaCoverage": 0.000886035940747494,
+          "vocabularyBias": 0.6925785297726125,
+          "vocabularyRmse": 1.0660099174199686,
+          "vocabularyCoverage": 0.000886035940747494,
+          "meanLength": 0,
+          "highLevelConstraintViolationRate": 0
+        }
+      },
+      "conditional": [
+        {
+          "trueTheta": -3.5,
+          "trials": 5000,
+          "thetaBias": 0.42300851795547717,
+          "thetaRmse": 0.49927710042852436,
+          "thetaCoverage": 0.81,
+          "meanPosteriorStandardDeviation": 0.3291630535580335,
+          "vocabularyBias": 68.55432613320507,
+          "vocabularyRmse": 117.49077701858903,
+          "vocabularyCoverage": 0.81,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.003751146167426562,
+            "thetaRmse": 0.00491110306646488,
+            "thetaCoverage": 0.005547972602672078,
+            "vocabularyBias": 1.349533867267722,
+            "vocabularyRmse": 11.28688065985004,
+            "vocabularyCoverage": 0.005547972602672078,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -3,
+          "trials": 5000,
+          "thetaBias": 0.15011108680581595,
+          "thetaRmse": 0.2658540511690575,
+          "thetaCoverage": 0.9456,
+          "meanPosteriorStandardDeviation": 0.2741221014837049,
+          "vocabularyBias": 78.53600775294815,
+          "vocabularyRmse": 117.0537573205639,
+          "vocabularyCoverage": 0.9456,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0031033745850216543,
+            "thetaRmse": 0.0034368500089055135,
+            "thetaCoverage": 0.003207511184703804,
+            "vocabularyBias": 1.2276143226612777,
+            "vocabularyRmse": 5.5982271956617415,
+            "vocabularyCoverage": 0.003207511184703804,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2.5,
+          "trials": 5000,
+          "thetaBias": -0.026788431875696257,
+          "thetaRmse": 0.1778438413158657,
+          "thetaCoverage": 0.9678,
+          "meanPosteriorStandardDeviation": 0.18569122649330605,
+          "vocabularyBias": 21.229548597601763,
+          "vocabularyRmse": 117.74296681727559,
+          "vocabularyCoverage": 0.9678,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024866441325877785,
+            "thetaRmse": 0.0039707170303733726,
+            "thetaCoverage": 0.0024965239834618055,
+            "vocabularyBias": 1.6380107191585898,
+            "vocabularyRmse": 7.1366122726888355,
+            "vocabularyCoverage": 0.0024965239834618055,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2,
+          "trials": 5000,
+          "thetaBias": 0.075997920184536,
+          "thetaRmse": 0.17477910035847302,
+          "thetaCoverage": 0.935,
+          "meanPosteriorStandardDeviation": 0.13121322619663023,
+          "vocabularyBias": 101.64668163157687,
+          "vocabularyRmse": 220.84125296088706,
+          "vocabularyCoverage": 0.935,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0022260730199538488,
+            "thetaRmse": 0.005799720348935958,
+            "thetaCoverage": 0.003486402156952062,
+            "vocabularyBias": 2.772958723915951,
+            "vocabularyRmse": 7.388309367234148,
+            "vocabularyCoverage": 0.003486402156952062,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1.5,
+          "trials": 5000,
+          "thetaBias": 0.032931004574548804,
+          "thetaRmse": 0.1531190929815765,
+          "thetaCoverage": 0.9608,
+          "meanPosteriorStandardDeviation": 0.1559628911365128,
+          "vocabularyBias": 39.631857556183945,
+          "vocabularyRmse": 208.04208154186801,
+          "vocabularyCoverage": 0.9608,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002114969440391303,
+            "thetaRmse": 0.0016967481393268156,
+            "thetaCoverage": 0.0027445713690847982,
+            "vocabularyBias": 2.8885694519051492,
+            "vocabularyRmse": 2.0674778232512483,
+            "vocabularyCoverage": 0.0027445713690847982,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1,
+          "trials": 5000,
+          "thetaBias": 0.028485551899751358,
+          "thetaRmse": 0.16411714343848022,
+          "thetaCoverage": 0.9482,
+          "meanPosteriorStandardDeviation": 0.1500000145055346,
+          "vocabularyBias": 23.897191345989572,
+          "vocabularyRmse": 176.82066543282227,
+          "vocabularyCoverage": 0.9482,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002285967442923165,
+            "thetaRmse": 0.002016629224746498,
+            "thetaCoverage": 0.0031342227106573,
+            "vocabularyBias": 2.4779270405844356,
+            "vocabularyRmse": 2.324668130468457,
+            "vocabularyCoverage": 0.0031342227106573,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -0.5,
+          "trials": 5000,
+          "thetaBias": -0.0025549143158290545,
+          "thetaRmse": 0.13542358588929004,
+          "thetaCoverage": 0.9728,
+          "meanPosteriorStandardDeviation": 0.15768219390167168,
+          "vocabularyBias": 12.314504218195564,
+          "vocabularyRmse": 162.932231032097,
+          "vocabularyCoverage": 0.9728,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.00191502936611561,
+            "thetaRmse": 0.0015192895962096277,
+            "thetaCoverage": 0.002300441696718263,
+            "vocabularyBias": 2.2978487767456532,
+            "vocabularyRmse": 1.8996001464274856,
+            "vocabularyCoverage": 0.002300441696718263,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0,
+          "trials": 5000,
+          "thetaBias": 0.024425349736612072,
+          "thetaRmse": 0.13288419797875148,
+          "thetaCoverage": 0.949,
+          "meanPosteriorStandardDeviation": 0.12579293468033426,
+          "vocabularyBias": 28.880350618080335,
+          "vocabularyRmse": 184.70735348573498,
+          "vocabularyCoverage": 0.949,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0018474320213622889,
+            "thetaRmse": 0.0017584564350644992,
+            "thetaCoverage": 0.0031112376958374634,
+            "vocabularyBias": 2.580286404948589,
+            "vocabularyRmse": 2.3640486508695897,
+            "vocabularyCoverage": 0.0031112376958374634,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0.5,
+          "trials": 5000,
+          "thetaBias": 0.012059404113698947,
+          "thetaRmse": 0.15339075366545893,
+          "thetaCoverage": 0.9694,
+          "meanPosteriorStandardDeviation": 0.1696776225802544,
+          "vocabularyBias": 37.4291324948437,
+          "vocabularyRmse": 223.38537103044604,
+          "vocabularyCoverage": 0.9694,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002162774684372617,
+            "thetaRmse": 0.0015505672611725858,
+            "thetaCoverage": 0.002435719195638116,
+            "vocabularyBias": 3.1147964937790444,
+            "vocabularyRmse": 2.5287488967343714,
+            "vocabularyCoverage": 0.002435719195638116,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1,
+          "trials": 5000,
+          "thetaBias": -0.04861949336474336,
+          "thetaRmse": 0.17939566148253983,
+          "thetaCoverage": 0.9326,
+          "meanPosteriorStandardDeviation": 0.15983705806637852,
+          "vocabularyBias": -70.15908301163056,
+          "vocabularyRmse": 311.8788956854547,
+          "vocabularyCoverage": 0.9326,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024423313946454923,
+            "thetaRmse": 0.001783541412313357,
+            "thetaCoverage": 0.0035456237815086927,
+            "vocabularyBias": 4.298013996469991,
+            "vocabularyRmse": 2.9527495275339155,
+            "vocabularyCoverage": 0.0035456237815086927,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1.5,
+          "trials": 5000,
+          "thetaBias": -0.028766242428361295,
+          "thetaRmse": 0.14974268261989612,
+          "thetaCoverage": 0.9622,
+          "meanPosteriorStandardDeviation": 0.16067143059278138,
+          "vocabularyBias": -66.59980892886159,
+          "vocabularyRmse": 274.05146920931656,
+          "vocabularyCoverage": 0.9622,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0020784462578379266,
+            "thetaRmse": 0.0016116863615067715,
+            "thetaCoverage": 0.002697078419327104,
+            "vocabularyBias": 3.7598619599230445,
+            "vocabularyRmse": 2.9124670213624375,
+            "vocabularyCoverage": 0.002697078419327104,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2,
+          "trials": 5000,
+          "thetaBias": -0.02803448702187946,
+          "thetaRmse": 0.17871679809491522,
+          "thetaCoverage": 0.9182,
+          "meanPosteriorStandardDeviation": 0.150341250087726,
+          "vocabularyBias": -70.76531909996257,
+          "vocabularyRmse": 251.03216847720216,
+          "vocabularyCoverage": 0.9182,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024963971421795147,
+            "thetaRmse": 0.001964568297556023,
+            "thetaCoverage": 0.0038757905000141577,
+            "vocabularyBias": 3.4064944863519866,
+            "vocabularyRmse": 3.1355537745061715,
+            "vocabularyCoverage": 0.0038757905000141577,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2.5,
+          "trials": 5000,
+          "thetaBias": -0.06627063648983565,
+          "thetaRmse": 0.18367582547688246,
+          "thetaCoverage": 0.9596,
+          "meanPosteriorStandardDeviation": 0.1973780274728025,
+          "vocabularyBias": -92.02471169158355,
+          "vocabularyRmse": 145.53902185650958,
+          "vocabularyCoverage": 0.9596,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024228446826077108,
+            "thetaRmse": 0.0016846489289056603,
+            "thetaCoverage": 0.0027845229393919525,
+            "vocabularyBias": 1.5947164288059996,
+            "vocabularyRmse": 1.6149234866032267,
+            "vocabularyCoverage": 0.0027845229393919525,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3,
+          "trials": 5000,
+          "thetaBias": -0.13443755580773434,
+          "thetaRmse": 0.2711236374385312,
+          "thetaCoverage": 0.9166,
+          "meanPosteriorStandardDeviation": 0.24207984588249606,
+          "vocabularyBias": -57.63506771305192,
+          "vocabularyRmse": 83.9583605392731,
+          "vocabularyCoverage": 0.9166,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0033300348195849866,
+            "thetaRmse": 0.0022717603774977642,
+            "thetaCoverage": 0.003910100765964991,
+            "vocabularyBias": 0.8634756353629621,
+            "vocabularyRmse": 1.1521558061641963,
+            "vocabularyCoverage": 0.003910100765964991,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3.5,
+          "trials": 5000,
+          "thetaBias": -0.2211007763675442,
+          "thetaRmse": 0.2986841031178419,
+          "thetaCoverage": 0.9098,
+          "meanPosteriorStandardDeviation": 0.30853703569138186,
+          "vocabularyBias": -19.787250243857716,
+          "vocabularyRmse": 28.743155131140593,
+          "vocabularyCoverage": 0.9098,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002840236155195413,
+            "thetaRmse": 0.0029646740871916914,
+            "thetaCoverage": 0.0040512704180293855,
+            "vocabularyBias": 0.29486289654940584,
+            "vocabularyRmse": 0.6844861260370846,
+            "vocabularyCoverage": 0.0040512704180293855,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        }
+      ],
+      "exposure": {
+        "maximumExposureRate": 0.35601333333333335,
+        "unusedItemRate": 0.01875,
+        "topExposedItems": [
+          {
+            "itemIndex": 146,
+            "level": 8,
+            "administrations": 26701,
+            "exposureRate": 0.35601333333333335
+          },
+          {
+            "itemIndex": 154,
+            "level": 8,
+            "administrations": 24298,
+            "exposureRate": 0.32397333333333334
+          },
+          {
+            "itemIndex": 126,
+            "level": 7,
+            "administrations": 21530,
+            "exposureRate": 0.2870666666666667
+          },
+          {
+            "itemIndex": 22,
+            "level": 2,
+            "administrations": 19085,
+            "exposureRate": 0.2544666666666667
+          },
+          {
+            "itemIndex": 106,
+            "level": 6,
+            "administrations": 18864,
+            "exposureRate": 0.25152
+          },
+          {
+            "itemIndex": 36,
+            "level": 2,
+            "administrations": 18856,
+            "exposureRate": 0.2514133333333333
+          },
+          {
+            "itemIndex": 110,
+            "level": 6,
+            "administrations": 17724,
+            "exposureRate": 0.23632
+          },
+          {
+            "itemIndex": 124,
+            "level": 7,
+            "administrations": 17439,
+            "exposureRate": 0.23252
+          },
+          {
+            "itemIndex": 3,
+            "level": 1,
+            "administrations": 16985,
+            "exposureRate": 0.22646666666666668
+          },
+          {
+            "itemIndex": 120,
+            "level": 7,
+            "administrations": 16937,
+            "exposureRate": 0.22582666666666668
+          }
+        ]
+      }
+    },
+    {
+      "rule": {
+        "id": "fixed20-randomesque20",
+        "minimumItems": 20,
+        "maximumItems": 20,
+        "targetPosteriorStandardDeviation": null,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 20
+      },
+      "overall": {
+        "trueTheta": null,
+        "trials": 75000,
+        "thetaBias": 0.014463574031123557,
+        "thetaRmse": 0.2807236879907794,
+        "thetaCoverage": 0.9267733333333333,
+        "meanPosteriorStandardDeviation": 0.22466151616058594,
+        "vocabularyBias": 2.9910208008052486,
+        "vocabularyRmse": 227.28345954122517,
+        "vocabularyCoverage": 0.9267733333333333,
+        "meanLength": 20,
+        "lengthP10": 20,
+        "lengthP50": 20,
+        "lengthP90": 20,
+        "stopRates": {
+          "precision": 0,
+          "fixed-length": 1,
+          "maximum-length": 0,
+          "item-bank-exhausted": 0
+        },
+        "highLevelConstraintViolationRate": 0,
+        "monteCarloStandardErrors": {
+          "thetaBias": 0.001023703355430342,
+          "thetaRmse": 0.0011136969420050104,
+          "thetaCoverage": 0.0009512414481827107,
+          "vocabularyBias": 0.8298555170291274,
+          "vocabularyRmse": 1.003491429614547,
+          "vocabularyCoverage": 0.0009512414481827107,
+          "meanLength": 0,
+          "highLevelConstraintViolationRate": 0
+        }
+      },
+      "conditional": [
+        {
+          "trueTheta": -3.5,
+          "trials": 5000,
+          "thetaBias": 0.5722523534325029,
+          "thetaRmse": 0.6285083019050026,
+          "thetaCoverage": 0.7518,
+          "meanPosteriorStandardDeviation": 0.3526099084150892,
+          "vocabularyBias": 113.9522689729856,
+          "vocabularyRmse": 169.87457639030168,
+          "vocabularyCoverage": 0.7518,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0036759608877930186,
+            "thetaRmse": 0.004699775509891165,
+            "thetaCoverage": 0.0061089567030713195,
+            "vocabularyBias": 1.781876942166872,
+            "vocabularyRmse": 8.262970776846897,
+            "vocabularyCoverage": 0.0061089567030713195,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -3,
+          "trials": 5000,
+          "thetaBias": 0.22614760986402208,
+          "thetaRmse": 0.3212763329743663,
+          "thetaCoverage": 0.935,
+          "meanPosteriorStandardDeviation": 0.3079626086864414,
+          "vocabularyBias": 118.31710728535131,
+          "vocabularyRmse": 165.2932046217922,
+          "vocabularyCoverage": 0.935,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0032275736370787483,
+            "thetaRmse": 0.003926714622105772,
+            "thetaCoverage": 0.003486402156952062,
+            "vocabularyBias": 1.6325177323333866,
+            "vocabularyRmse": 5.230516561959817,
+            "vocabularyCoverage": 0.003486402156952062,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2.5,
+          "trials": 5000,
+          "thetaBias": 0.0022246158474613993,
+          "thetaRmse": 0.21850243967716854,
+          "thetaCoverage": 0.9554,
+          "meanPosteriorStandardDeviation": 0.2330870104307783,
+          "vocabularyBias": 59.72704293245622,
+          "vocabularyRmse": 172.74828841884062,
+          "vocabularyCoverage": 0.9554,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0030902400169750058,
+            "thetaRmse": 0.0036563765487246705,
+            "thetaCoverage": 0.0029192752525241594,
+            "vocabularyBias": 2.2925927451546473,
+            "vocabularyRmse": 5.608964208869441,
+            "vocabularyCoverage": 0.0029192752525241594,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2,
+          "trials": 5000,
+          "thetaBias": 0.09619768461907971,
+          "thetaRmse": 0.21599605121144466,
+          "thetaCoverage": 0.9226,
+          "meanPosteriorStandardDeviation": 0.17453818432899776,
+          "vocabularyBias": 136.36874386204775,
+          "vocabularyRmse": 273.09399121999564,
+          "vocabularyCoverage": 0.9226,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0027352433591583372,
+            "thetaRmse": 0.003017893248796362,
+            "thetaCoverage": 0.0037791332339572265,
+            "vocabularyBias": 3.346493470978409,
+            "vocabularyRmse": 3.966793791890195,
+            "vocabularyCoverage": 0.0037791332339572265,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1.5,
+          "trials": 5000,
+          "thetaBias": 0.03719884529568479,
+          "thetaRmse": 0.17582100615303273,
+          "thetaCoverage": 0.9614,
+          "meanPosteriorStandardDeviation": 0.18464616472960674,
+          "vocabularyBias": 43.6253400808433,
+          "vocabularyRmse": 233.7610286420892,
+          "vocabularyCoverage": 0.9614,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002430439431426437,
+            "thetaRmse": 0.0020726574301945097,
+            "thetaCoverage": 0.0027243362494376484,
+            "vocabularyBias": 3.2481255682114654,
+            "vocabularyRmse": 2.4413238768108534,
+            "vocabularyCoverage": 0.0027243362494376484,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1,
+          "trials": 5000,
+          "thetaBias": 0.03101701841974239,
+          "thetaRmse": 0.1879426582486558,
+          "thetaCoverage": 0.9416,
+          "meanPosteriorStandardDeviation": 0.17374550326697227,
+          "vocabularyBias": 24.62104710113956,
+          "vocabularyRmse": 206.8186946532839,
+          "vocabularyCoverage": 0.9416,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.00262172694268806,
+            "thetaRmse": 0.0025206951098793403,
+            "thetaCoverage": 0.0033163063790910513,
+            "vocabularyBias": 2.904348868165798,
+            "vocabularyRmse": 3.1530804253927927,
+            "vocabularyCoverage": 0.0033163063790910513,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -0.5,
+          "trials": 5000,
+          "thetaBias": 0.003065682200320123,
+          "thetaRmse": 0.15389835022132914,
+          "thetaCoverage": 0.9696,
+          "meanPosteriorStandardDeviation": 0.17595769549740392,
+          "vocabularyBias": 22.75991808404014,
+          "vocabularyRmse": 188.16908834347097,
+          "vocabularyCoverage": 0.9696,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002176237110310079,
+            "thetaRmse": 0.0016664171514468537,
+            "thetaCoverage": 0.0024279967051048477,
+            "vocabularyBias": 2.641839179475957,
+            "vocabularyRmse": 2.135705003165472,
+            "vocabularyCoverage": 0.0024279967051048477,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0,
+          "trials": 5000,
+          "thetaBias": 0.01986040811643323,
+          "thetaRmse": 0.17029456392723227,
+          "thetaCoverage": 0.942,
+          "meanPosteriorStandardDeviation": 0.1567169904991579,
+          "vocabularyBias": 21.170909718724758,
+          "vocabularyRmse": 235.7715484635738,
+          "vocabularyCoverage": 0.942,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0023921339844421106,
+            "thetaRmse": 0.002064935826636464,
+            "thetaCoverage": 0.003305631558416638,
+            "vocabularyBias": 3.3211758717587987,
+            "vocabularyRmse": 2.802861971200438,
+            "vocabularyCoverage": 0.003305631558416638,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0.5,
+          "trials": 5000,
+          "thetaBias": 0.008964973896047407,
+          "thetaRmse": 0.1721426197800993,
+          "thetaCoverage": 0.97,
+          "meanPosteriorStandardDeviation": 0.19241894017359748,
+          "vocabularyBias": 37.22235087347391,
+          "vocabularyRmse": 252.79459588875858,
+          "vocabularyCoverage": 0.97,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024314038131211966,
+            "thetaRmse": 0.0018289822325354913,
+            "thetaCoverage": 0.0024124676163629647,
+            "vocabularyBias": 3.536442017852361,
+            "vocabularyRmse": 3.0259734371972815,
+            "vocabularyCoverage": 0.0024124676163629647,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1,
+          "trials": 5000,
+          "thetaBias": -0.06296355642928816,
+          "thetaRmse": 0.20420163669574912,
+          "thetaCoverage": 0.9386,
+          "meanPosteriorStandardDeviation": 0.18696387449290974,
+          "vocabularyBias": -90.27598588967832,
+          "vocabularyRmse": 350.3519189517766,
+          "vocabularyCoverage": 0.9386,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002747415049840655,
+            "thetaRmse": 0.0021721140812374852,
+            "thetaCoverage": 0.003394997496317192,
+            "vocabularyBias": 4.787893846198375,
+            "vocabularyRmse": 3.381615216410506,
+            "vocabularyCoverage": 0.003394997496317192,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1.5,
+          "trials": 5000,
+          "thetaBias": -0.04022760810332405,
+          "thetaRmse": 0.17467244229536982,
+          "thetaCoverage": 0.957,
+          "meanPosteriorStandardDeviation": 0.18185165990638924,
+          "vocabularyBias": -90.43483809639372,
+          "vocabularyRmse": 319.170892858376,
+          "vocabularyCoverage": 0.957,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0024040790852200627,
+            "thetaRmse": 0.0019970030174693205,
+            "thetaCoverage": 0.00286883251515316,
+            "vocabularyBias": 4.32921103608237,
+            "vocabularyRmse": 3.6320712896347445,
+            "vocabularyCoverage": 0.00286883251515316,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2,
+          "trials": 5000,
+          "thetaBias": -0.04426677764141682,
+          "thetaRmse": 0.20727124468093167,
+          "thetaCoverage": 0.9292,
+          "meanPosteriorStandardDeviation": 0.1825850912111864,
+          "vocabularyBias": -105.601022818918,
+          "vocabularyRmse": 295.3285851513389,
+          "vocabularyCoverage": 0.9292,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0028639142191582033,
+            "thetaRmse": 0.0021805125898635594,
+            "thetaCoverage": 0.0036273229798296147,
+            "vocabularyBias": 3.9008361593338416,
+            "vocabularyRmse": 3.6590399312265025,
+            "vocabularyCoverage": 0.0036273229798296147,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2.5,
+          "trials": 5000,
+          "thetaBias": -0.08197365412281146,
+          "thetaRmse": 0.21530343944216365,
+          "thetaCoverage": 0.9582,
+          "meanPosteriorStandardDeviation": 0.22938997212460044,
+          "vocabularyBias": -118.77408600484515,
+          "vocabularyRmse": 182.1446437100338,
+          "vocabularyCoverage": 0.9582,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0028158060952183828,
+            "thetaRmse": 0.00219395342308965,
+            "thetaCoverage": 0.0028302918577418814,
+            "vocabularyBias": 1.953110461107722,
+            "vocabularyRmse": 2.5041979841815234,
+            "vocabularyCoverage": 0.0028302918577418814,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3,
+          "trials": 5000,
+          "thetaBias": -0.18814822880402413,
+          "thetaRmse": 0.31458328378396133,
+          "thetaCoverage": 0.908,
+          "meanPosteriorStandardDeviation": 0.28825265159570873,
+          "vocabularyBias": -85.37863768240365,
+          "vocabularyRmse": 116.76376827063086,
+          "vocabularyCoverage": 0.908,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0035658267359623577,
+            "thetaRmse": 0.0025278186803348035,
+            "thetaCoverage": 0.004087444189221425,
+            "vocabularyBias": 1.126546485080618,
+            "vocabularyRmse": 1.6195038889709088,
+            "vocabularyCoverage": 0.004087444189221425,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3.5,
+          "trials": 5000,
+          "thetaBias": -0.3623957561235733,
+          "thetaRmse": 0.42474252541656016,
+          "thetaCoverage": 0.8612,
+          "meanPosteriorStandardDeviation": 0.34919648704996087,
+          "vocabularyBias": -42.43484640673971,
+          "vocabularyRmse": 57.445407042603904,
+          "vocabularyCoverage": 0.8612,
+          "meanLength": 20,
+          "lengthP10": 20,
+          "lengthP50": 20,
+          "lengthP90": 20,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0031332202575000334,
+            "thetaRmse": 0.003343804105801777,
+            "thetaCoverage": 0.004889469500876349,
+            "vocabularyBias": 0.5476419473395628,
+            "vocabularyRmse": 0.9554346737540278,
+            "vocabularyCoverage": 0.004889469500876349,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        }
+      ],
+      "exposure": {
+        "maximumExposureRate": 0.24089333333333332,
+        "unusedItemRate": 0,
+        "topExposedItems": [
+          {
+            "itemIndex": 135,
+            "level": 7,
+            "administrations": 18067,
+            "exposureRate": 0.24089333333333332
+          },
+          {
+            "itemIndex": 130,
+            "level": 7,
+            "administrations": 17773,
+            "exposureRate": 0.23697333333333334
+          },
+          {
+            "itemIndex": 131,
+            "level": 7,
+            "administrations": 17713,
+            "exposureRate": 0.23617333333333335
+          },
+          {
+            "itemIndex": 133,
+            "level": 7,
+            "administrations": 17243,
+            "exposureRate": 0.22990666666666668
+          },
+          {
+            "itemIndex": 143,
+            "level": 8,
+            "administrations": 15406,
+            "exposureRate": 0.20541333333333334
+          },
+          {
+            "itemIndex": 94,
+            "level": 5,
+            "administrations": 15119,
+            "exposureRate": 0.20158666666666666
+          },
+          {
+            "itemIndex": 132,
+            "level": 7,
+            "administrations": 15104,
+            "exposureRate": 0.20138666666666666
+          },
+          {
+            "itemIndex": 146,
+            "level": 8,
+            "administrations": 14812,
+            "exposureRate": 0.19749333333333333
+          },
+          {
+            "itemIndex": 93,
+            "level": 5,
+            "administrations": 14775,
+            "exposureRate": 0.197
+          },
+          {
+            "itemIndex": 2,
+            "level": 1,
+            "administrations": 14658,
+            "exposureRate": 0.19544
+          }
+        ]
+      }
+    },
+    {
+      "rule": {
+        "id": "fixed30-randomesque5",
+        "minimumItems": 30,
+        "maximumItems": 30,
+        "targetPosteriorStandardDeviation": null,
+        "selectionMethod": "randomesque",
+        "randomesqueSize": 5
+      },
+      "overall": {
+        "trueTheta": null,
+        "trials": 75000,
+        "thetaBias": 0.01194724926577132,
+        "thetaRmse": 0.19688008527889184,
+        "thetaCoverage": 0.94192,
+        "meanPosteriorStandardDeviation": 0.17286681079541907,
+        "vocabularyBias": 1.6390939903751371,
+        "vocabularyRmse": 157.18085057149693,
+        "vocabularyCoverage": 0.94192,
+        "meanLength": 30,
+        "lengthP10": 30,
+        "lengthP50": 30,
+        "lengthP90": 30,
+        "stopRates": {
+          "precision": 0,
+          "fixed-length": 1,
+          "maximum-length": 0,
+          "item-bank-exhausted": 0
+        },
+        "highLevelConstraintViolationRate": 0,
+        "monteCarloStandardErrors": {
+          "thetaBias": 0.000717584337823201,
+          "thetaRmse": 0.0007226549799659676,
+          "thetaCoverage": 0.0008540625550859845,
+          "vocabularyBias": 0.5739159350377656,
+          "vocabularyRmse": 0.6134529344754435,
+          "vocabularyCoverage": 0.0008540625550859845,
+          "meanLength": 0,
+          "highLevelConstraintViolationRate": 0
+        }
+      },
+      "conditional": [
+        {
+          "trueTheta": -3.5,
+          "trials": 5000,
+          "thetaBias": 0.36331607985182834,
+          "thetaRmse": 0.43585987553870154,
+          "thetaCoverage": 0.8416,
+          "meanPosteriorStandardDeviation": 0.31950374928879105,
+          "vocabularyBias": 50.71743609083509,
+          "vocabularyRmse": 64.65063842769374,
+          "vocabularyCoverage": 0.8416,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0034054912889811247,
+            "thetaRmse": 0.0029643078084403613,
+            "thetaCoverage": 0.005163515081802318,
+            "vocabularyBias": 0.5670570128543115,
+            "vocabularyRmse": 1.0435946886264704,
+            "vocabularyCoverage": 0.005163515081802318,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -3,
+          "trials": 5000,
+          "thetaBias": 0.11920354559193318,
+          "thetaRmse": 0.23957181100036473,
+          "thetaCoverage": 0.9486,
+          "meanPosteriorStandardDeviation": 0.25911412346394913,
+          "vocabularyBias": 62.78183746340655,
+          "vocabularyRmse": 84.21357489077877,
+          "vocabularyCoverage": 0.9486,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0029391769632169987,
+            "thetaRmse": 0.002007597955122216,
+            "thetaCoverage": 0.0031227564746550444,
+            "vocabularyBias": 0.7938510288535524,
+            "vocabularyRmse": 0.9415813897418722,
+            "vocabularyCoverage": 0.0031227564746550444,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2.5,
+          "trials": 5000,
+          "thetaBias": -0.026922539415807665,
+          "thetaRmse": 0.15946978896105438,
+          "thetaCoverage": 0.9664,
+          "meanPosteriorStandardDeviation": 0.16658376235699557,
+          "vocabularyBias": 14.64559092802163,
+          "vocabularyRmse": 90.74528638881522,
+          "vocabularyCoverage": 0.9664,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002223093907562582,
+            "thetaRmse": 0.002281252837441069,
+            "thetaCoverage": 0.0025483735989842607,
+            "vocabularyBias": 1.2666347564916647,
+            "vocabularyRmse": 2.0693829575154155,
+            "vocabularyCoverage": 0.0025483735989842607,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -2,
+          "trials": 5000,
+          "thetaBias": 0.05529224792497256,
+          "thetaRmse": 0.13608175332996286,
+          "thetaCoverage": 0.9394,
+          "meanPosteriorStandardDeviation": 0.11606440054569464,
+          "vocabularyBias": 73.69712392272922,
+          "vocabularyRmse": 168.5807285833686,
+          "vocabularyCoverage": 0.9394,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0017586417332422274,
+            "thetaRmse": 0.002223097882438972,
+            "thetaCoverage": 0.0033742448043969776,
+            "vocabularyBias": 2.1444250760576415,
+            "vocabularyRmse": 2.945218622796974,
+            "vocabularyCoverage": 0.0033742448043969776,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1.5,
+          "trials": 5000,
+          "thetaBias": 0.02251511995160479,
+          "thetaRmse": 0.1338955934441395,
+          "thetaCoverage": 0.9578,
+          "meanPosteriorStandardDeviation": 0.13622321142752777,
+          "vocabularyBias": 26.911136676198442,
+          "vocabularyRmse": 185.86471052059875,
+          "vocabularyCoverage": 0.9578,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0018667931987325205,
+            "thetaRmse": 0.0013562918431740218,
+            "thetaCoverage": 0.002843208047259293,
+            "vocabularyBias": 2.601086195768943,
+            "vocabularyRmse": 1.7603394969963448,
+            "vocabularyCoverage": 0.002843208047259293,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -1,
+          "trials": 5000,
+          "thetaBias": 0.015639151486333613,
+          "thetaRmse": 0.13028735676977113,
+          "thetaCoverage": 0.9532,
+          "meanPosteriorStandardDeviation": 0.12575783272481086,
+          "vocabularyBias": 11.8581779511908,
+          "vocabularyRmse": 137.4903147407243,
+          "vocabularyCoverage": 0.9532,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.001829402032722084,
+            "thetaRmse": 0.0014335075737490592,
+            "thetaCoverage": 0.002986963675708158,
+            "vocabularyBias": 1.9373550840206297,
+            "vocabularyRmse": 1.5582253805806716,
+            "vocabularyCoverage": 0.002986963675708158,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": -0.5,
+          "trials": 5000,
+          "thetaBias": -0.0021626130246116928,
+          "thetaRmse": 0.12097079437979699,
+          "thetaCoverage": 0.9708,
+          "meanPosteriorStandardDeviation": 0.13505179698195302,
+          "vocabularyBias": 9.450015634769962,
+          "vocabularyRmse": 145.3852423210242,
+          "vocabularyCoverage": 0.9708,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0017106830585653069,
+            "thetaRmse": 0.001241916367186364,
+            "thetaCoverage": 0.0023810653077981714,
+            "vocabularyBias": 2.0519150199018688,
+            "vocabularyRmse": 1.5269561205629674,
+            "vocabularyCoverage": 0.0023810653077981714,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0,
+          "trials": 5000,
+          "thetaBias": 0.019729312781484085,
+          "thetaRmse": 0.1094021130882855,
+          "thetaCoverage": 0.9618,
+          "meanPosteriorStandardDeviation": 0.10794947934785161,
+          "vocabularyBias": 23.022507829635874,
+          "vocabularyRmse": 153.59847001823712,
+          "vocabularyCoverage": 0.9618,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0015219653704300349,
+            "thetaRmse": 0.0012571773369682215,
+            "thetaCoverage": 0.002710747498384902,
+            "vocabularyBias": 2.1478858227887896,
+            "vocabularyRmse": 1.6859670336488477,
+            "vocabularyCoverage": 0.002710747498384902,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 0.5,
+          "trials": 5000,
+          "thetaBias": 0.007310747383133329,
+          "thetaRmse": 0.13856357013214712,
+          "thetaCoverage": 0.9682,
+          "meanPosteriorStandardDeviation": 0.14810967785449772,
+          "vocabularyBias": 26.867096032127144,
+          "vocabularyRmse": 198.31414160924035,
+          "vocabularyCoverage": 0.9682,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.001957051148522409,
+            "thetaRmse": 0.0013492442972623622,
+            "thetaCoverage": 0.0024814818153675857,
+            "vocabularyBias": 2.7790063256195774,
+            "vocabularyRmse": 2.1146725113987728,
+            "vocabularyCoverage": 0.0024814818153675857,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1,
+          "trials": 5000,
+          "thetaBias": -0.035952913724188185,
+          "thetaRmse": 0.15024508553442434,
+          "thetaCoverage": 0.9322,
+          "meanPosteriorStandardDeviation": 0.13581533105673974,
+          "vocabularyBias": -52.74345216816338,
+          "vocabularyRmse": 264.2259029855283,
+          "vocabularyCoverage": 0.9322,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0020632610483475515,
+            "thetaRmse": 0.00161395057007017,
+            "thetaCoverage": 0.0035553666477594116,
+            "vocabularyBias": 3.6618810858625506,
+            "vocabularyRmse": 2.687894074127434,
+            "vocabularyCoverage": 0.0035553666477594116,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 1.5,
+          "trials": 5000,
+          "thetaBias": -0.023089087056838972,
+          "thetaRmse": 0.13035777824948236,
+          "thetaCoverage": 0.9598,
+          "meanPosteriorStandardDeviation": 0.13709620829379923,
+          "vocabularyBias": -53.13072925220523,
+          "vocabularyRmse": 239.57784081599036,
+          "vocabularyCoverage": 0.9598,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0018145708625698926,
+            "thetaRmse": 0.0012681994448121706,
+            "thetaCoverage": 0.0027779114456728104,
+            "vocabularyBias": 3.304106067791653,
+            "vocabularyRmse": 2.3339124247778376,
+            "vocabularyCoverage": 0.0027779114456728104,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2,
+          "trials": 5000,
+          "thetaBias": -0.013957434195086268,
+          "thetaRmse": 0.1423090990029228,
+          "thetaCoverage": 0.9336,
+          "meanPosteriorStandardDeviation": 0.1274951302961469,
+          "vocabularyBias": -41.13844798603987,
+          "vocabularyRmse": 194.3315307648813,
+          "vocabularyCoverage": 0.9336,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.002003051766984305,
+            "thetaRmse": 0.0016265591738617367,
+            "thetaCoverage": 0.003521108916236475,
+            "vocabularyBias": 2.686246000063835,
+            "vocabularyRmse": 2.3948909318505907,
+            "vocabularyCoverage": 0.003521108916236475,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 2.5,
+          "trials": 5000,
+          "thetaBias": -0.053013268282249976,
+          "thetaRmse": 0.16766226159174785,
+          "thetaCoverage": 0.9544,
+          "meanPosteriorStandardDeviation": 0.17479987147043052,
+          "vocabularyBias": -74.17762906244977,
+          "vocabularyRmse": 126.18154121436717,
+          "vocabularyCoverage": 0.9544,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0022496794618689585,
+            "thetaRmse": 0.001546225535235015,
+            "thetaCoverage": 0.002950275919299752,
+            "vocabularyBias": 1.4437136141843667,
+            "vocabularyRmse": 1.3621040696853393,
+            "vocabularyCoverage": 0.002950275919299752,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3,
+          "trials": 5000,
+          "thetaBias": -0.09723337078379801,
+          "thetaRmse": 0.23448804145104277,
+          "thetaCoverage": 0.9192,
+          "meanPosteriorStandardDeviation": 0.21520324499694576,
+          "vocabularyBias": -40.54334967624499,
+          "vocabularyRmse": 62.43655920710141,
+          "vocabularyCoverage": 0.9192,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0030179271387421255,
+            "thetaRmse": 0.0021324248476379103,
+            "thetaCoverage": 0.0038541240249893357,
+            "vocabularyBias": 0.6715670815334241,
+            "vocabularyRmse": 0.9647738565428987,
+            "vocabularyCoverage": 0.0038541240249893357,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        },
+        {
+          "trueTheta": 3.5,
+          "trials": 5000,
+          "thetaBias": -0.17146623950212822,
+          "thetaRmse": 0.2578562464076761,
+          "thetaCoverage": 0.9218,
+          "meanPosteriorStandardDeviation": 0.2882343418251439,
+          "vocabularyBias": -13.630904528190088,
+          "vocabularyRmse": 18.884995606523166,
+          "vocabularyCoverage": 0.9218,
+          "meanLength": 30,
+          "lengthP10": 30,
+          "lengthP50": 30,
+          "lengthP90": 30,
+          "stopRates": {
+            "precision": 0,
+            "fixed-length": 1,
+            "maximum-length": 0,
+            "item-bank-exhausted": 0
+          },
+          "highLevelConstraintViolationRate": 0,
+          "monteCarloStandardErrors": {
+            "thetaBias": 0.0027238425740421612,
+            "thetaRmse": 0.0024485088691246506,
+            "thetaCoverage": 0.0037969661573419387,
+            "vocabularyBias": 0.18486518111150818,
+            "vocabularyRmse": 0.32067930484590634,
+            "vocabularyCoverage": 0.0037969661573419387,
+            "meanLength": 0,
+            "highLevelConstraintViolationRate": 0
+          }
+        }
+      ],
+      "exposure": {
+        "maximumExposureRate": 0.38078666666666666,
+        "unusedItemRate": 0,
+        "topExposedItems": [
+          {
+            "itemIndex": 146,
+            "level": 8,
+            "administrations": 28559,
+            "exposureRate": 0.38078666666666666
+          },
+          {
+            "itemIndex": 154,
+            "level": 8,
+            "administrations": 25136,
+            "exposureRate": 0.33514666666666665
+          },
+          {
+            "itemIndex": 23,
+            "level": 2,
+            "administrations": 23741,
+            "exposureRate": 0.31654666666666664
+          },
+          {
+            "itemIndex": 106,
+            "level": 6,
+            "administrations": 23220,
+            "exposureRate": 0.3096
+          },
+          {
+            "itemIndex": 38,
+            "level": 2,
+            "administrations": 23057,
+            "exposureRate": 0.3074266666666667
+          },
+          {
+            "itemIndex": 36,
+            "level": 2,
+            "administrations": 22845,
+            "exposureRate": 0.3046
+          },
+          {
+            "itemIndex": 27,
+            "level": 2,
+            "administrations": 22373,
+            "exposureRate": 0.29830666666666666
+          },
+          {
+            "itemIndex": 24,
+            "level": 2,
+            "administrations": 22228,
+            "exposureRate": 0.2963733333333333
+          },
+          {
+            "itemIndex": 126,
+            "level": 7,
+            "administrations": 21973,
+            "exposureRate": 0.2929733333333333
+          },
+          {
+            "itemIndex": 22,
+            "level": 2,
+            "administrations": 21813,
+            "exposureRate": 0.29084
+          }
+        ]
+      }
+    }
+  ]
+}

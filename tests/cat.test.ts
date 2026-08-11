@@ -116,7 +116,7 @@ test("the item-bank artifact and legacy configuration are immutable contracts", 
 test("shared scoring artifacts satisfy the dual-repository parity manifest", () => {
   assert.equal(
     parityManifest.contractId,
-    "legacy-cat-v0-dual-repository-parity"
+    "vst-cat-dual-repository-parity-v1"
   );
   for (const [path, expectedChecksum] of Object.entries(
     parityManifest.artifacts

@@ -9,10 +9,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "check": "npm run lint && npm run test && npm run build",
+    "check": "npm run lint && npm run test && npm run verify:simulation && npm run build",
     "lint": "eslint .",
+    "evaluate:simulation": "node scripts/evaluate-confirmation.ts",
+    "simulate": "node scripts/simulate-cat.ts",
     "test": "node --test tests/*.test.ts",
     "test:coverage": "node --test --experimental-test-coverage tests/*.test.ts",
+    "verify:simulation": "node scripts/evaluate-confirmation.ts --report=simulation/results/confirmation-v1.json --expected=simulation/results/confirmation-v1-evaluation.json",
     "preview": "vite preview"
   },
   "dependencies": {

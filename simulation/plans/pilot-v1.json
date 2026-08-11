@@ -1,0 +1,49 @@
+{
+  "planId": "pilot-v1",
+  "seed": 20260812,
+  "replicationsPerTheta": 250,
+  "trueThetas": [-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3],
+  "rules": [
+    {
+      "id": "se040-min20-max30-maxinfo",
+      "minimumItems": 20,
+      "maximumItems": 30,
+      "targetPosteriorStandardDeviation": 0.4,
+      "selectionMethod": "maximum-information"
+    },
+    {
+      "id": "se035-min20-max30-maxinfo",
+      "minimumItems": 20,
+      "maximumItems": 30,
+      "targetPosteriorStandardDeviation": 0.35,
+      "selectionMethod": "maximum-information"
+    },
+    {
+      "id": "se030-min20-max30-maxinfo",
+      "minimumItems": 20,
+      "maximumItems": 30,
+      "targetPosteriorStandardDeviation": 0.3,
+      "selectionMethod": "maximum-information"
+    },
+    {
+      "id": "se035-min20-max30-randomesque5",
+      "minimumItems": 20,
+      "maximumItems": 30,
+      "targetPosteriorStandardDeviation": 0.35,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5
+    },
+    {
+      "id": "fixed30-maxinfo",
+      "minimumItems": 30,
+      "maximumItems": 30,
+      "targetPosteriorStandardDeviation": null,
+      "selectionMethod": "maximum-information"
+    }
+  ],
+  "initialLevelMinimum": 3,
+  "initialLevelMaximum": 5,
+  "highLevelFloor": 7,
+  "minimumHighLevelItems": 2,
+  "credibleMass": 0.95
+}

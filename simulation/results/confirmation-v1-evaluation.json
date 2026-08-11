@@ -1,0 +1,308 @@
+{
+  "schemaVersion": "cat-confirmation-evaluation-v1",
+  "reportSha256": "5af908caffebccd9d295133277d95a01a56085a7e9e1c55b0ef0d2ae5c785752",
+  "criteriaSha256": "13ef1524c4c05c16bf33ac938bc7a124f9efc581298f30e4f723e47acf7ac8ad",
+  "evaluatorSha256": "5e4a56d7682a76ac20330dd8671b50e381af7600c28dcfb4e495b7dc9efb7e5e",
+  "planId": "confirmation-v1",
+  "planSha256": "1aab9c60dd0c5036342caeec19c0e9f3d2e653d5d494cf73de42ce3bac7af60a",
+  "candidatesPassingAllGates": [],
+  "rules": [
+    {
+      "ruleId": "se040-min20-max30-maxinfo",
+      "passesAll": false,
+      "gates": {
+        "numericalIntegrity": true,
+        "conditionalBias": false,
+        "conditionalRmse": false,
+        "intervalCoverage": false,
+        "burden": true,
+        "bankExposure": false
+      },
+      "failedGates": [
+        "conditionalBias",
+        "conditionalRmse",
+        "intervalCoverage",
+        "bankExposure"
+      ],
+      "observed": {
+        "overallMeanLength": 20.040306666666666,
+        "overallLengthP90": 20,
+        "overallMaximumLengthStopRate": 0.003173333333333333,
+        "maximumConditionalMaximumLengthStopRate": {
+          "trueTheta": -3.5,
+          "value": 0.0424
+        },
+        "maximumAbsoluteConditionalBias": {
+          "trueTheta": -3.5,
+          "value": 0.39202632445216556
+        },
+        "maximumConditionalRmse": {
+          "trueTheta": -3.5,
+          "value": 0.47806753408483915
+        },
+        "minimumConditionalCoverage": {
+          "trueTheta": -3.5,
+          "value": 0.8218
+        },
+        "maximumItemExposureRate": 0.5831066666666667,
+        "unusedItemRate": 0.06875,
+        "highLevelConstraintViolationRate": 0
+      }
+    },
+    {
+      "ruleId": "se030-min20-max30-randomesque5",
+      "passesAll": false,
+      "gates": {
+        "numericalIntegrity": true,
+        "conditionalBias": false,
+        "conditionalRmse": false,
+        "intervalCoverage": false,
+        "burden": false,
+        "bankExposure": false
+      },
+      "failedGates": [
+        "conditionalBias",
+        "conditionalRmse",
+        "intervalCoverage",
+        "burden",
+        "bankExposure"
+      ],
+      "observed": {
+        "overallMeanLength": 20.93016,
+        "overallLengthP90": 22,
+        "overallMaximumLengthStopRate": 0.08074666666666666,
+        "maximumConditionalMaximumLengthStopRate": {
+          "trueTheta": -3.5,
+          "value": 0.5876
+        },
+        "maximumAbsoluteConditionalBias": {
+          "trueTheta": -3.5,
+          "value": 0.3903057333823865
+        },
+        "maximumConditionalRmse": {
+          "trueTheta": -3.5,
+          "value": 0.4777401869687975
+        },
+        "minimumConditionalCoverage": {
+          "trueTheta": -3.5,
+          "value": 0.8018
+        },
+        "maximumItemExposureRate": 0.35602666666666666,
+        "unusedItemRate": 0.00625,
+        "highLevelConstraintViolationRate": 0
+      }
+    },
+    {
+      "ruleId": "se030-min20-max30-randomesque10",
+      "passesAll": false,
+      "gates": {
+        "numericalIntegrity": true,
+        "conditionalBias": false,
+        "conditionalRmse": false,
+        "intervalCoverage": false,
+        "burden": false,
+        "bankExposure": false
+      },
+      "failedGates": [
+        "conditionalBias",
+        "conditionalRmse",
+        "intervalCoverage",
+        "burden",
+        "bankExposure"
+      ],
+      "observed": {
+        "overallMeanLength": 21.094746666666666,
+        "overallLengthP90": 26,
+        "overallMaximumLengthStopRate": 0.08873333333333333,
+        "maximumConditionalMaximumLengthStopRate": {
+          "trueTheta": -3.5,
+          "value": 0.6004
+        },
+        "maximumAbsoluteConditionalBias": {
+          "trueTheta": -3.5,
+          "value": 0.4200652680220387
+        },
+        "maximumConditionalRmse": {
+          "trueTheta": -3.5,
+          "value": 0.504222132362328
+        },
+        "minimumConditionalCoverage": {
+          "trueTheta": -3.5,
+          "value": 0.7858
+        },
+        "maximumItemExposureRate": 0.2953733333333333,
+        "unusedItemRate": 0,
+        "highLevelConstraintViolationRate": 0
+      }
+    },
+    {
+      "ruleId": "se030-min20-max30-randomesque20",
+      "passesAll": false,
+      "gates": {
+        "numericalIntegrity": true,
+        "conditionalBias": false,
+        "conditionalRmse": false,
+        "intervalCoverage": false,
+        "burden": false,
+        "bankExposure": false
+      },
+      "failedGates": [
+        "conditionalBias",
+        "conditionalRmse",
+        "intervalCoverage",
+        "burden",
+        "bankExposure"
+      ],
+      "observed": {
+        "overallMeanLength": 21.470093333333335,
+        "overallLengthP90": 30,
+        "overallMaximumLengthStopRate": 0.11528,
+        "maximumConditionalMaximumLengthStopRate": {
+          "trueTheta": -3.5,
+          "value": 0.6576
+        },
+        "maximumAbsoluteConditionalBias": {
+          "trueTheta": -3.5,
+          "value": 0.49470282276166416
+        },
+        "maximumConditionalRmse": {
+          "trueTheta": -3.5,
+          "value": 0.5678010854059988
+        },
+        "minimumConditionalCoverage": {
+          "trueTheta": -3.5,
+          "value": 0.7272
+        },
+        "maximumItemExposureRate": 0.25506666666666666,
+        "unusedItemRate": 0,
+        "highLevelConstraintViolationRate": 0
+      }
+    },
+    {
+      "ruleId": "fixed20-randomesque5",
+      "passesAll": false,
+      "gates": {
+        "numericalIntegrity": true,
+        "conditionalBias": false,
+        "conditionalRmse": false,
+        "intervalCoverage": false,
+        "burden": true,
+        "bankExposure": false
+      },
+      "failedGates": [
+        "conditionalBias",
+        "conditionalRmse",
+        "intervalCoverage",
+        "bankExposure"
+      ],
+      "observed": {
+        "overallMeanLength": 20,
+        "overallLengthP90": 20,
+        "overallMaximumLengthStopRate": 0,
+        "maximumConditionalMaximumLengthStopRate": {
+          "trueTheta": -3.5,
+          "value": 0
+        },
+        "maximumAbsoluteConditionalBias": {
+          "trueTheta": -3.5,
+          "value": 0.42300851795547717
+        },
+        "maximumConditionalRmse": {
+          "trueTheta": -3.5,
+          "value": 0.49927710042852436
+        },
+        "minimumConditionalCoverage": {
+          "trueTheta": -3.5,
+          "value": 0.81
+        },
+        "maximumItemExposureRate": 0.35601333333333335,
+        "unusedItemRate": 0.01875,
+        "highLevelConstraintViolationRate": 0
+      }
+    },
+    {
+      "ruleId": "fixed20-randomesque20",
+      "passesAll": false,
+      "gates": {
+        "numericalIntegrity": true,
+        "conditionalBias": false,
+        "conditionalRmse": false,
+        "intervalCoverage": false,
+        "burden": true,
+        "bankExposure": true
+      },
+      "failedGates": [
+        "conditionalBias",
+        "conditionalRmse",
+        "intervalCoverage"
+      ],
+      "observed": {
+        "overallMeanLength": 20,
+        "overallLengthP90": 20,
+        "overallMaximumLengthStopRate": 0,
+        "maximumConditionalMaximumLengthStopRate": {
+          "trueTheta": -3.5,
+          "value": 0
+        },
+        "maximumAbsoluteConditionalBias": {
+          "trueTheta": -3.5,
+          "value": 0.5722523534325029
+        },
+        "maximumConditionalRmse": {
+          "trueTheta": -3.5,
+          "value": 0.6285083019050026
+        },
+        "minimumConditionalCoverage": {
+          "trueTheta": -3.5,
+          "value": 0.7518
+        },
+        "maximumItemExposureRate": 0.24089333333333332,
+        "unusedItemRate": 0,
+        "highLevelConstraintViolationRate": 0
+      }
+    },
+    {
+      "ruleId": "fixed30-randomesque5",
+      "passesAll": false,
+      "gates": {
+        "numericalIntegrity": true,
+        "conditionalBias": false,
+        "conditionalRmse": false,
+        "intervalCoverage": false,
+        "burden": false,
+        "bankExposure": false
+      },
+      "failedGates": [
+        "conditionalBias",
+        "conditionalRmse",
+        "intervalCoverage",
+        "burden",
+        "bankExposure"
+      ],
+      "observed": {
+        "overallMeanLength": 30,
+        "overallLengthP90": 30,
+        "overallMaximumLengthStopRate": 0,
+        "maximumConditionalMaximumLengthStopRate": {
+          "trueTheta": -3.5,
+          "value": 0
+        },
+        "maximumAbsoluteConditionalBias": {
+          "trueTheta": -3.5,
+          "value": 0.36331607985182834
+        },
+        "maximumConditionalRmse": {
+          "trueTheta": -3.5,
+          "value": 0.43585987553870154
+        },
+        "minimumConditionalCoverage": {
+          "trueTheta": -3.5,
+          "value": 0.8416
+        },
+        "maximumItemExposureRate": 0.38078666666666666,
+        "unusedItemRate": 0,
+        "highLevelConstraintViolationRate": 0
+      }
+    }
+  ]
+}
