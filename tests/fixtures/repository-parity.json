@@ -3,7 +3,11 @@
   "artifacts": {
     "src/utils/cat.ts": "0205237f952f2394bb48ebc5a3d6ba2a817aea3ca0d904691ad2aba28e31dc49",
     "src/utils/catConfig.ts": "2f6540244655448073b74a1e33d16ccc03ba0c3ab2206180b9fcf0b3af04cc29",
+    "src/utils/paperScoring.ts": "e01dfe7474a21cfbd547fbfd40680c52604704f8b4d568b5c46cc42f895ffa3e",
+    "scripts/reference-paper-3pl.R": "25691d969e792df60794aa19d749001c0075358fcbe01be2fe8c1281fb92ce8f",
     "tests/fixtures/legacy-cat-v0.json": "c6f219db2a9a2ccbe1032f960e9c72d55161855a9500da538d76001817c0bbb1",
+    "tests/fixtures/paper-3pl-v1.json": "0a0cb4d6e240a879ba2a5ca10313af02b9b246b8f7385b84803a403358d86f0a",
+    "tests/paperScoring.test.ts": "bdcbeaa274fb31e6e3e8a9ef0e32ad49cc8c811e223b1f4536355dbe0d5d2d82",
     "public/jacet_parameters.csv": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47"
   }
 }
