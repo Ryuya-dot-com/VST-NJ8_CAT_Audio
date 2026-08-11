@@ -1,0 +1,9 @@
+{
+  "contractId": "legacy-cat-v0-dual-repository-parity",
+  "artifacts": {
+    "src/utils/cat.ts": "0205237f952f2394bb48ebc5a3d6ba2a817aea3ca0d904691ad2aba28e31dc49",
+    "src/utils/catConfig.ts": "2f6540244655448073b74a1e33d16ccc03ba0c3ab2206180b9fcf0b3af04cc29",
+    "tests/fixtures/legacy-cat-v0.json": "c6f219db2a9a2ccbe1032f960e9c72d55161855a9500da538d76001817c0bbb1",
+    "public/jacet_parameters.csv": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47"
+  }
+}

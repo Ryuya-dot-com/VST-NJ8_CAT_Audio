@@ -6,12 +6,17 @@ import { ResultsView } from "./components/ResultsView";
 import { TestView } from "./components/TestView";
 import type { Item, OptionChoice } from "./types";
 import { estimateAbilityEap, selectNextItem, vocabFromTheta } from "./utils/cat";
+import {
+  LEGACY_CAT_CONFIG,
+  needsHighLevelItems,
+  shouldContinueTest,
+} from "./utils/catConfig";
 import { loadItemBank } from "./utils/data";
 import { shuffleArray } from "./utils/random";
 import { playWordAudio } from "./utils/audio";
 import { speakWord } from "./utils/speech";
 
-const TOTAL_ITEMS = 30;
+const TOTAL_ITEMS = LEGACY_CAT_CONFIG.stopping.maximumItems;
 const TEST_LABEL = "音声版";
 type DownloadStatus = "idle" | "success" | "error";
 type OptionKey = "a" | "b" | "c" | "d";
@@ -97,9 +102,14 @@ function getOptionText(optionOrder: OptionChoice[], label: OptionKey): string {
 }
 
 function pickInitialItemIndex(itemBank: Item[]): number | null {
+  const { initialLevelMaximum, initialLevelMinimum } =
+    LEGACY_CAT_CONFIG.contentConstraint;
   const candidates = itemBank
     .map((item, idx) => ({ item, idx }))
-    .filter(({ item }) => item.Level >= 3 && item.Level <= 5);
+    .filter(
+      ({ item }) =>
+        item.Level >= initialLevelMinimum && item.Level <= initialLevelMaximum
+    );
 
   if (candidates.length === 0) {
     return itemBank.length > 0 ? 0 : null;
@@ -299,12 +309,16 @@ function App() {
     setSe(estimate.se);
 
     const highCount = nextAdministered.filter(
-      (idx) => itemBank[idx]?.Level >= 7
+      (idx) =>
+        itemBank[idx]?.Level >=
+        LEGACY_CAT_CONFIG.contentConstraint.highLevelFloor
     ).length;
-    const needHigh = highCount < 2;
-    const shouldContinue =
-      (estimate.se > 0.4 || nextAdministered.length < 20 || needHigh) &&
-      nextAdministered.length < TOTAL_ITEMS;
+    const needHigh = needsHighLevelItems(highCount);
+    const shouldContinue = shouldContinueTest({
+      posteriorStandardDeviation: estimate.se,
+      administeredItems: nextAdministered.length,
+      highLevelItems: highCount,
+    });
 
     const nextSnapshot: ResultSnapshot = {
       administered: nextAdministered,

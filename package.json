@@ -3,10 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "check": "npm run lint && npm run test && npm run build",
     "lint": "eslint .",
+    "test": "node --test tests/cat.test.ts",
+    "test:coverage": "node --test --experimental-test-coverage tests/cat.test.ts",
     "preview": "vite preview"
   },
   "dependencies": {
