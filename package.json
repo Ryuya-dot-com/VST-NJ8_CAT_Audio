@@ -9,12 +9,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "check": "npm run lint && npm run test && npm run verify:simulation && npm run build",
+    "check": "npm run lint && npm run test && npm run verify:bank && npm run verify:simulation && npm run build",
+    "diagnose:bank": "node scripts/diagnose-bank.ts",
     "lint": "eslint .",
     "evaluate:simulation": "node scripts/evaluate-confirmation.ts",
     "simulate": "node scripts/simulate-cat.ts",
     "test": "node --test tests/*.test.ts",
     "test:coverage": "node --test --experimental-test-coverage tests/*.test.ts",
+    "verify:bank": "node scripts/diagnose-bank.ts --plan=simulation/plans/bank-diagnostic-v1.json --expected=simulation/results/bank-diagnostic-v1.json",
     "verify:simulation": "node scripts/evaluate-confirmation.ts --report=simulation/results/confirmation-v1.json --expected=simulation/results/confirmation-v1-evaluation.json",
     "preview": "vite preview"
   },

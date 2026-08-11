@@ -1,0 +1,63 @@
+{
+  "referenceImplementation": "base R 4.6.1; scripts/reference-bank-diagnostic.R",
+  "numericalTolerance": 1e-12,
+  "cases": [
+    {
+      "theta": -3.5,
+      "fullBankInformation": 4.346902358998576,
+      "fullBankInformationEquivalentStandardDeviation": 0.4796341059526087,
+      "effectiveItemCount": 6.358115330176803,
+      "topItemIndex": 19,
+      "oracle": [
+        { "testLength": 20, "information": 4.33361458967034, "standardDeviation": 0.48036887242327053, "highLevelItemCount": 2 },
+        { "testLength": 30, "information": 4.34597228395602, "standardDeviation": 0.4796854260966229, "highLevelItemCount": 2 },
+        { "testLength": 40, "information": 4.346822679630668, "standardDeviation": 0.4796385018953551, "highLevelItemCount": 3 },
+        { "testLength": 160, "information": 4.346902358998575, "standardDeviation": 0.4796341059526087, "highLevelItemCount": 40 }
+      ]
+    },
+    {
+      "theta": 0,
+      "fullBankInformation": 118.03085020317533,
+      "fullBankInformationEquivalentStandardDeviation": 0.09204543028707515,
+      "effectiveItemCount": 21.694279676366875,
+      "topItemIndex": 66,
+      "oracle": [
+        { "testLength": 20, "information": 84.20962724546465, "standardDeviation": 0.10897305531330843, "highLevelItemCount": 2 },
+        { "testLength": 30, "information": 97.29138045549796, "standardDeviation": 0.10138245818610839, "highLevelItemCount": 2 },
+        { "testLength": 40, "information": 104.84773219452096, "standardDeviation": 0.0976608453793469, "highLevelItemCount": 2 },
+        { "testLength": 160, "information": 118.03085020317529, "standardDeviation": 0.09204543028707518, "highLevelItemCount": 40 }
+      ]
+    },
+    {
+      "theta": 2,
+      "fullBankInformation": 111.47531196444098,
+      "fullBankInformationEquivalentStandardDeviation": 0.09471323091930134,
+      "effectiveItemCount": 9.399089988257657,
+      "topItemIndex": 127,
+      "oracle": [
+        { "testLength": 20, "information": 88.36631453398857, "standardDeviation": 0.10637917766561619, "highLevelItemCount": 11 },
+        { "testLength": 30, "information": 96.87690047529007, "standardDeviation": 0.10159910502909883, "highLevelItemCount": 18 },
+        { "testLength": 40, "information": 102.69868942903851, "standardDeviation": 0.09867736621400425, "highLevelItemCount": 23 },
+        { "testLength": 160, "information": 111.47531196444105, "standardDeviation": 0.09471323091930131, "highLevelItemCount": 40 }
+      ]
+    },
+    {
+      "theta": 3.5,
+      "fullBankInformation": 8.814975559776,
+      "fullBankInformationEquivalentStandardDeviation": 0.336813463841385,
+      "effectiveItemCount": 11.158757297540227,
+      "topItemIndex": 156,
+      "oracle": [
+        { "testLength": 20, "information": 8.038166245922497, "standardDeviation": 0.35271303341730575, "highLevelItemCount": 18 },
+        { "testLength": 30, "information": 8.471055952058055, "standardDeviation": 0.34358264987266235, "highLevelItemCount": 19 },
+        { "testLength": 40, "information": 8.648020065749424, "standardDeviation": 0.3400491203105697, "highLevelItemCount": 24 },
+        { "testLength": 160, "information": 8.814975559776002, "standardDeviation": 0.33681346384138494, "highLevelItemCount": 40 }
+      ]
+    }
+  ],
+  "parameters": {
+    "maximumDiscrimination": 10.62479259,
+    "minimumDifficulty": -3.988627712,
+    "maximumDifficulty": 3.088247983
+  }
+}
