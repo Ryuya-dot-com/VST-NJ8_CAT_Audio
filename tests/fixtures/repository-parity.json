@@ -40,6 +40,7 @@
     "scripts/simulate-selection-adjusted-feasibility.ts": "647075dfa4938bd91d87171593f6f66e5581b62d24466508378a0ff9ddab9582",
     "scripts/verify-selection-adjusted-feasibility.ts": "3f3c8a7ed7e2b375f5d4b90597da84946de1848962e4c9e2cd72c0abafa48002",
     "scripts/simulate-selection-adjusted-importance.ts": "33b20ff2727ff3478a5eb9bb5c0014f71e23531be0197f6bfed83e98140dd3ec",
+    "scripts/verify-selection-adjusted-importance.ts": "0e9cd3e20bfabd8d57f3280277fc62fe5477eeef3a837534baae003dccb1191c",
     "tests/fixtures/legacy-cat-v0.json": "c6f219db2a9a2ccbe1032f960e9c72d55161855a9500da538d76001817c0bbb1",
     "tests/fixtures/paper-3pl-v1.json": "0a0cb4d6e240a879ba2a5ca10313af02b9b246b8f7385b84803a403358d86f0a",
     "tests/paperScoring.test.ts": "bdcbeaa274fb31e6e3e8a9ef0e32ad49cc8c811e223b1f4536355dbe0d5d2d82",
@@ -68,6 +69,7 @@
     "docs/adr/0006-interval-calibration-exploration.md": "50e3712c9b343a9aad1445d2ba7d26190b49ba8a52ac77cc5104e7077c42ce9d",
     "docs/adr/0007-selective-reporting-boundaries.md": "ca597ece367a4f20fdd70fd140641bfc682d3a32480b788b35735b89bc411d7a",
     "docs/adr/0008-selection-adjusted-calibration.md": "b31ca7f1aa487897332972b6eec69efdf87d2b747a9a36cf80d9ea74f1fa1cb0",
+    "docs/adr/0009-defensive-importance-sampling.md": "266837cd0fcfd4094a49ade764f5a20b49cce5fbb1aea058c9b177d09811d2f2",
     "simulation/decision-criteria-v1.md": "13ef1524c4c05c16bf33ac938bc7a124f9efc581298f30e4f723e47acf7ac8ad",
     "simulation/range-reporting-decision-criteria-v1.md": "498a78e0b4ecc8563e0bf0380728266c85181ec4895d5abdaf3ef0003c97d9f0",
     "simulation/interval-calibration-decision-criteria-v1.md": "c661fec11b580d5207412c536aaf4444284f6a698c83c9e3fe0c3aa9035a3e23",
@@ -104,6 +106,8 @@
     "simulation/results/selective-reporting-exploratory-v1-summary.md": "4d4cda5898acc8c5511d36e0408cddd00e3649455e36cfa6e7856c5536b2d8d9",
     "simulation/results/selection-adjusted-feasibility-v1.json": "1efe227e9362c1ff5d51dcdb3cee9a46fb4120e9f321c811deca35b4fd0e938e",
     "simulation/results/selection-adjusted-feasibility-v1-summary.md": "674627410821a8136e131e469cdf96535cffd0e206426e0b151972a581b89c29",
+    "simulation/results/selection-adjusted-importance-validation-v1.json": "bc61740bc3c6c88053c00ccefcc47ecf21b25b999f015a04308615d0f0a2459f",
+    "simulation/results/selection-adjusted-importance-validation-v1-summary.md": "fc849b9bb708337856476ea986992bd462621b35146d2f7807986c80eddf138e",
     "public/jacet_parameters.csv": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47"
   }
 }
