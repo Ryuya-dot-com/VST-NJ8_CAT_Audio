@@ -14,7 +14,7 @@
     "src/utils/rangeReportingSimulation.ts": "83fb59b3adfca37064a6947b495418d61069116ac68410bf70e4d0fb8c2a18b6",
     "src/utils/intervalCalibrationSimulation.ts": "6f6193b523a05116bb0d7980e7a7c9d42a4ee83417da176f00e7a4b5010f5aa2",
     "src/utils/selectiveReportingPlan.ts": "c29198ccd06eaee68bc22570e545451d9c449708f6630c39b1fbb69e3bc9bdd9",
-    "src/utils/selectiveReportingSimulation.ts": "58ee5f9ae18df5daf2301b26cb09109c7a167b2a5ae9feaa4a853bad613675dc",
+    "src/utils/selectiveReportingSimulation.ts": "62b7603e13a0ce9074297672f8cb151f79576a490ded48923cf0b56e3f397083",
     "scripts/reference-paper-3pl.R": "25691d969e792df60794aa19d749001c0075358fcbe01be2fe8c1281fb92ce8f",
     "scripts/simulate-cat.ts": "7419d163bc27034b9b84b5ea8aa648821afe426962a1e09d3779543d761de919",
     "scripts/evaluate-confirmation.ts": "5e4a56d7682a76ac20330dd8671b50e381af7600c28dcfb4e495b7dc9efb7e5e",

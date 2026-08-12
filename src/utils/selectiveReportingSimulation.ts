@@ -146,7 +146,7 @@ interface ModelCache {
   grid: number[];
   probabilities: Float64Array[];
   selectionPrior: Float64Array;
-  reportingPrior: Float64Array;
+  reportingToSelectionPriorRatio: Float64Array;
   levelMeans: LevelParameterMean[];
   initialCandidates: number[];
 }
@@ -267,6 +267,11 @@ function buildCache(itemBank: Item[], plan: SelectiveReportingPlan): ModelCache 
     plan.candidate.reportingPriorMean,
     plan.candidate.reportingPriorStandardDeviation
   );
+  const selectionPrior = normalWeights(
+    grid,
+    plan.candidate.selectionPriorMean,
+    plan.candidate.selectionPriorStandardDeviation
+  );
   const levelMeans = computeLevelParameterMeans(itemBank);
   const initialCandidates = itemBank
     .map((item, index) => ({ item, index }))
@@ -280,12 +285,11 @@ function buildCache(itemBank: Item[], plan: SelectiveReportingPlan): ModelCache 
   return {
     grid,
     probabilities,
-    selectionPrior: normalWeights(
-      grid,
-      plan.candidate.selectionPriorMean,
-      plan.candidate.selectionPriorStandardDeviation
+    selectionPrior,
+    reportingToSelectionPriorRatio: Float64Array.from(
+      reportingWeights,
+      (value, index) => value / selectionPrior[index]
     ),
-    reportingPrior: reportingWeights,
     levelMeans,
     initialCandidates,
   };
@@ -300,31 +304,21 @@ function posteriorMean(grid: readonly number[], weights: Float64Array): number {
 }
 
 function updatePosterior(
-  selectionWeights: Float64Array,
-  reportingWeights: Float64Array,
+  weights: Float64Array,
   probabilities: Float64Array,
   response: 0 | 1
 ): void {
-  let selectionTotal = 0;
-  let reportingTotal = 0;
-  for (let index = 0; index < selectionWeights.length; index += 1) {
+  let total = 0;
+  for (let index = 0; index < weights.length; index += 1) {
     const factor = response === 1 ? probabilities[index] : 1 - probabilities[index];
-    selectionWeights[index] *= factor;
-    reportingWeights[index] *= factor;
-    selectionTotal += selectionWeights[index];
-    reportingTotal += reportingWeights[index];
+    weights[index] *= factor;
+    total += weights[index];
   }
-  if (
-    !Number.isFinite(selectionTotal) ||
-    selectionTotal <= 0 ||
-    !Number.isFinite(reportingTotal) ||
-    reportingTotal <= 0
-  ) {
+  if (!Number.isFinite(total) || total <= 0) {
     throw new RangeError("Selective posterior cannot be normalized.");
   }
-  for (let index = 0; index < selectionWeights.length; index += 1) {
-    selectionWeights[index] /= selectionTotal;
-    reportingWeights[index] /= reportingTotal;
+  for (let index = 0; index < weights.length; index += 1) {
+    weights[index] /= total;
   }
 }
 
@@ -423,7 +417,6 @@ function generatePath(
   exposure: Uint32Array | null
 ): PathStatistics {
   const selection = new Float64Array(cache.selectionPrior);
-  const reporting = new Float64Array(cache.reportingPrior);
   const used = new Uint8Array(itemBank.length);
   let next =
     cache.initialCandidates[
@@ -439,7 +432,6 @@ function generatePath(
     if (item.Level >= plan.highLevelFloor) highCount += 1;
     updatePosterior(
       selection,
-      reporting,
       cache.probabilities[next],
       response
     );
@@ -457,6 +449,11 @@ function generatePath(
   if (highCount < plan.minimumHighLevelItems) {
     throw new RangeError("Selective path violates content constraint.");
   }
+  const reporting = Float64Array.from(
+    selection,
+    (value, index) => value * cache.reportingToSelectionPriorRatio[index]
+  );
+  normalize(reporting);
   const eap = posteriorMean(cache.grid, reporting);
   let belowProbability = 0;
   let withinProbability = 0;
