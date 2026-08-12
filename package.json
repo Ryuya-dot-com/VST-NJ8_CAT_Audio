@@ -17,6 +17,7 @@
     "simulate": "node scripts/simulate-cat.ts",
     "simulate:estimators": "node scripts/simulate-estimator-sensitivity.ts",
     "simulate:exposure": "node scripts/simulate-exposure-control.ts",
+    "simulate:range-reporting": "node scripts/simulate-range-reporting.ts",
     "test": "node --test tests/*.test.ts",
     "test:coverage": "node --test --experimental-test-coverage tests/*.test.ts",
     "verify:bank": "node scripts/diagnose-bank.ts --plan=simulation/plans/bank-diagnostic-v1.json --expected=simulation/results/bank-diagnostic-v1.json",

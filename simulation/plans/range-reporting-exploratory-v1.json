@@ -1,0 +1,58 @@
+{
+  "planId": "range-reporting-exploratory-v1",
+  "seed": 20260814,
+  "replicationsPerTheta": 500,
+  "trueThetas": [-4.25, -4, -3.75, -3.5, -3.25, -3.0532850369, -3, -2.9031647494, -2.7578183981, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.3090556474, 3.427992907, 3.5239545648, 3.75, 4, 4.25],
+  "pathRules": [
+    {
+      "id": "fixed20-randomesque5-range",
+      "fixedLength": 20,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5
+    },
+    {
+      "id": "fixed30-randomesque5-range",
+      "fixedLength": 30,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5
+    }
+  ],
+  "posteriorSpecifications": [
+    {
+      "id": "eap-normal-0-1",
+      "priorMean": 0,
+      "priorStandardDeviation": 1
+    },
+    {
+      "id": "eap-normal-0-2",
+      "priorMean": 0,
+      "priorStandardDeviation": 2
+    }
+  ],
+  "selectionPosteriorId": "eap-normal-0-1",
+  "informationEquivalentStandardDeviationThresholds": [0.25, 0.3, 0.35],
+  "posteriorMassThresholds": [0.8, 0.9, 0.95],
+  "boundaryIndifferenceMargin": 0.5,
+  "credibleMass": 0.95,
+  "initialLevelMinimum": 3,
+  "initialLevelMaximum": 5,
+  "highLevelFloor": 7,
+  "minimumHighLevelItems": 2,
+  "decisionCriteria": {
+    "binomialIntervalMethod": "wilson-score",
+    "monteCarloZ": 1.96,
+    "maximumFalseNumericReportRateOutside": 0.05,
+    "maximumOppositeExtremeRate": 0.01,
+    "minimumNumericReportRateInterior": 0.9,
+    "maximumAbsoluteThetaBiasReported": 0.1,
+    "maximumThetaRmseReported": 0.3,
+    "minimumIntervalCoverageReported": 0.925,
+    "maximumIntervalCoverageReported": 0.975
+  },
+  "candidatePreferenceOrder": [
+    "widest-validated-theta-interval",
+    "shortest-fixed-length",
+    "highest-posterior-mass-threshold",
+    "posterior-specification-id"
+  ]
+}
