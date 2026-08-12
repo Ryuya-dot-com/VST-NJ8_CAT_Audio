@@ -10,7 +10,7 @@ The preceding selective-reporting experiment found inward conditional EAP bias a
 
 For each fixed true theta, the point-estimation target remains theta under the fitted 3PL. The selection event remains interval-independent:
 
-`S(Y)=1` when posterior `within-range` mass is at least `.95` and ordinary `N(0,2)` EAP lies inside the candidate operational core.
+`S(Y)=1` when posterior mass inside the fixed information-support range is at least `.95` and ordinary `N(0,2)` EAP lies inside the candidate operational selection core.
 
 All bias, RMSE, interval, and width claims are conditional on `S(Y)=1`. Selection probability and false numerical selection outside the core are evaluated over all generated paths.
 
@@ -22,7 +22,7 @@ Use common generated response paths and compare exactly three point estimators:
 2. **selection-inverted conditional-median estimate** — invert the theta-indexed conditional distribution of the ordinary EAP among selected calibration paths at probability `.5`; and
 3. **selection-adjusted conditional-likelihood estimate** — maximize
    `log L(Y | theta) - log P_theta(S=1)`
-   over the operational core, with `P_theta(S=1)` estimated only from calibration paths and interpolated prospectively.
+   over the candidate's prespecified estimation domain, with `P_theta(S=1)` estimated only from calibration paths and interpolated prospectively.
 
 For an observed selected path `y`, the conditional likelihood is
 
@@ -34,6 +34,12 @@ Because CAT responses make the selected EAP distribution discrete and Monte Carl
 
 The selection-inverted estimator is the primary candidate because its construction targets balanced conditional over/underestimation. Neither it nor the conditional-likelihood estimator is presumed unbiased in finite samples; both must pass the frozen evaluation gates.
 
+## Selection core versus estimation domain
+
+Do not constrain an adjusted estimate to the same core used to select numerical reports. At the lower core endpoint, such a constraint would force every estimation error to be nonnegative; at the upper endpoint it would force every error to be nonpositive. Except for a degenerate estimator fixed at the endpoint, the frozen mean-bias gate would then be structurally unattainable.
+
+For each core, define the estimation domain as the core expanded by `.50` theta on each side and intersected with the fixed information-support range. The selection-adjusted point and interval may enter this guard region, but may never leave the information-support range. Calibration of `P_theta(S=1)`, the conditional median, and interval acceptance limits covers the entire estimation domain. Hitting an estimation-domain boundary is recorded and gated; it is not silently clipped away.
+
 ## Operational-core candidates
 
 Use the fixed information-support interval only as the outer envelope. Predeclare three guard-band candidates, ordered from widest to narrowest:
@@ -42,7 +48,11 @@ Use the fixed information-support interval only as the outer envelope. Predeclar
 2. `[lower + .75, upper - .75]` = `[-2.0078183981, 2.5590556474]`; and
 3. `[lower + 1.00, upper - 1.00]` = `[-1.7578183981, 2.3090556474]`.
 
-This is a finite, prospective set. Do not optimize boundaries continuously on evaluation results. Each candidate must include exact operational endpoints in calibration and evaluation, plus exterior neighbors at `.25` and `.50` beyond each endpoint.
+This is a finite, prospective set. Do not optimize boundaries continuously on evaluation results. Each candidate must include exact selection-core endpoints in calibration and evaluation, plus exterior neighbors at `.25` and `.50` beyond each endpoint. The corresponding estimation domains are:
+
+1. `[-2.7578183981, 3.3090556474]`;
+2. `[-2.5078183981, 3.0590556474]`; and
+3. `[-2.2578183981, 2.8090556474]`.
 
 ## Calibration and evaluation separation
 
@@ -57,10 +67,10 @@ Calibration uncertainty must again use simultaneous exact-binomial bounds or con
 
 ## Frozen decision principles
 
-- First require outside-core safety and adequate selection probability in the validated interior.
-- Then require at least 2,500 selected evaluation paths at every operational-core theta cell.
+- First require outside-selection-core safety and adequate selection probability in the validated interior.
+- Then require at least 2,500 selected evaluation paths at every selection-core theta cell.
 - Apply the existing point bias `.10`, RMSE `.30`, conditional coverage `[.925,.975]` with 90% Wilson equivalence, per-tail `.05`, mean width `.80`, and p90 width `1.00` gates.
-- Gate conditional-likelihood boundary hits and conditional-median-inversion fallback rates at `.01` by upper 90% Wilson bounds.
+- Gate estimation-domain boundary hits and conditional-median-inversion fallback rates at `.01` by upper 90% Wilson bounds.
 - Select by guard-band order first (widest valid core), then point-estimator order (conditional-median inversion, conditional likelihood); ordinary EAP cannot be selected.
 - A selected combination remains exploratory and must enter a separately frozen confirmation of at least 5,000 paths per theta.
 
