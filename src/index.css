@@ -9,6 +9,12 @@
   color: #0f172a;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -17,4 +23,148 @@ body {
 
 a {
   color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row > * {
+  width: 100%;
+  min-width: 0;
+}
+
+.row.g-4 {
+  gap: 1.5rem;
+}
+
+.d-flex { display: flex; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.justify-content-center { justify-content: center; }
+.justify-content-between { justify-content: space-between; }
+.align-items-center { align-items: center; }
+.text-center { text-align: center; }
+.text-start { text-align: left; }
+.text-uppercase { text-transform: uppercase; }
+.h-100 { height: 100%; }
+.w-100 { width: 100%; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 1rem; }
+.p-5 { padding: 3rem; }
+.py-5 { padding-top: 3rem; padding-bottom: 3rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 3rem; }
+.mb-0 { margin-bottom: 0; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.form-label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  color: #0f172a;
+}
+
+.form-control-lg {
+  min-height: 3rem;
+  font-size: 1.05rem;
+}
+
+.form-text {
+  margin-top: 0.35rem;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.alert-danger {
+  color: #991b1b;
+  background: #fef2f2;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+.btn-lg {
+  font-size: 1.05rem;
+}
+
+.btn-outline-secondary {
+  border-color: #64748b;
+  background: #ffffff;
+  color: #475569;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus-visible {
+  background: #f1f5f9;
+}
+
+.progress {
+  display: flex;
+  overflow: hidden;
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  color: #ffffff;
+  transition: width 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .row.g-4 > .col-md-6 {
+    width: calc(50% - 0.75rem);
+  }
+
+  .flex-md-row {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-xl-8 { width: 66.666667%; }
+  .col-xl-9 { width: 75%; }
 }

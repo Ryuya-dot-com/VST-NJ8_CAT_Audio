@@ -35,7 +35,7 @@ test("CAT score reporting method fixes the paper-model transformation contract",
 test("public result includes the estimated vocabulary scale, interval, and theta", () => {
   const record = buildPublicCatScoreResult(validInput);
 
-  assert.equal(record["推定語彙サイズ（0–8000語）"], 4210.25);
+  assert.equal(record["推定語彙サイズ（VST-NJ8原論文換算）"], 4210.25);
   assert.equal(record["推定語彙サイズ95%区間下限"], 3025.4);
   assert.equal(record["推定語彙サイズ95%区間上限"], 5388.8);
   assert.equal(record["能力値θ（EAP）"], 0.42);
