@@ -1,0 +1,43 @@
+{
+  "policyId": "information-support-exploratory-v1",
+  "generatedBy": "scripts/reference-measurement-range.R",
+  "referenceRuntime": "R version 4.6.1 (2026-06-24)",
+  "numericalTolerance": 1e-9,
+  "itemBank": {
+    "path": "public/jacet_parameters.csv",
+    "sha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+    "itemCount": 160
+  },
+  "cases": [
+    {
+      "informationEquivalentStandardDeviationThreshold": 0.25,
+      "lowerTheta": -2.7578183981453082,
+      "upperTheta": 3.309055647446299,
+      "informationThreshold": 16,
+      "lowerInformation": 15.999999999999995,
+      "upperInformation": 15.999999999999995,
+      "lowerPaperVocabularyScore": 961.7051444029314,
+      "upperPaperVocabularyScore": 7989.630961606607
+    },
+    {
+      "informationEquivalentStandardDeviationThreshold": 0.3,
+      "lowerTheta": -2.9031647493666792,
+      "upperTheta": 3.427992907015576,
+      "informationThreshold": 11.11111111111111,
+      "lowerInformation": 11.111111111111102,
+      "upperInformation": 11.11111111111111,
+      "lowerPaperVocabularyScore": 919.800024971612,
+      "upperPaperVocabularyScore": 7993.323131694112
+    },
+    {
+      "informationEquivalentStandardDeviationThreshold": 0.35,
+      "lowerTheta": -3.0532850368964333,
+      "upperTheta": 3.523954564813304,
+      "informationThreshold": 8.16326530612245,
+      "lowerInformation": 8.16326530612245,
+      "upperInformation": 8.16326530612244,
+      "lowerPaperVocabularyScore": 893.0839968340498,
+      "upperPaperVocabularyScore": 7995.322192381341
+    }
+  ]
+}
