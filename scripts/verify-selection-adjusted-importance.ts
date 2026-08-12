@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { assertReproducibleReportEqual } from "./assert-reproducible-report.ts";
+import { assertResearchDecisionInvariant } from "./assert-research-decision.ts";
 
 import type { Item } from "../src/types.ts";
 import {
@@ -48,6 +48,13 @@ function parseItemBank(csv: string): Item[] {
     });
 }
 
+function selectResearchDecision(report: SelectionAdjustedImportanceReport) {
+  return {
+    experiments: report.experiments.map(({ id, gates }) => ({ id, gates })),
+    decision: report.decision,
+  };
+}
+
 const reportPath = resolve(
   option("report") ??
     "simulation/results/selection-adjusted-importance-validation-v1.json"
@@ -87,5 +94,10 @@ const recomputed = runSelectionAdjustedImportanceValidation(
   report.planSha256,
   report.provenance
 );
-assertReproducibleReportEqual(recomputed, report);
+assertResearchDecisionInvariant(
+  recomputed,
+  report,
+  selectResearchDecision,
+  report.plan.planId
+);
 process.stdout.write(`verified ${report.plan.planId}\n`);

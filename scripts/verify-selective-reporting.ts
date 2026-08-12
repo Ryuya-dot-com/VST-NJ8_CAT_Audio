@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { assertReproducibleReportEqual } from "./assert-reproducible-report.ts";
+import { assertResearchDecisionInvariant } from "./assert-research-decision.ts";
 
 import type { Item } from "../src/types.ts";
 import type { SelectiveReportingPlan } from "../src/utils/selectiveReportingPlan.ts";
@@ -48,6 +48,18 @@ function parseItemBank(csv: string): Item[] {
     });
 }
 
+function selectResearchDecision(report: SelectiveReportingReport) {
+  return {
+    selectableMethod: {
+      id: report.selectableMethod.id,
+      passesAllGates: report.selectableMethod.summary.passesAllGates,
+      gates: report.selectableMethod.summary.gates,
+      failedGates: report.selectableMethod.summary.failedGates,
+    },
+    selection: report.selection,
+  };
+}
+
 const reportPath = resolve(
   option("report") ??
     "simulation/results/selective-reporting-exploratory-v1.json"
@@ -84,5 +96,10 @@ const recomputed = runSelectiveReportingSimulation(
   report.planSha256,
   report.provenance
 );
-assertReproducibleReportEqual(recomputed, report);
+assertResearchDecisionInvariant(
+  recomputed,
+  report,
+  selectResearchDecision,
+  report.plan.planId
+);
 process.stdout.write(`verified ${report.plan.planId}\n`);

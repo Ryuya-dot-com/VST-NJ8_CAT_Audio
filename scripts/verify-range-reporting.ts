@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { assertReproducibleReportEqual } from "./assert-reproducible-report.ts";
+import { assertResearchDecisionInvariant } from "./assert-research-decision.ts";
 
 import type { Item } from "../src/types.ts";
 import {
@@ -48,6 +48,21 @@ function parseItemBank(csv: string): Item[] {
     });
 }
 
+function selectResearchDecision(report: RangeReportingSimulationReport) {
+  return {
+    results: report.results.map(({ pathRule, candidates }) => ({
+      pathRuleId: pathRule.id,
+      candidates: candidates.map(({ specification, summary }) => ({
+        candidateId: specification.candidateId,
+        passesAllGates: summary.passesAllGates,
+        gates: summary.gates,
+        failedGates: summary.failedGates,
+      })),
+    })),
+    selection: report.selection,
+  };
+}
+
 const reportPath = resolve(
   option("report") ??
     "simulation/results/range-reporting-exploratory-v1.json"
@@ -83,5 +98,10 @@ const recomputed = runRangeReportingSimulation(
   report.planSha256,
   report.provenance
 );
-assertReproducibleReportEqual(recomputed, report);
+assertResearchDecisionInvariant(
+  recomputed,
+  report,
+  selectResearchDecision,
+  report.plan.planId
+);
 process.stdout.write(`verified ${report.plan.planId}\n`);

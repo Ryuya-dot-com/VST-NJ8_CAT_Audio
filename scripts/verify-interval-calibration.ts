@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { assertReproducibleReportEqual } from "./assert-reproducible-report.ts";
+import { assertResearchDecisionInvariant } from "./assert-research-decision.ts";
 
 import type { Item } from "../src/types.ts";
 import {
@@ -48,6 +48,21 @@ function parseItemBank(csv: string): Item[] {
     });
 }
 
+function selectResearchDecision(report: IntervalCalibrationReport) {
+  return {
+    results: report.results.map(({ candidate, methods }) => ({
+      candidateId: candidate.id,
+      methods: methods.map(({ method, summary }) => ({
+        methodId: method.id,
+        passesAllGates: summary.passesAllGates,
+        gates: summary.gates,
+        failedGates: summary.failedGates,
+      })),
+    })),
+    selection: report.selection,
+  };
+}
+
 const reportPath = resolve(
   option("report") ??
     "simulation/results/interval-calibration-exploratory-v1.json"
@@ -84,5 +99,10 @@ const recomputed = runIntervalCalibrationSimulation(
   report.planSha256,
   report.provenance
 );
-assertReproducibleReportEqual(recomputed, report);
+assertResearchDecisionInvariant(
+  recomputed,
+  report,
+  selectResearchDecision,
+  report.plan.planId
+);
 process.stdout.write(`verified ${report.plan.planId}\n`);

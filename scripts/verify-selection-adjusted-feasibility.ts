@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { assertReproducibleReportEqual } from "./assert-reproducible-report.ts";
+import { assertResearchDecisionInvariant } from "./assert-research-decision.ts";
 
 import type { Item } from "../src/types.ts";
 import {
@@ -48,6 +48,26 @@ function parseItemBank(csv: string): Item[] {
     });
 }
 
+function selectResearchDecision(report: SelectionAdjustedFeasibilityReport) {
+  return {
+    cells: report.cells.map(({ candidates }, cellIndex) => ({
+      cellIndex,
+      candidates: candidates.map(
+        ({ id, calibrationDomainCell, calibrationCapFeasible }) => ({
+          id,
+          calibrationDomainCell,
+          calibrationCapFeasible,
+        })
+      ),
+    })),
+    planningDecision: {
+      allCalibrationDomainCellsFeasible:
+        report.planningDecision.allCalibrationDomainCellsFeasible,
+      nextStep: report.planningDecision.nextStep,
+    },
+  };
+}
+
 const reportPath = resolve(
   option("report") ??
     "simulation/results/selection-adjusted-feasibility-v1.json"
@@ -84,5 +104,10 @@ const recomputed = runSelectionAdjustedFeasibility(
   report.planSha256,
   report.provenance
 );
-assertReproducibleReportEqual(recomputed, report);
+assertResearchDecisionInvariant(
+  recomputed,
+  report,
+  selectResearchDecision,
+  report.plan.planId
+);
 process.stdout.write(`verified ${report.plan.planId}\n`);

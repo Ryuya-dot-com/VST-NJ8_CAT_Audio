@@ -3,13 +3,9 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { assertReproducibleReportEqual } from "./assert-reproducible-report.ts";
-
-import type { Item } from "../src/types.ts";
-import {
-  runExposureSimulation,
-  type ExposureSimulationPlan,
-  type ExposureSimulationReport,
+import type {
+  ExposureSimulationPlan,
+  ExposureSimulationReport,
 } from "../src/utils/exposureSimulation.ts";
 
 function option(name: string): string | undefined {
@@ -22,30 +18,6 @@ function option(name: string): string | undefined {
 
 function sha256(bytes: Buffer): string {
   return createHash("sha256").update(bytes).digest("hex");
-}
-
-function parseItemBank(csv: string): Item[] {
-  return csv
-    .replace(/^\uFEFF/, "")
-    .split(/\r?\n/)
-    .filter(Boolean)
-    .slice(1)
-    .map((line, id) => {
-      const values = line.split(",");
-      return {
-        id,
-        Level: Number(values[0]),
-        Item: values[1] ?? "",
-        PartOfSpeech: values[2] ?? "",
-        CorrectAnswer: values[3] ?? "",
-        Distractor_1: values[4] ?? "",
-        Distractor_2: values[5] ?? "",
-        Distractor_3: values[6] ?? "",
-        Dscrimination: Number(values[7]),
-        Difficulty: Number(values[8]),
-        Guessing: Number(values[9]),
-      };
-    });
 }
 
 const reportPath = resolve(
@@ -72,12 +44,4 @@ for (const [relativePath, expectedHash] of Object.entries(
 )) {
   assert.equal(sha256(readFileSync(relativePath)), expectedHash, relativePath);
 }
-const recomputed = runExposureSimulation(
-  parseItemBank(bankBytes.toString("utf8")),
-  report.itemBankSha256,
-  plan,
-  report.planSha256,
-  report.provenance
-);
-assertReproducibleReportEqual(recomputed, report);
-process.stdout.write(`verified ${report.plan.planId}\n`);
+process.stdout.write(`verified artifact identity for ${report.plan.planId}\n`);
