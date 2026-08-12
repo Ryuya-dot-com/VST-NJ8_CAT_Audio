@@ -1,73 +1,271 @@
-# React + TypeScript + Vite
+# VST-NJ8 CAT — 音声版
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+New JACET 8000に基づく語彙サイズテスト VST-NJ8 を、30問固定のComputerized Adaptive Testing（CAT）として実施する音声提示版Webアプリです。回答後に、原論文の3PLモデルに基づく推定語彙サイズ、95%推定範囲、能力値を表示し、結果をExcelで保存します。
 
-Currently, two official plugins are available:
+- [音声版を受験する](https://ryuya-dot-com.github.io/VST-NJ8_CAT_Audio/)
+- [筆記版リポジトリ](https://github.com/Ryuya-dot-com/VST-NJ8_CAT_Written)
+- [Hamada et al. (2021) 原論文](https://doi.org/10.32234/jacetjournal.65.0_23)
+- [修正ロードマップ](docs/remediation-roadmap.html)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 音声版の実施方法
 
-## React Compiler
+- 全受験者に30問を出題し、事後SDによる早期停止は行いません。
+- 日本語の問題語と品詞を画面で提示し、英語の4選択肢は文字を見せず、無作為にA–Dへ割り当てた固定MP3で提示します。項目バンクの頻度Levelは受験者画面に表示しません。
+- AからDの順に各音声を1回ずつ最後まで聞き、4選択肢すべての正常再生が完了した後に回答できます。正常再生後の再聴はできませんが、再生失敗時は同じ選択肢を再試行できます。
+- 回答すると直ちに次の問題へ進み、前の問題へ戻ったり、途中で正誤のフィードバックを受けたりすることはできません。
+- 初問はLevel 3–5から無作為に選びます。
+- 2問目以降は、現在のEAP能力値における3PL項目情報量の上位5項目から無作為に選ぶ `randomesque-5` を用います。
+- Level 7–8の項目が2問未満の間は、利用可能であればそのレベルの項目を優先します。
+- 同じ項目は一度のテストで再出題しません。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+30問固定は語彙サイズの計算式から導かれる値ではなく、受験者間で観測数を揃え、未確定の精度閾値に終了時点を依存させないための実施規則です。シミュレーションはこの実施規則、項目選択、誤差、項目露出などの評価に用いますが、公表済みの得点式を表示するためのゲートにはしません。詳細は [ADR 0011](docs/adr/0011-research-administration-fixed-length.md) を参照してください。
 
-## Expanding the ESLint configuration
+## 受験・保存機能
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 氏名の入力後に開始できます。時間制限はありませんが、スキップや無回答での次問移動はできず、30問すべてに回答します。
+- 進行中は問題番号と進捗率を表示し、ページを離れようとするとブラウザの警告を出します。
+- 回答状態はブラウザのメモリだけに保持します。途中保存・中断後の再開機能はないため、再読み込みやタブを閉じる操作をすると回答を復元できません。
+- 30問終了時に、推定語彙サイズ、95%推定範囲、EAP能力値・事後SD、正答数・正答率を画面に表示します。
+- 結果のExcelファイルを終了時に自動保存し、結果画面から再ダウンロードできます。
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Excelは次の3シートで構成します。
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| シート | 主な内容 |
+|---|---|
+| `概要` | 氏名、開始・終了時刻、得点と不確かさ、正答集計、総・平均回答時間、A–D選択数、音声再生・失敗回数 |
+| `回答履歴` | 出題順、項目ID、問題語・品詞・Level、A–Dへ割り当てた選択肢、選択回答・正答・正誤、回答時刻・時間、項目別の音声再生・失敗回数 |
+| `再現情報` | 実施・音声規則、得点モデル、項目バンク・音声資産の識別情報、項目選択seed、停止理由。通常閲覧を妨げないよう非表示 |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+各問の回答時間は、その問題を画面へ提示してから回答するまでの経過時間であり、A–Dの音声再生時間と再生失敗後の再試行時間も含みます。項目選択系列とA–Dへの選択肢割当ては保存したseedと回答履歴から再現できます。音声は同梱MP3を使用し、端末の音声合成へは切り替えません。同時再生は行わず、15秒以内に完了しない再生を失敗として扱います。
+
+### データの取扱い
+
+このリポジトリの公開アプリには回答送信API、データベース、分析タグ、Cookie、`localStorage` を用いる保存処理はありません。氏名、回答、得点はブラウザ内で処理され、生成したExcelを受験者の端末へ保存します。ただし、Excelには氏名、回答、正答を含むため、研究で回収する場合は研究計画と所属機関の規則に従って安全に管理してください。GitHub Pagesへの通常のページアクセスに伴うホスティング側の通信ログは、このアプリの回答保存とは別です。
+
+## 得点計算
+
+現行の得点法IDは `paper-3pl-cat-eap-v1`、基礎となる得点モデルIDは `paper-3pl-v1` です。
+
+### 1. 3PL項目反応確率
+
+能力値を \(\theta\)、項目 \(i\) の識別力、困難度、偶然正答率をそれぞれ \(a_i,b_i,c_i\) とします。正答確率は原論文と同じ3PL式です。
+
+$$
+P_i(\theta)
+=c_i+(1-c_i)
+\frac{1}{1+\exp\{-D a_i(\theta-b_i)\}},
+\qquad D=1.702.
+$$
+
+実装では、CSVに収録された未丸めの項目パラメータを使用します。
+
+### 2. CATで実施した30項目から能力値を推定
+
+実際に出題された項目indexの列を \(A=(i_1,\ldots,i_J)\)、正誤を \(u_j\in\{0,1\}\)、\(J=30\) とします。応答尤度は次のとおりです。
+
+$$
+L(\theta;\boldsymbol u,A)
+=\prod_{j=1}^{J}
+P_{i_j}(\theta)^{u_j}
+\{1-P_{i_j}(\theta)\}^{1-u_j}.
+$$
+
+事前分布は標準正規分布です。
+
+$$
+\theta\sim N(0,1),
+\qquad
+p(\theta\mid\boldsymbol u,A)
+\propto \phi(\theta)L(\theta;\boldsymbol u,A).
+$$
+
+計算には \(\theta_k=-6+0.01k\;(k=0,\ldots,1200)\) の等間隔グリッドを用います。各点で
+
+$$
+\ell_k=\log\phi(\theta_k)+\log L(\theta_k;\boldsymbol u,A)
+$$
+
+と置くと、正規化済み重みは次のように計算します。グリッド幅は全点で等しいため、正規化の分子・分母で相殺されます。
+
+$$
+w_k=
+\frac{\exp(\ell_k-\max_m\ell_m)}
+{\sum_r\exp(\ell_r-\max_m\ell_m)}.
+$$
+
+能力値のEAP推定値と事後標準偏差は、
+
+$$
+\widehat\theta_{\mathrm{EAP}}=\sum_k w_k\theta_k,
+$$
+
+$$
+SD(\theta\mid\boldsymbol u,A)
+=\sqrt{\sum_k w_k
+(\theta_k-\widehat\theta_{\mathrm{EAP}})^2}
+$$
+
+です。CATの項目選択は過去の観測済み応答と既知の項目パラメータに基づくため、実施された項目列を条件として上記の応答尤度を用います。
+
+### 3. 能力値をVST-NJ8原論文の語彙サイズへ変換
+
+New JACET 8000の各頻度レベル \(l=1,\ldots,8\) には20項目があります。各レベル内の未丸めパラメータ平均を、
+
+$$
+\bar a_l=\frac{1}{20}\sum_{i\in l}a_i,
+\qquad
+\bar b_l=\frac{1}{20}\sum_{i\in l}b_i,
+\qquad
+\bar c_l=\frac{1}{20}\sum_{i\in l}c_i
+$$
+
+とします。原論文に準拠する \(\theta\) 条件付き語彙尺度は、
+
+$$
+V_{\mathrm{paper}}(\theta)
+=1000\sum_{l=1}^{8}
+\left[
+\bar c_l+(1-\bar c_l)
+\frac{1}{1+\exp\{-D\bar a_l(\theta-\bar b_l)\}}
+\right]
+$$
+
+です。各頻度レベルを1,000語へ拡張したNew JACET 8000に基づく換算です。ただし、3PLの偶然正答率 \(\bar c_l\) を式に含むため、得点関数の下側漸近値は0ではありません。このため、UIとExcelでは範囲保証と誤解されやすい「0–8,000語尺度」ではなく「VST-NJ8原論文換算」と表示します。現在の160項目では、
+
+$$
+\lim_{\theta\to-\infty}V_{\mathrm{paper}}(\theta)
+=1000\sum_{l=1}^{8}\bar c_l
+\approx855.54,
+\qquad
+\lim_{\theta\to+\infty}V_{\mathrm{paper}}(\theta)=8000.
+$$
+
+したがって、これは3PLによる疑似当て推量を含むモデル期待値であり、既知語の無誤差な実数を直接数えたものではありません。
+
+### 4. 主表示値と95%推定範囲
+
+非線形変換では一般に、
+
+$$
+V_{\mathrm{paper}}\!\left(E[\theta\mid\boldsymbol u,A]\right)
+\ne
+E[V_{\mathrm{paper}}(\theta)\mid\boldsymbol u,A]
+$$
+
+です。このアプリではEAP能力値を式へ単純代入せず、各事後グリッド点を語彙尺度へ変換してから平均します。主表示する推定語彙サイズは、
+
+$$
+\widehat V
+=\sum_k w_kV_{\mathrm{paper}}(\theta_k)
+$$
+
+です。変換後の事後標準偏差は、
+
+$$
+SD(V\mid\boldsymbol u,A)
+=\sqrt{\sum_k w_k
+\{V_{\mathrm{paper}}(\theta_k)-\widehat V\}^2}
+$$
+
+とします。95%推定範囲は、変換後の重み付き分布の2.5%点と97.5%点による等裾事後信用区間です。
+
+$$
+CI_{.95}
+=\left[Q_w(0.025),\ Q_w(0.975)\right].
+$$
+
+画面では推定語彙サイズと区間端点を整数語、能力値と事後SDを小数第2位へ丸めます。Excelの「概要」には丸め前の推定語彙サイズ、変換後事後SD、区間端点、EAP能力値、能力値事後SDを保存します。
+
+## 項目選択で用いる情報量
+
+2問目以降の候補順位には、上記と同じ \(D=1.702\) を含む3PL項目情報量を用います。
+
+$$
+I_i(\theta)
+=\frac{(Da_i)^2\{1-P_i(\theta)\}
+\{P_i(\theta)-c_i\}^2}
+{P_i(\theta)(1-c_i)^2}.
+$$
+
+現在のEAP能力値における \(I_i\) が高い未使用項目を順位づけし、制約を満たす上位5項目から一様無作為に1項目を選びます。乱数seedは結果ファイルの非表示「再現情報」シートへ保存します。
+
+`randomesque-5` は最大情報量の1項目を常に出す方式より露出を分散させますが、項目ごとの最大露出率を直接保証するものではありません。リポジトリにはSympson–Hetter型の直接露出制御を比較する研究用コードがありますが、現在の公開アプリでは有効にしていません。
+
+## 公開アプリと研究用コードの範囲
+
+公開アプリで実際に用いるのは、固定30問、`randomesque-5`、Level 7–8を最低2問とする内容制約、標準正規事前分布によるEAP、原論文準拠の語彙尺度変換、等裾95%事後信用区間、および上記の固定音声提示規則です。
+
+一方、リポジトリに含まれるMAP・WLE等の推定法候補、精度に基づく可変長停止、測定範囲分類、選択的報告、区間再校正、selection-adjusted推論、直接露出制御は研究・比較・回帰検査用であり、公開アプリの受験経路からは呼び出されません。これらの探索結果が存在することと、当該機能が実運用されていることを区別してください。
+
+## 数理仕様と実装の対応
+
+| 内容 | 参照先 |
+|---|---|
+| 3PL、EAP、VST-NJ8原論文換算の実装 | [`src/utils/paperScoring.ts`](src/utils/paperScoring.ts) |
+| 30問停止・randomesque-5・内容制約 | [`src/utils/researchAdministrationPolicy.ts`](src/utils/researchAdministrationPolicy.ts) |
+| 音声提示・再生順序・回答可能条件 | [`src/utils/audioAdministrationPolicy.ts`](src/utils/audioAdministrationPolicy.ts) |
+| 結果画面・Excelの得点フィールド | [`src/utils/scoreReportingPolicy.ts`](src/utils/scoreReportingPolicy.ts) |
+| 原論文準拠の得点対象 | [ADR 0001](docs/adr/0001-score-estimand.md) |
+| 音声刺激の実施規則 | [ADR 0012](docs/adr/0012-audio-stimulus-administration.md) |
+| CAT版の得点表示決定 | [ADR 0014](docs/adr/0014-cat-score-reporting.md) |
+| 独立Base R参照計算 | [`scripts/reference-paper-3pl.R`](scripts/reference-paper-3pl.R) |
+| TypeScriptとRの数値fixture検証 | [`tests/paperScoring.test.ts`](tests/paperScoring.test.ts) |
+| CAT・推定法・露出・範囲・区間の研究計画と結果 | [`simulation/`](simulation/) |
+
+## 検証
+
+得点計算は、同じTypeScript関数を呼ぶだけの自己参照テストではなく、Base Rで独立に作成したfixtureと照合しています。検査対象には次が含まれます。
+
+- 原論文のLevel 4・\(\theta=0\)の計算例
+- 3PL正答確率と項目情報量
+- 30項目応答からのEAPと事後SD
+- VST-NJ8原論文換算の変換後事後平均、事後SD、95%区間
+- 筆記版・音声版それぞれの得点計算と公開結果フィールドの機能テスト
+
+2リポジトリのファイルSHA完全一致は、受験機能や数学的正しさを直接保証しないため検証ゲートにしていません。各版で独立Base R fixtureとの数値一致と公開インターフェースの契約を検証します。
+- 639個の固定MP3資産、A–D再生順序、再生完了後の回答制御
+
+## 160項目版との関係
+
+このCATは、原論文で採用された160項目のバンクから30項目を適応的に選び、同じ3PL項目パラメータと同じ語彙尺度変換を用います。したがって、30問CATと160項目版は**モデル定義上は同じtheta尺度と語彙尺度を参照**します。
+
+しかし、同一受験者の160項目回答から30問CATを再現するpost-hoc研究や、30問CATと160項目版を直接併行実施する研究は、現時点では完了していません。したがって、両者の得点一致、条件付きバイアス、順位の一致、区間の性能、または30問CATが160項目版を交換可能に代替できることは、まだ実証されていません。既存のシミュレーションと項目バンク情報量の診断はCAT単独のモデル内性能を調べるものであり、この受験者レベルの比較を代替しません。
+
+今後は、160項目の応答行列を用いたpost-hoc CATと独立標本での前向き比較により、thetaおよび変換後語彙得点の差、条件付きbias・MAE・RMSE、順位一致、区間被覆、受験時間を評価します。160項目版の推定値自体も真値ではないため、実データでの「160項目版との差」と、真のthetaが既知のシミュレーションでの回収性能は分けて報告します。音声版については、これに加えて、筆記条件で校正された項目パラメータを音声提示へ適用するモード差も別途検討します。
+
+## ローカル実行
+
+Node.js 24以上を使用します。
+
+```bash
+npm ci
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+単体テストだけを実行する場合：
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm test
 ```
+
+Lint、全テスト、数値再現検査、音声資産検査、シミュレーション成果物検査、本番ビルドをまとめて実行する場合：
+
+```bash
+npm run check
+```
+
+`npm run check` には大規模シミュレーション成果物の再現検査が含まれるため、完了まで時間がかかります。
+
+## 解釈上の範囲
+
+- 推定値はVST-NJ8の3PLモデルと現在の項目パラメータを条件とする原論文換算値です。
+- 95%区間は30問で測定することによる事後不確かさを表しますが、項目パラメータ自体の校正誤差は含みません。
+- 正答率は適応的に選ばれた今回の30項目に対する記述集計であり、固定フォーム正答率や受験者間で直接比較できる尺度得点ではありません。
+- 160項目版と同じモデル尺度を参照しますが、得点の経験的同等性・交換可能性は未検討です。
+- 現在の項目パラメータは筆記条件で校正されたものです。音声版の値は同じ得点式によるCAT結果として表示しますが、筆記版と音声版の得点が交換可能であることや、両モードの測定不変性を主張するものではありません。
+- 固定30問、項目選択、項目露出、端点での誤差、音声モードの影響は、得点式とは分けて継続評価します。
+- シミュレーション結果は方法論上の性能を限定しますが、原論文の得点式を計算・表示しない理由には用いません。
+
+## 主要文献
+
+Hamada, A., Mizumoto, A., & Otsuka, T. (2021). Development of a vocabulary size test for Japanese EFL learners using the New JACET List of 8,000 Basic Words. *JACET Journal, 65*, 23–45. https://doi.org/10.32234/jacetjournal.65.0_23

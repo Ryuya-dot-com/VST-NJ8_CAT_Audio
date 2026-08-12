@@ -18,6 +18,13 @@ interface TestViewProps {
   isProcessing: boolean;
 }
 
+const PART_OF_SPEECH_LABELS: Record<string, string> = {
+  noun: "名詞",
+  verb: "動詞",
+  adjective: "形容詞",
+  adverb: "副詞",
+};
+
 export function TestView({
   item,
   questionNumber,
@@ -29,7 +36,8 @@ export function TestView({
   audioPlaybackStatus,
   isProcessing,
 }: TestViewProps) {
-  const hasPartOfSpeech = Boolean(item.PartOfSpeech && item.PartOfSpeech !== "-");
+  const partOfSpeechLabel =
+    PART_OF_SPEECH_LABELS[item.PartOfSpeech.toLowerCase()];
 
   return (
     <div className="app-shell">
@@ -41,12 +49,9 @@ export function TestView({
                 <span className="pill pill-accent">
                   問題 {questionNumber} / {totalQuestions}
                 </span>
-                <div className="d-flex flex-wrap gap-2">
-                  {hasPartOfSpeech && (
-                    <span className="pill pill-tonal">{item.PartOfSpeech}</span>
-                  )}
-                  <span className="pill pill-neutral">Level {item.Level}</span>
-                </div>
+                {partOfSpeechLabel && (
+                  <span className="pill pill-tonal">{partOfSpeechLabel}</span>
+                )}
               </div>
 
               <p className="test-instruction">
@@ -113,10 +118,7 @@ export function TestView({
                           !canStartAudioOption(optionKey, audioPlaybackStatus)
                         }
                       >
-                        <span aria-hidden="true">🔊</span>
-                        <span className="visually-hidden">
-                          {labelText} の単語を再生: {statusText}
-                        </span>
+                        <span aria-hidden="true">再生</span>
                       </button>
                       <span className="audio-status" aria-live="polite">
                         {statusText}

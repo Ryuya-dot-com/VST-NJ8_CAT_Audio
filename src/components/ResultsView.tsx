@@ -64,7 +64,7 @@ export function ResultsView({
                   95%推定範囲: {formatWords(vocabularyIntervalLower)}–
                   {formatWords(vocabularyIntervalUpper)}語
                 </span>
-                <span className="score-scale">New JACET 8000（0–8,000語尺度）</span>
+                <span className="score-scale">VST-NJ8原論文換算</span>
               </section>
 
               <div className="stat-grid mb-4">
@@ -88,7 +88,7 @@ export function ResultsView({
               <div className="modern-alert mb-4 text-start" role="note">
                 <strong>結果の計算方法</strong>
                 <p className="mb-0 mt-2">
-                  今回出題された30問の正誤から、各問題の難しさ・識別力・偶然正答率を考慮して能力値を推定し、VST-NJ8原論文の式で0–8,000語尺度へ換算しています。推定範囲は、30問で測定したことによる不確かさを示します。
+                  今回出題された30問の正誤から、各問題の難しさ・識別力・偶然正答率を考慮して能力値を推定し、VST-NJ8原論文の式で語彙サイズへ換算しています。推定範囲は、30問の回答とこのモデルに基づく推定の不確かさを示します。
                 </p>
               </div>
 

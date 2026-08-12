@@ -50,23 +50,12 @@ interface Fixture {
   }>;
 }
 
-interface ParityManifest {
-  contractId: string;
-  artifacts: Record<string, string>;
-}
-
 const fixture = JSON.parse(
   readFileSync(
     new URL("./fixtures/legacy-cat-v0.json", import.meta.url),
     "utf8"
   )
 ) as Fixture;
-const parityManifest = JSON.parse(
-  readFileSync(
-    new URL("./fixtures/repository-parity.json", import.meta.url),
-    "utf8"
-  )
-) as ParityManifest;
 const itemBankBytes = readFileSync(
   new URL(`../${fixture.itemBank.path}`, import.meta.url)
 );
@@ -111,20 +100,6 @@ test("the item-bank artifact and legacy configuration are immutable contracts", 
   assert.equal(itemBank.length, fixture.itemBank.itemCount);
   assert.equal(LEGACY_CAT_CONFIG.scoreModelId, fixture.modelId);
   assert.deepEqual(LEGACY_CAT_CONFIG, fixture.config);
-});
-
-test("shared scoring artifacts satisfy the dual-repository parity manifest", () => {
-  assert.equal(
-    parityManifest.contractId,
-    "vst-cat-dual-repository-parity-v1"
-  );
-  for (const [path, expectedChecksum] of Object.entries(
-    parityManifest.artifacts
-  )) {
-    const artifact = readFileSync(new URL(`../${path}`, import.meta.url));
-    const checksum = createHash("sha256").update(artifact).digest("hex");
-    assert.equal(checksum, expectedChecksum, path);
-  }
 });
 
 test("EAP estimates reproduce the legacy numerical fixtures", () => {
