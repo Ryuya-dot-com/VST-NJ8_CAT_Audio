@@ -5,11 +5,19 @@ import { LandingView } from "./components/LandingView";
 import { ResultsView } from "./components/ResultsView";
 import { TestView } from "./components/TestView";
 import type { Item, OptionChoice } from "./types";
+import {
+  AUDIO_ADMINISTRATION_AUDIT_FIELDS,
+  buildAudioAdministrationAudit,
+  canStartAudioOption,
+  createEmptyAudioPlaybackStatus,
+  isAudioOptionKey,
+  isAudioResponseReady,
+  orderAudioOptions,
+  type AudioPlaybackStatus,
+} from "./utils/audioAdministrationPolicy";
 import { loadItemBank } from "./utils/data";
 import { estimatePaperPosteriorEap } from "./utils/paperScoring";
-import { shuffleArray } from "./utils/random";
 import { playWordAudio } from "./utils/audio";
-import { speakWord } from "./utils/speech";
 import {
   RESEARCH_ADMINISTRATION_AUDIT_FIELDS,
   RESEARCH_ADMINISTRATION_POLICY,
@@ -35,18 +43,19 @@ type OptionKey = "a" | "b" | "c" | "d";
 const PUBLIC_SUMMARY_FIELDS = Object.freeze([
   ...PUBLIC_OBSERVED_RESULT_FIELDS,
   ...RESEARCH_ADMINISTRATION_AUDIT_FIELDS,
+  ...AUDIO_ADMINISTRATION_AUDIT_FIELDS,
   "総回答時間（秒）",
   "平均回答時間（秒）",
   "A選択数",
   "B選択数",
   "C選択数",
   "D選択数",
-  "問題語音声再生合計",
   "選択肢音声再生合計",
   "選択肢A音声再生合計",
   "選択肢B音声再生合計",
   "選択肢C音声再生合計",
   "選択肢D音声再生合計",
+  "音声再生失敗合計",
 ]);
 
 const PUBLIC_RESPONSE_FIELDS = Object.freeze([
@@ -66,20 +75,20 @@ const PUBLIC_RESPONSE_FIELDS = Object.freeze([
   "選択肢B",
   "選択肢C",
   "選択肢D",
-  "問題語音声再生回数",
   "選択肢A音声再生回数",
   "選択肢B音声再生回数",
   "選択肢C音声再生回数",
   "選択肢D音声再生回数",
   "音声再生総回数",
+  "音声再生失敗回数",
 ]);
 
 interface AudioPlayCounts {
-  question: number;
   a: number;
   b: number;
   c: number;
   d: number;
+  failures: number;
 }
 
 interface ResultSnapshot {
@@ -116,16 +125,12 @@ function formatTimestampForFilename(date: Date): string {
 
 function createEmptyAudioPlayCounts(): AudioPlayCounts {
   return {
-    question: 0,
     a: 0,
     b: 0,
     c: 0,
     d: 0,
+    failures: 0,
   };
-}
-
-function isOptionKey(value: string): value is OptionKey {
-  return value === "a" || value === "b" || value === "c" || value === "d";
 }
 
 function countSelectedLabels(labels: string[]) {
@@ -140,11 +145,11 @@ function countSelectedLabels(labels: string[]) {
 function sumAudioPlayCounts(counts: AudioPlayCounts[]): AudioPlayCounts {
   return counts.reduce<AudioPlayCounts>(
     (acc, value) => ({
-      question: acc.question + value.question,
       a: acc.a + value.a,
       b: acc.b + value.b,
       c: acc.c + value.c,
       d: acc.d + value.d,
+      failures: acc.failures + value.failures,
     }),
     createEmptyAudioPlayCounts()
   );
@@ -179,6 +184,11 @@ function App() {
   const [testEndedAtMs, setTestEndedAtMs] = useState<number | null>(null);
   const [administrationSeed, setAdministrationSeed] = useState<number | null>(null);
   const [stopReason, setStopReason] = useState<ResearchStopReason | null>(null);
+  const [audioPlaybackStatus, setAudioPlaybackStatus] =
+    useState<AudioPlaybackStatus>(createEmptyAudioPlaybackStatus);
+  const audioPlaybackStatusRef = useRef<AudioPlaybackStatus>(
+    createEmptyAudioPlaybackStatus()
+  );
   const selectionRandomRef = useRef<(() => number) | null>(null);
   const currentAudioPlayCountsRef = useRef<AudioPlayCounts>(
     createEmptyAudioPlayCounts()
@@ -231,21 +241,20 @@ function App() {
   );
 
   const optionChoices = useMemo<OptionChoice[]>(() => {
-    if (!currentItem) {
+    if (
+      !currentItem ||
+      currentIndex === null ||
+      administrationSeed === null
+    ) {
       return [];
     }
-    const shuffled = shuffleArray([
-      currentItem.CorrectAnswer,
-      currentItem.Distractor_1,
-      currentItem.Distractor_2,
-      currentItem.Distractor_3,
-    ]);
-    const labels = ["a", "b", "c", "d"];
-    return shuffled.map((text, idx) => ({
-      label: labels[idx] ?? "?",
-      text,
-    }));
-  }, [currentItem]);
+    return orderAudioOptions(
+      currentItem,
+      administrationSeed,
+      currentIndex,
+      administered.length + 1
+    );
+  }, [administrationSeed, administered.length, currentIndex, currentItem]);
 
   const progressPct = Math.min(
     100,
@@ -266,6 +275,9 @@ function App() {
     const startedAt = Date.now();
     selectionRandomRef.current = selectionRandom;
     currentAudioPlayCountsRef.current = createEmptyAudioPlayCounts();
+    const emptyAudioStatus = createEmptyAudioPlaybackStatus();
+    audioPlaybackStatusRef.current = emptyAudioStatus;
+    setAudioPlaybackStatus(emptyAudioStatus);
 
     setStarted(true);
     setDone(false);
@@ -294,7 +306,8 @@ function App() {
       isProcessing ||
       questionStartMs === null ||
       administrationSeed === null ||
-      selectionRandomRef.current === null
+      selectionRandomRef.current === null ||
+      !isAudioResponseReady(audioPlaybackStatus)
     ) {
       return;
     }
@@ -374,6 +387,9 @@ function App() {
         downloadResultWorkbook(nextSnapshot);
       } else {
         currentAudioPlayCountsRef.current = createEmptyAudioPlayCounts();
+        const emptyAudioStatus = createEmptyAudioPlaybackStatus();
+        audioPlaybackStatusRef.current = emptyAudioStatus;
+        setAudioPlaybackStatus(emptyAudioStatus);
         setCurrentIndex(nextIndex);
         setQuestionStartMs(Date.now());
       }
@@ -404,51 +420,42 @@ function App() {
     setIsProcessing(false);
   };
 
-  const playAudioText = (text: string) => {
-    const fallbackToSpeech = () => {
-      const success = speakWord(text);
-      if (!success) {
-        console.warn("Speech synthesis is not supported in this browser.");
-      }
-    };
-
-    playWordAudio(text)
-      .then((played) => {
-        if (!played) {
-          fallbackToSpeech();
-        }
-      })
-      .catch((error) => {
-        console.error("Audio playback failed, falling back to speech synthesis.", error);
-        fallbackToSpeech();
-      });
-  };
-
-  const handlePlayQuestionAudio = () => {
-    if (!currentItem || isProcessing) {
-      return;
-    }
-
-    currentAudioPlayCountsRef.current = {
-      ...currentAudioPlayCountsRef.current,
-      question: currentAudioPlayCountsRef.current.question + 1,
-    };
-    playAudioText(currentItem.Item);
-  };
-
-  const handlePlayOptionAudio = (label: string, text: string) => {
+  const handlePlayOptionAudio = async (label: string, text: string) => {
     if (isProcessing) {
       return;
     }
 
     const optionKey = label.toLowerCase();
-    if (isOptionKey(optionKey)) {
+    if (
+      !isAudioOptionKey(optionKey) ||
+      !canStartAudioOption(optionKey, audioPlaybackStatusRef.current)
+    ) {
+      return;
+    }
+    currentAudioPlayCountsRef.current = {
+      ...currentAudioPlayCountsRef.current,
+      [optionKey]: currentAudioPlayCountsRef.current[optionKey] + 1,
+    };
+    const playingStatus: AudioPlaybackStatus = {
+      ...audioPlaybackStatusRef.current,
+      [optionKey]: "playing",
+    };
+    audioPlaybackStatusRef.current = playingStatus;
+    setAudioPlaybackStatus(playingStatus);
+
+    const result = await playWordAudio(text);
+    if (result !== "completed") {
       currentAudioPlayCountsRef.current = {
         ...currentAudioPlayCountsRef.current,
-        [optionKey]: currentAudioPlayCountsRef.current[optionKey] + 1,
+        failures: currentAudioPlayCountsRef.current.failures + 1,
       };
     }
-    playAudioText(text);
+    const settledStatus: AudioPlaybackStatus = {
+      ...audioPlaybackStatusRef.current,
+      [optionKey]: result === "completed" ? "completed" : "failed",
+    };
+    audioPlaybackStatusRef.current = settledStatus;
+    setAudioPlaybackStatus(settledStatus);
   };
 
   const downloadResultWorkbook = (snapshot: ResultSnapshot) => {
@@ -498,13 +505,13 @@ function App() {
         選択肢B: getOptionText(optionOrder, "b"),
         選択肢C: getOptionText(optionOrder, "c"),
         選択肢D: getOptionText(optionOrder, "d"),
-        問題語音声再生回数: audioCounts.question,
         選択肢A音声再生回数: audioCounts.a,
         選択肢B音声再生回数: audioCounts.b,
         選択肢C音声再生回数: audioCounts.c,
         選択肢D音声再生回数: audioCounts.d,
         音声再生総回数:
-          audioCounts.question + audioCounts.a + audioCounts.b + audioCounts.c + audioCounts.d,
+          audioCounts.a + audioCounts.b + audioCounts.c + audioCounts.d,
+        音声再生失敗回数: audioCounts.failures,
       };
     });
 
@@ -527,18 +534,19 @@ function App() {
           snapshot.administrationSeed,
           snapshot.stopReason
         ),
+        ...buildAudioAdministrationAudit(),
         "総回答時間（秒）": roundFinite(snapshotTotalTimeSeconds, 2),
         "平均回答時間（秒）": roundFinite(snapshotAverageTimeSeconds, 2),
         A選択数: selectedLabelCounts.A,
         B選択数: selectedLabelCounts.B,
         C選択数: selectedLabelCounts.C,
         D選択数: selectedLabelCounts.D,
-        問題語音声再生合計: audioPlayTotals.question,
         選択肢音声再生合計: totalOptionAudioPlays,
         選択肢A音声再生合計: audioPlayTotals.a,
         選択肢B音声再生合計: audioPlayTotals.b,
         選択肢C音声再生合計: audioPlayTotals.c,
         選択肢D音声再生合計: audioPlayTotals.d,
+        音声再生失敗合計: audioPlayTotals.failures,
       },
     ];
     assertPublicResultFieldsAllowed(summarySheet, PUBLIC_SUMMARY_FIELDS);
@@ -650,6 +658,9 @@ function App() {
     setStopReason(null);
     selectionRandomRef.current = null;
     currentAudioPlayCountsRef.current = createEmptyAudioPlayCounts();
+    const emptyAudioStatus = createEmptyAudioPlaybackStatus();
+    audioPlaybackStatusRef.current = emptyAudioStatus;
+    setAudioPlaybackStatus(emptyAudioStatus);
   };
 
   if (!started) {
@@ -690,8 +701,8 @@ function App() {
       progressPct={progressPct}
       options={optionChoices}
       onSelect={handleAnswer}
-      onPlayQuestionAudio={handlePlayQuestionAudio}
       onPlayOptionAudio={handlePlayOptionAudio}
+      audioPlaybackStatus={audioPlaybackStatus}
       isProcessing={isProcessing}
     />
   );

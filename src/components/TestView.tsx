@@ -1,4 +1,10 @@
 import type { Item, OptionChoice } from "../types";
+import {
+  canStartAudioOption,
+  isAudioOptionKey,
+  isAudioResponseReady,
+  type AudioPlaybackStatus,
+} from "../utils/audioAdministrationPolicy";
 
 interface TestViewProps {
   item: Item;
@@ -7,8 +13,8 @@ interface TestViewProps {
   progressPct: number;
   options: OptionChoice[];
   onSelect: (label: string, value: string) => void;
-  onPlayQuestionAudio: () => void;
   onPlayOptionAudio: (label: string, value: string) => void;
+  audioPlaybackStatus: AudioPlaybackStatus;
   isProcessing: boolean;
 }
 
@@ -19,8 +25,8 @@ export function TestView({
   progressPct,
   options,
   onSelect,
-  onPlayQuestionAudio,
   onPlayOptionAudio,
+  audioPlaybackStatus,
   isProcessing,
 }: TestViewProps) {
   const hasPartOfSpeech = Boolean(item.PartOfSpeech && item.PartOfSpeech !== "-");
@@ -44,7 +50,8 @@ export function TestView({
               </div>
 
               <p className="test-instruction">
-                単語と選択肢の音声を確認してください。A〜Dを押すと回答します。
+                日本語の問題語を確認し、英語の選択肢音声をAからDの順に
+                1回ずつ最後まで聞いてください。その後、A〜Dを押して回答します。
               </p>
 
               <div
@@ -64,31 +71,34 @@ export function TestView({
               </div>
 
               <div className="question-panel text-center">
-                <p className="question-label">単語</p>
+                <p className="question-label">日本語の問題語（視覚提示のみ）</p>
                 <h2 className="question-word">{item.Item}</h2>
-                <button
-                  type="button"
-                  className="listen-button mt-3"
-                  onClick={onPlayQuestionAudio}
-                  disabled={isProcessing}
-                >
-                  この単語を聞く
-                </button>
               </div>
 
               <div className="option-grid mt-5">
                 {options.map((option) => {
                   const labelText = option.label.toUpperCase();
+                  const optionKey = option.label.toLowerCase();
+                  if (!isAudioOptionKey(optionKey)) return null;
+                  const playbackState = audioPlaybackStatus[optionKey];
+                  const statusText = {
+                    "not-played": "未再生",
+                    playing: "再生中",
+                    completed: "再生済み",
+                    failed: "再生エラー（再試行）",
+                  }[playbackState];
                   return (
                     <div className="option-card" key={`${item.id}-${option.label}`}>
                       <button
                         type="button"
                         className="option-button"
                         onClick={() => onSelect(option.label, option.text)}
-                        disabled={isProcessing}
+                        aria-label={`選択肢${labelText}を回答`}
+                        disabled={
+                          isProcessing || !isAudioResponseReady(audioPlaybackStatus)
+                        }
                       >
                         <span className="option-letter">{labelText}</span>
-                        <span className="visually-hidden">{option.text}</span>
                       </button>
                       <button
                         type="button"
@@ -97,14 +107,20 @@ export function TestView({
                           event.stopPropagation();
                           onPlayOptionAudio(option.label, option.text);
                         }}
-                        aria-label={`選択肢${labelText}の音声を再生`}
-                        disabled={isProcessing}
+                        aria-label={`選択肢${labelText}の音声を再生: ${statusText}`}
+                        disabled={
+                          isProcessing ||
+                          !canStartAudioOption(optionKey, audioPlaybackStatus)
+                        }
                       >
                         <span aria-hidden="true">🔊</span>
                         <span className="visually-hidden">
-                          {labelText} の単語を再生
+                          {labelText} の単語を再生: {statusText}
                         </span>
                       </button>
+                      <span className="audio-status" aria-live="polite">
+                        {statusText}
+                      </span>
                     </div>
                   );
                 })}

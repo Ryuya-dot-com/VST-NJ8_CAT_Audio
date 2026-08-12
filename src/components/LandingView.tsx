@@ -47,7 +47,8 @@ export function LandingView({
                     <h5 className="info-title">受験の流れ</h5>
                     <ul className="info-list">
                       <li>氏名を入力して開始します</li>
-                      <li>単語と選択肢の音声を確認します</li>
+                      <li>日本語の問題語を画面で確認します</li>
+                      <li>英語選択肢をAからDの順に1回ずつ聞きます</li>
                       <li>選択すると自動で次の問題へ進みます</li>
                       <li>終了時にExcelファイルが保存されます</li>
                     </ul>
@@ -58,6 +59,7 @@ export function LandingView({
                     <h5 className="info-title">受験前に</h5>
                     <ul className="info-list">
                       <li>音量とヘッドホンを確認してください</li>
+                      <li>4音声の再生完了後に回答できます</li>
                       <li>迷った場合も必ず1つ選択してください</li>
                       <li>ダウンロードの許可を求められたら許可してください</li>
                       <li>集中できる環境で受験してください</li>
