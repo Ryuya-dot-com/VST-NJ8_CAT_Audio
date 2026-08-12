@@ -20,7 +20,7 @@ The only selection-eligible interval construction will be a conditional central 
 
 1. at each calibration theta, generate paths using a calibration-only seed;
 2. retain paths for interval calibration only when the interval-independent classifier has `S(Y)=1`;
-3. calculate conservative lower and upper order statistics of the selected EAP estimates;
+3. calculate simultaneous conservative lower and upper order statistics of the selected EAP estimates, using Bonferroni allocation across every calibration-theta endpoint so the estimated acceptance envelope has a predeclared familywise confidence level;
 4. replace ordinary isotonic averaging with conservative monotone envelopes: lower acceptance limits may only move downward and upper limits may only move upward;
 5. for a new selected path, invert the theta-indexed acceptance limits;
 6. replace any gaps in the accepted theta set by its convex hull, which can only increase coverage;
@@ -34,6 +34,8 @@ The current equal-tail EAP posterior interval may be retained only as a diagnost
 ## Evaluation and Monte Carlo evidence
 
 Calibration and evaluation seeds remain independent. Calibration theta cells comprise the exact two information-support endpoints plus the `.25` grid points from `-2.75` through `3.25`. Each cell must obtain 2,500 selected paths before a frozen cap of 250,000 generated paths; failure to reach the target invalidates the candidate.
+
+The simultaneous order-statistic ranks must be computed by exact binomial inversion in the executable plan; they are not plug-in `2.5%` and `97.5%` sample quantiles. With 27 calibration theta cells, 2,500 selected paths per cell, two endpoints, and familywise alpha `.05`, the illustrative one-sided Bonferroni rank is 40 (and its symmetric upper rank 2,461): `P(Binomial(2500,.025) <= 39) = .0008594`, below `.05 / 54 = .0009259`. This propagates calibration-quantile uncertainty instead of treating simulated cutoffs as known constants.
 
 Final evaluation uses fixed generated-path counts, not a sample stopped after a fixed number of selections. The exact information-support endpoints each receive 100,000 paths; theta `-2.5` receives 15,000; theta `3.0` receives 10,000; and the ten cells from `-2.0` through `2.5` by `.5` each receive 3,000. Every one of these 14 within-range cells must yield at least 2,500 numerically reported paths; otherwise coverage, tail, bias, and width gates automatically fail for insufficient evidence. This includes boundary-neighborhood cells rather than silently exempting the locations where selection is strongest. Reportability itself is always evaluated against all generated paths.
 
