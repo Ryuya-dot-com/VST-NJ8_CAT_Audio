@@ -36,8 +36,8 @@ export function LandingView({
                 </span>
                 <h1 className="hero-title mt-2 mb-3">JACET Vocabulary Size CAT</h1>
                 <p className="hero-subtitle mb-0">
-                  約20〜30問で語彙サイズを推定します。
-                  終了時に結果ファイルを自動で保存します。
+                  約20〜30問を適応的に出題します。
+                  終了時に回答集計ファイルを自動で保存します。
                 </p>
               </div>
 
