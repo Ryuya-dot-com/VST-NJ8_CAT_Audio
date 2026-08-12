@@ -3,6 +3,8 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
+import { assertReproducibleReportEqual } from "./assert-reproducible-report.ts";
+
 import type { Item } from "../src/types.ts";
 import {
   runExposureSimulation,
@@ -77,5 +79,5 @@ const recomputed = runExposureSimulation(
   report.planSha256,
   report.provenance
 );
-assert.deepEqual(recomputed, report);
+assertReproducibleReportEqual(recomputed, report);
 process.stdout.write(`verified ${report.plan.planId}\n`);
