@@ -29,6 +29,7 @@
     "scripts/verify-range-reporting.ts": "f6e6deee6efdc189d977d8433fdb9c43e0423de03cb2536bd54c61a1b31b7464",
     "scripts/simulate-interval-calibration.ts": "64052c704155940b67d8eb9200cb7b6015ea87fd84d06f17e65fa28cf9185b66",
     "scripts/reference-interval-calibration-kernel.R": "dac2964e2c3a37f2a0697dec9624a20440b72d6ae3cc902a7f2347bdbebe1755",
+    "scripts/verify-interval-calibration.ts": "b1b91b0b2dae567bf3ef89dc3d2bebd299496b9410488e3d302de3b89123e80b",
     "tests/fixtures/legacy-cat-v0.json": "c6f219db2a9a2ccbe1032f960e9c72d55161855a9500da538d76001817c0bbb1",
     "tests/fixtures/paper-3pl-v1.json": "0a0cb4d6e240a879ba2a5ca10313af02b9b246b8f7385b84803a403358d86f0a",
     "tests/paperScoring.test.ts": "bdcbeaa274fb31e6e3e8a9ef0e32ad49cc8c811e223b1f4536355dbe0d5d2d82",
@@ -50,6 +51,7 @@
     "docs/adr/0003-exposure-control.md": "ec57b738f808717c3d1c13e62e424bf006531f67c93b4385b6ca0b2e02a9f0dc",
     "docs/adr/0004-measurement-range.md": "76f8402e11546cf8a614d82ab3df2495e5ee91322f44cb43a7010d0deca569e3",
     "docs/adr/0005-range-reporting-exploration.md": "e3bd4c92fc55de0e58c879593512ca6b9b4d3793086d59a2ebcace1959001932",
+    "docs/adr/0006-interval-calibration-exploration.md": "50e3712c9b343a9aad1445d2ba7d26190b49ba8a52ac77cc5104e7077c42ce9d",
     "simulation/decision-criteria-v1.md": "13ef1524c4c05c16bf33ac938bc7a124f9efc581298f30e4f723e47acf7ac8ad",
     "simulation/range-reporting-decision-criteria-v1.md": "498a78e0b4ecc8563e0bf0380728266c85181ec4895d5abdaf3ef0003c97d9f0",
     "simulation/interval-calibration-decision-criteria-v1.md": "c661fec11b580d5207412c536aaf4444284f6a698c83c9e3fe0c3aa9035a3e23",
@@ -75,6 +77,8 @@
     "simulation/results/measurement-range-diagnostic-v1-summary.md": "6087ffe7904e76b1e1b8373283bab5d96c33342aa2731ccc5b0cbf8025660f38",
     "simulation/results/range-reporting-exploratory-v1.json": "7010e24beaf5c20c4d8fe20c1fc910e8915bee441653677e7dc7c716f778f0ff",
     "simulation/results/range-reporting-exploratory-v1-summary.md": "d502b829eadfb08b522f717a0860e321eeaad9626eb56c05dcfa2262bb064ba3",
+    "simulation/results/interval-calibration-exploratory-v1.json": "4f3a2a7979c2704b642e0d17f58c2c2789e4251494229e0c0580b038278e0ed4",
+    "simulation/results/interval-calibration-exploratory-v1-summary.md": "57d0d0a40d4db14e7ddc6badbdde5767b3656ecaacc2749530817d079332cc82",
     "public/jacet_parameters.csv": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47"
   }
 }
