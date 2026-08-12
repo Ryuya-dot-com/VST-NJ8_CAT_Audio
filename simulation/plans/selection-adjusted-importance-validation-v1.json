@@ -1,0 +1,53 @@
+{
+  "planId": "selection-adjusted-importance-validation-v1",
+  "mixtureSeed": 20260820,
+  "directSeed": 20260821,
+  "defensiveTargetWeight": 0.2,
+  "mixturePathsPerExperiment": 20000,
+  "directPathsPerOverlapExperiment": 20000,
+  "informationSupportRange": {
+    "lowerTheta": -2.7578183981455946,
+    "upperTheta": 3.3090556474466313
+  },
+  "cat": {
+    "fixedLength": 30,
+    "selectionMethod": "randomesque",
+    "randomesqueSize": 5,
+    "selectionPriorMean": 0,
+    "selectionPriorStandardDeviation": 1,
+    "reportingPriorMean": 0,
+    "reportingPriorStandardDeviation": 2,
+    "posteriorMassThreshold": 0.95,
+    "initialLevelMinimum": 3,
+    "initialLevelMaximum": 5,
+    "highLevelFloor": 7,
+    "minimumHighLevelItems": 2
+  },
+  "experiments": [
+    { "id": "guard-050-lower-endpoint", "candidateId": "guard-050", "side": "lower", "role": "endpoint-stability", "targetTheta": -2.7578183981455946, "auxiliaryTheta": -2.2578183981455946, "coreLowerTheta": -2.2578183981455946, "coreUpperTheta": 2.8090556474466313 },
+    { "id": "guard-050-lower-overlap", "candidateId": "guard-050", "side": "lower", "role": "direct-overlap", "targetTheta": -2.5078183981455946, "auxiliaryTheta": -2.2578183981455946, "coreLowerTheta": -2.2578183981455946, "coreUpperTheta": 2.8090556474466313 },
+    { "id": "guard-075-lower-endpoint", "candidateId": "guard-075", "side": "lower", "role": "endpoint-stability", "targetTheta": -2.5078183981455946, "auxiliaryTheta": -2.0078183981455946, "coreLowerTheta": -2.0078183981455946, "coreUpperTheta": 2.5590556474466313 },
+    { "id": "guard-075-lower-overlap", "candidateId": "guard-075", "side": "lower", "role": "direct-overlap", "targetTheta": -2.2578183981455946, "auxiliaryTheta": -2.0078183981455946, "coreLowerTheta": -2.0078183981455946, "coreUpperTheta": 2.5590556474466313 },
+    { "id": "guard-100-lower-endpoint", "candidateId": "guard-100", "side": "lower", "role": "endpoint-stability", "targetTheta": -2.2578183981455946, "auxiliaryTheta": -1.7578183981455946, "coreLowerTheta": -1.7578183981455946, "coreUpperTheta": 2.3090556474466313 },
+    { "id": "guard-100-lower-overlap", "candidateId": "guard-100", "side": "lower", "role": "direct-overlap", "targetTheta": -2.0078183981455946, "auxiliaryTheta": -1.7578183981455946, "coreLowerTheta": -1.7578183981455946, "coreUpperTheta": 2.3090556474466313 },
+    { "id": "guard-100-upper-overlap", "candidateId": "guard-100", "side": "upper", "role": "direct-overlap", "targetTheta": 2.5590556474466313, "auxiliaryTheta": 2.3090556474466313, "coreLowerTheta": -1.7578183981455946, "coreUpperTheta": 2.3090556474466313 },
+    { "id": "guard-100-upper-endpoint", "candidateId": "guard-100", "side": "upper", "role": "endpoint-stability", "targetTheta": 2.8090556474466313, "auxiliaryTheta": 2.3090556474466313, "coreLowerTheta": -1.7578183981455946, "coreUpperTheta": 2.3090556474466313 },
+    { "id": "guard-075-upper-overlap", "candidateId": "guard-075", "side": "upper", "role": "direct-overlap", "targetTheta": 2.8090556474466313, "auxiliaryTheta": 2.5590556474466313, "coreLowerTheta": -2.0078183981455946, "coreUpperTheta": 2.5590556474466313 },
+    { "id": "guard-075-upper-endpoint", "candidateId": "guard-075", "side": "upper", "role": "endpoint-stability", "targetTheta": 3.0590556474466313, "auxiliaryTheta": 2.5590556474466313, "coreLowerTheta": -2.0078183981455946, "coreUpperTheta": 2.5590556474466313 },
+    { "id": "guard-050-upper-overlap", "candidateId": "guard-050", "side": "upper", "role": "direct-overlap", "targetTheta": 3.0590556474466313, "auxiliaryTheta": 2.8090556474466313, "coreLowerTheta": -2.2578183981455946, "coreUpperTheta": 2.8090556474466313 },
+    { "id": "guard-050-upper-endpoint", "candidateId": "guard-050", "side": "upper", "role": "endpoint-stability", "targetTheta": 3.3090556474466313, "auxiliaryTheta": 2.8090556474466313, "coreLowerTheta": -2.2578183981455946, "coreUpperTheta": 2.8090556474466313 }
+  ],
+  "uncertainty": {
+    "method": "empirical-bernstein-maurer-pontil-theorem4-bonferroni-v1",
+    "familywiseAlpha": 0.05,
+    "simultaneousEstimateCount": 30
+  },
+  "decisionCriteria": {
+    "maximumRawWeight": 5.000000000001,
+    "minimumEndpointSelectedEffectiveSampleSize": 1000,
+    "maximumEndpointSelectedNormalizedWeight": 0.01,
+    "maximumOverlapCombinedProbabilityHalfWidth": 0.025,
+    "calibrationProjectionCap": 250000,
+    "minimumProjectedEndpointSelectedEffectiveSampleSize": 2500
+  }
+}

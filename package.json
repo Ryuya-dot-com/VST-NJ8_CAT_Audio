@@ -21,6 +21,7 @@
     "simulate:interval-calibration": "node scripts/simulate-interval-calibration.ts",
     "simulate:selective-reporting": "node scripts/simulate-selective-reporting.ts",
     "simulate:selection-adjusted-feasibility": "node scripts/simulate-selection-adjusted-feasibility.ts",
+    "simulate:selection-adjusted-importance": "node scripts/simulate-selection-adjusted-importance.ts",
     "test": "node --test tests/*.test.ts",
     "test:coverage": "node --test --experimental-test-coverage tests/*.test.ts",
     "verify:bank": "node scripts/diagnose-bank.ts --plan=simulation/plans/bank-diagnostic-v1.json --expected=simulation/results/bank-diagnostic-v1.json",
