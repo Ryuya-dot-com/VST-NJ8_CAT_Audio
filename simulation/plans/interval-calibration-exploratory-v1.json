@@ -1,0 +1,98 @@
+{
+  "planId": "interval-calibration-exploratory-v1",
+  "calibrationSeed": 20260815,
+  "evaluationSeed": 20260816,
+  "calibrationReplicationsPerTheta": 1000,
+  "evaluationReplicationsPerTheta": 1000,
+  "calibrationThetas": [-4.5, -4.25, -4, -3.75, -3.5, -3.25, -3, -2.75, -2.5, -2.25, -2, -1.75, -1.5, -1.25, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5],
+  "evaluationThetas": [-4.25, -4, -3.75, -3.5, -3.25, -3.0532850369, -3, -2.9031647494, -2.7578183981, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.3090556474, 3.427992907, 3.5239545648, 3.75, 4, 4.25],
+  "reportingCandidates": [
+    {
+      "id": "fixed20-n01-info025-mass095",
+      "fixedLength": 20,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5,
+      "reportingPriorMean": 0,
+      "reportingPriorStandardDeviation": 1,
+      "informationEquivalentStandardDeviationThreshold": 0.25,
+      "posteriorMassThreshold": 0.95
+    },
+    {
+      "id": "fixed30-n02-info025-mass095",
+      "fixedLength": 30,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5,
+      "reportingPriorMean": 0,
+      "reportingPriorStandardDeviation": 2,
+      "informationEquivalentStandardDeviationThreshold": 0.25,
+      "posteriorMassThreshold": 0.95
+    }
+  ],
+  "selectionPriorMean": 0,
+  "selectionPriorStandardDeviation": 1,
+  "intervalMethods": [
+    {
+      "id": "eap-equal-tail",
+      "kind": "posterior-equal-tail"
+    },
+    {
+      "id": "likelihood-ratio-chi-square",
+      "kind": "likelihood-ratio-fixed-cutoff",
+      "cutoff": 3.841458820694124
+    },
+    {
+      "id": "likelihood-ratio-neyman",
+      "kind": "likelihood-ratio-calibrated"
+    },
+    {
+      "id": "warm-weighted-likelihood-neyman",
+      "kind": "weighted-likelihood-ratio-calibrated"
+    },
+    {
+      "id": "eap-neyman-central",
+      "kind": "eap-central-calibrated"
+    }
+  ],
+  "nominalCoverage": 0.95,
+  "calibrationQuantileMethod": "conservative-order-statistic-v1",
+  "isotonicEapAcceptanceBounds": true,
+  "inversionGrid": {
+    "minimumTheta": -6,
+    "maximumTheta": 6,
+    "step": 0.01
+  },
+  "boundaryIndifferenceMargin": 0.5,
+  "initialLevelMinimum": 3,
+  "initialLevelMaximum": 5,
+  "highLevelFloor": 7,
+  "minimumHighLevelItems": 2,
+  "decisionCriteria": {
+    "binomialIntervalMethod": "wilson-score-tost",
+    "equivalenceZ": 1.6448536269514722,
+    "maximumFalseNumericReportRateOutside": 0.05,
+    "maximumOppositeExtremeRate": 0.01,
+    "minimumReportableRateInterior": 0.9,
+    "maximumInvalidIntervalRateInterior": 0.01,
+    "maximumAbsoluteThetaBiasReported": 0.1,
+    "maximumThetaRmseReported": 0.3,
+    "minimumCoverage": 0.925,
+    "maximumCoverage": 0.975,
+    "maximumOneSidedMissRate": 0.05,
+    "maximumMeanThetaIntervalWidth": 0.8,
+    "maximumP90ThetaIntervalWidth": 1
+  },
+  "selectionPreference": {
+    "candidateOrder": [
+      "fixed20-n01-info025-mass095",
+      "fixed30-n02-info025-mass095"
+    ],
+    "methodOrder": [
+      "eap-equal-tail",
+      "likelihood-ratio-chi-square",
+      "likelihood-ratio-neyman",
+      "eap-neyman-central",
+      "warm-weighted-likelihood-neyman"
+    ],
+    "tieBreaker": "smallest-maximum-conditional-mean-theta-width"
+  }
+}

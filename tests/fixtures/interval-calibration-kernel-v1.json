@@ -1,0 +1,78 @@
+{
+  "contractId": "interval-calibration-kernel-v1",
+  "generatedBy": "scripts/reference-interval-calibration-kernel.R",
+  "generatorSha256": "dac2964e2c3a37f2a0697dec9624a20440b72d6ae3cc902a7f2347bdbebe1755",
+  "referenceRuntime": "R 4.6.1",
+  "itemBankSha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+  "tolerance": { "absolute": 1e-10, "relative": 1e-10 },
+  "scenarios": [
+    {
+      "name": "mixed_eight_n01",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [1, 0, 1, 1, 0, 1, 0, 1],
+      "priorStandardDeviation": 1,
+      "expected": {
+        "eap": -0.41251582457848246,
+        "posteriorStandardDeviation": 0.5857004061718729,
+        "posteriorEqualTail95": { "lower": -1.5, "upper": 0.7599999999999998 },
+        "likelihoodMaximumThetaOnGrid": -0.7699999999999996,
+        "warmWeightedLikelihoodMaximumThetaOnGrid": -0.8999999999999995,
+        "likelihoodRatioChiSquare95": { "lower": -1.8899999999999997, "upper": 0.8300000000000001, "valid": true },
+        "warmWeightedLikelihoodChiSquareDiagnostic95": { "lower": -1.79, "upper": 0.8300000000000001, "valid": true },
+        "likelihoodRatioAtThetaZero": 0.9935531666132391,
+        "warmWeightedLikelihoodRatioAtThetaZero": 1.5671198021541386
+      }
+    },
+    {
+      "name": "mixed_twenty_n02",
+      "administered": [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152],
+      "responses": [1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1],
+      "priorStandardDeviation": 2,
+      "expected": {
+        "eap": -1.9443317859826172,
+        "posteriorStandardDeviation": 0.5284343008788405,
+        "posteriorEqualTail95": { "lower": -3.29, "upper": -1.1899999999999995 },
+        "likelihoodMaximumThetaOnGrid": -1.83,
+        "warmWeightedLikelihoodMaximumThetaOnGrid": -1.7400000000000002,
+        "likelihoodRatioChiSquare95": { "lower": -2.84, "upper": -1.2299999999999995, "valid": true },
+        "warmWeightedLikelihoodChiSquareDiagnostic95": { "lower": -2.57, "upper": -1.25, "valid": true },
+        "likelihoodRatioAtThetaZero": 22.43459746743907,
+        "warmWeightedLikelihoodRatioAtThetaZero": 22.023312136051523
+      }
+    },
+    {
+      "name": "all_correct_eight_n01",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [1, 1, 1, 1, 1, 1, 1, 1],
+      "priorStandardDeviation": 1,
+      "expected": {
+        "eap": 2.1149040154823822,
+        "posteriorStandardDeviation": 0.5655346629733118,
+        "posteriorEqualTail95": { "lower": 1.1000000000000005, "upper": 3.3100000000000005 },
+        "likelihoodMaximumThetaOnGrid": 6,
+        "warmWeightedLikelihoodMaximumThetaOnGrid": 2.9800000000000004,
+        "likelihoodRatioChiSquare95": { "lower": 1.83, "upper": 6, "valid": true },
+        "warmWeightedLikelihoodChiSquareDiagnostic95": { "lower": 1.42, "upper": 5.720000000000001, "valid": true },
+        "likelihoodRatioAtThetaZero": 21.081074546634245,
+        "warmWeightedLikelihoodRatioAtThetaZero": 19.52125427335381
+      }
+    },
+    {
+      "name": "all_incorrect_eight_n02",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [0, 0, 0, 0, 0, 0, 0, 0],
+      "priorStandardDeviation": 2,
+      "expected": {
+        "eap": -3.213309581170867,
+        "posteriorStandardDeviation": 0.8808388669489588,
+        "posteriorEqualTail95": { "lower": -5.26, "upper": -1.79 },
+        "likelihoodMaximumThetaOnGrid": -6,
+        "warmWeightedLikelihoodMaximumThetaOnGrid": -2.64,
+        "likelihoodRatioChiSquare95": { "lower": -6, "upper": -1.9399999999999995, "valid": true },
+        "warmWeightedLikelihoodChiSquareDiagnostic95": { "lower": -3.62, "upper": -1.7999999999999998, "valid": true },
+        "likelihoodRatioAtThetaZero": 31.173844299031447,
+        "warmWeightedLikelihoodRatioAtThetaZero": 30.190377657560518
+      }
+    }
+  ]
+}
