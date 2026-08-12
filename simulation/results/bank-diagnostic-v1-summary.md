@@ -11,7 +11,7 @@
 - 内容制約: レベル7以上を最低2項目
 - 項目バンクSHA-256: `ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47`
 - 計画SHA-256: `abf7b3288f8517d85d2edb5c49995d92ba877a4b7cef06c4fc8d07eb2a134e52`
-- 結果SHA-256: `7d68ae3a5c4c9fb76cd5bec6464d53d463b8673b3287a10d2ac35af4645cbce3`
+- 結果SHA-256: `87bb364a140b6be790d9807befe081997b6bb9842f1a2af046108b8421188898`
 - 主要値は独立したbase R 4.6.1実装と絶対誤差`1e-12`以内で一致した。
 - Written版とAudio版の結果はバイト単位で一致した。
 

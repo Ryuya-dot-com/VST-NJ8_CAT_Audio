@@ -8,7 +8,7 @@
     "platform": "darwin",
     "architecture": "arm64",
     "sourceSha256": {
-      "scripts/diagnose-bank.ts": "7dbceb8da69a260fb4a3605161a2bff26db5e6c301a1ce4199824c6b1d5b5812",
+      "scripts/diagnose-bank.ts": "b5d821ef5150f6c435cf720b531786ab3e1ee2ae21366641d5bc58baaca17a24",
       "src/utils/bankDiagnostics.ts": "ddd14c27cc67339250514caa5b8d7cb33f46060d35a61bca10932df0d199de24",
       "src/utils/paperScoring.ts": "e01dfe7474a21cfbd547fbfd40680c52604704f8b4d568b5c46cc42f895ffa3e"
     }

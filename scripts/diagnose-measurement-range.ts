@@ -31,6 +31,38 @@ function sha256(bytes: Buffer): string {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
+interface RuntimeProvenance {
+  nodeVersion: string;
+  platform: string;
+  architecture: string;
+  sourceSha256: Record<string, string>;
+}
+
+function normalizeRuntimeProvenanceForComparison<
+  T extends { provenance: RuntimeProvenance },
+>(actual: T, expected: T): T {
+  for (const value of [
+    expected.provenance.nodeVersion,
+    expected.provenance.platform,
+    expected.provenance.architecture,
+  ]) {
+    if (typeof value !== "string" || value.trim().length === 0) {
+      throw new RangeError(
+        "The committed measurement-range diagnostic has invalid runtime provenance."
+      );
+    }
+  }
+  return {
+    ...actual,
+    provenance: {
+      ...actual.provenance,
+      nodeVersion: expected.provenance.nodeVersion,
+      platform: expected.provenance.platform,
+      architecture: expected.provenance.architecture,
+    },
+  };
+}
+
 function parseItemBank(csv: string): Item[] {
   return csv
     .replace(/^\uFEFF/, "")
@@ -151,7 +183,13 @@ if (outputPath !== undefined && expectedPath !== undefined) {
 }
 if (expectedPath !== undefined) {
   const expected = readFileSync(resolve(expectedPath), "utf8");
-  if (serialized !== expected) {
+  const expectedReport = JSON.parse(expected) as typeof report;
+  const comparable = `${JSON.stringify(
+    normalizeRuntimeProvenanceForComparison(report, expectedReport),
+    null,
+    2
+  )}\n`;
+  if (comparable !== expected) {
     throw new RangeError("The committed measurement-range diagnostic is stale.");
   }
   process.stdout.write("measurement-range-diagnostic-v1 verified\n");

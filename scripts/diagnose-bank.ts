@@ -7,6 +7,7 @@ import {
   diagnoseItemBank,
   type BankDiagnosticPlan,
   type BankDiagnosticProvenance,
+  type BankDiagnosticReport,
 } from "../src/utils/bankDiagnostics.ts";
 
 function option(name: string): string | undefined {
@@ -19,6 +20,45 @@ function option(name: string): string | undefined {
 
 function sha256(bytes: Buffer): string {
   return createHash("sha256").update(bytes).digest("hex");
+}
+
+function normalizeRuntimeProvenanceForComparison(
+  actual: BankDiagnosticReport,
+  expected: BankDiagnosticReport
+): BankDiagnosticReport {
+  const actualProvenance = actual.provenance;
+  const expectedProvenance = expected.provenance;
+  if (
+    actualProvenance === null ||
+    expectedProvenance === null ||
+    typeof expectedProvenance.sourceSha256 !== "object" ||
+    expectedProvenance.sourceSha256 === null ||
+    Array.isArray(expectedProvenance.sourceSha256)
+  ) {
+    throw new RangeError(
+      "The committed bank diagnostic has invalid runtime provenance."
+    );
+  }
+  for (const value of [
+    expectedProvenance.nodeVersion,
+    expectedProvenance.platform,
+    expectedProvenance.architecture,
+  ]) {
+    if (typeof value !== "string" || value.trim().length === 0) {
+      throw new RangeError(
+        "The committed bank diagnostic has invalid runtime provenance."
+      );
+    }
+  }
+  return {
+    ...actual,
+    provenance: {
+      ...actualProvenance,
+      nodeVersion: expectedProvenance.nodeVersion,
+      platform: expectedProvenance.platform,
+      architecture: expectedProvenance.architecture,
+    },
+  };
 }
 
 function parseItemBank(csv: string): Item[] {
@@ -80,7 +120,13 @@ if (outputPath !== undefined && expectedPath !== undefined) {
 }
 if (expectedPath !== undefined) {
   const expected = readFileSync(resolve(expectedPath), "utf8");
-  if (serialized !== expected) {
+  const expectedReport = JSON.parse(expected) as BankDiagnosticReport;
+  const comparable = `${JSON.stringify(
+    normalizeRuntimeProvenanceForComparison(report, expectedReport),
+    null,
+    2
+  )}\n`;
+  if (comparable !== expected) {
     throw new RangeError("The committed bank diagnostic is stale.");
   }
   process.stdout.write("bank-diagnostic-v1 verified\n");

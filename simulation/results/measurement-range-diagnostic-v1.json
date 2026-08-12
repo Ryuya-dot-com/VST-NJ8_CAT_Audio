@@ -9,7 +9,7 @@
     "platform": "darwin",
     "architecture": "arm64",
     "sourceSha256": {
-      "scripts/diagnose-measurement-range.ts": "82c1464ca69bcfab0588613780f0c04a94d78329c6a6c5f1b48f9ff58f00ac4a",
+      "scripts/diagnose-measurement-range.ts": "8f76e181aa5f8216eae7995622d93a2233e40ca160698bfccd82fa5de00bb388",
       "src/utils/measurementRange.ts": "5d096d841a447c2c39df0817c0f9baa47d7a2530e42a0e434dc1b7579096b374",
       "src/utils/paperScoring.ts": "e01dfe7474a21cfbd547fbfd40680c52604704f8b4d568b5c46cc42f895ffa3e"
     }
