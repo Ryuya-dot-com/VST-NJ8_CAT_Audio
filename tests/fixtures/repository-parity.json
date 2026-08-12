@@ -64,6 +64,7 @@
     "simulation/range-reporting-decision-criteria-v1.md": "498a78e0b4ecc8563e0bf0380728266c85181ec4895d5abdaf3ef0003c97d9f0",
     "simulation/interval-calibration-decision-criteria-v1.md": "c661fec11b580d5207412c536aaf4444284f6a698c83c9e3fe0c3aa9035a3e23",
     "simulation/selective-reporting-design-v1.md": "59304b325dbba09af72f2249809168959e4dcd8da6a23e66fe1e8585b5dfa926",
+    "simulation/selection-adjusted-point-design-v1.md": "787678fedfa5590315e998be4decd3b6363f7577577637132cf98d9016dddd5e",
     "simulation/plans/pilot-v1.json": "826e63a900ac87c9d07bf3625ebf1207cfa5ee5e080e9756339a7000bb2c404e",
     "simulation/plans/focused-v1.json": "b50387ca54d94063429d72449cf41a2bf1ae17fd76fb8681357ff1dd24381445",
     "simulation/plans/confirmation-v1.json": "1aab9c60dd0c5036342caeec19c0e9f3d2e653d5d494cf73de42ce3bac7af60a",
