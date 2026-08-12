@@ -19,6 +19,7 @@
     "simulate:exposure": "node scripts/simulate-exposure-control.ts",
     "simulate:range-reporting": "node scripts/simulate-range-reporting.ts",
     "simulate:interval-calibration": "node scripts/simulate-interval-calibration.ts",
+    "simulate:selective-reporting": "node scripts/simulate-selective-reporting.ts",
     "test": "node --test tests/*.test.ts",
     "test:coverage": "node --test --experimental-test-coverage tests/*.test.ts",
     "verify:bank": "node scripts/diagnose-bank.ts --plan=simulation/plans/bank-diagnostic-v1.json --expected=simulation/results/bank-diagnostic-v1.json",

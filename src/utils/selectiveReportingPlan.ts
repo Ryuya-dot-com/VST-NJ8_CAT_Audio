@@ -180,12 +180,14 @@ export function validateSelectiveReportingPlan(
   plan: SelectiveReportingPlan
 ): SimultaneousCentralRanks {
   if (
-    plan.planId.trim().length === 0 ||
+    plan.planId !== "selective-reporting-exploratory-v1" ||
     !Number.isSafeInteger(plan.calibrationSeed) ||
     !Number.isSafeInteger(plan.evaluationSeed) ||
     plan.calibrationSeed < 0 ||
     plan.evaluationSeed < 0 ||
-    plan.calibrationSeed === plan.evaluationSeed
+    plan.calibrationSeed === plan.evaluationSeed ||
+    plan.calibrationSeed !== 20260817 ||
+    plan.evaluationSeed !== 20260818
   ) {
     throw new RangeError("Invalid selective plan ID or random seeds.");
   }
@@ -221,6 +223,8 @@ export function validateSelectiveReportingPlan(
       "conservative-minorant-majorant-v1" ||
     plan.calibration.nominalCoverage !== 0.95 ||
     plan.calibration.familywiseAlpha !== 0.05 ||
+    plan.calibration.targetSelectedPathsPerTheta !== 2500 ||
+    plan.calibration.maximumGeneratedPathsPerTheta !== 250000 ||
     !Number.isInteger(plan.calibration.targetSelectedPathsPerTheta) ||
     !Number.isInteger(plan.calibration.maximumGeneratedPathsPerTheta) ||
     plan.calibration.targetSelectedPathsPerTheta < 1 ||
@@ -252,6 +256,44 @@ export function validateSelectiveReportingPlan(
     )
   ) {
     throw new RangeError("Evaluation cells must be 27 ordered fixed-size cells.");
+  }
+  const expectedEvaluationCells = [
+    [-4.25, 5000],
+    [-4, 5000],
+    [-3.75, 5000],
+    [-3.5, 5000],
+    [-3.25, 5000],
+    [-3.0532850369, 5000],
+    [-3, 5000],
+    [-2.9031647494, 5000],
+    [lowerTheta, 100000],
+    [-2.5, 15000],
+    [-2, 3000],
+    [-1.5, 3000],
+    [-1, 3000],
+    [-0.5, 3000],
+    [0, 3000],
+    [0.5, 3000],
+    [1, 3000],
+    [1.5, 3000],
+    [2, 3000],
+    [2.5, 3000],
+    [3, 10000],
+    [upperTheta, 100000],
+    [3.427992907, 5000],
+    [3.5239545648, 5000],
+    [3.75, 5000],
+    [4, 5000],
+    [4.25, 5000],
+  ] as const;
+  if (
+    plan.evaluationCells.some(
+      (cell, index) =>
+        cell.theta !== expectedEvaluationCells[index][0] ||
+        cell.generatedPaths !== expectedEvaluationCells[index][1]
+    )
+  ) {
+    throw new RangeError("Evaluation theta counts are not frozen.");
   }
   const supportedCells = plan.evaluationCells.filter(
     ({ theta }) => theta >= lowerTheta && theta <= upperTheta
@@ -301,24 +343,31 @@ export function validateSelectiveReportingPlan(
   ];
   if (
     criteria.binomialIntervalMethod !== "wilson-score-tost" ||
-    !Number.isFinite(criteria.equivalenceZ) ||
-    criteria.equivalenceZ <= 0 ||
+    criteria.equivalenceZ !== 1.6448536269514722 ||
     probabilities.some((value) => value <= 0 || value >= 1) ||
     criteria.minimumCoverage >= criteria.maximumCoverage ||
     !Number.isInteger(
       criteria.minimumSelectedEvaluationPathsPerSupportedTheta
     ) ||
     criteria.minimumSelectedEvaluationPathsPerSupportedTheta < 1 ||
-    criteria.maximumAbsoluteThetaBiasSelected <= 0 ||
-    criteria.maximumThetaRmseSelected <= 0 ||
-    criteria.maximumMeanThetaIntervalWidth <= 0 ||
-    criteria.maximumP90ThetaIntervalWidth <= 0 ||
+    criteria.minimumSelectedEvaluationPathsPerSupportedTheta !== 2500 ||
+    criteria.maximumFalseNumericReportRateOutside !== 0.05 ||
+    criteria.maximumOppositeExtremeRate !== 0.01 ||
+    criteria.minimumReportableRateInterior !== 0.9 ||
+    criteria.maximumEmptyInversionFallbackRate !== 0.01 ||
+    criteria.maximumAbsoluteThetaBiasSelected !== 0.1 ||
+    criteria.maximumThetaRmseSelected !== 0.3 ||
+    criteria.minimumCoverage !== 0.925 ||
+    criteria.maximumCoverage !== 0.975 ||
+    criteria.maximumOneSidedMissRate !== 0.05 ||
+    criteria.maximumMeanThetaIntervalWidth !== 0.8 ||
+    criteria.maximumP90ThetaIntervalWidth !== 1 ||
     plan.initialLevelMinimum !== 3 ||
     plan.initialLevelMaximum !== 5 ||
     plan.highLevelFloor !== 7 ||
     plan.minimumHighLevelItems !== 2 ||
     plan.boundaryIndifferenceMargin !== 0.5 ||
-    plan.confirmationReplicationsPerThetaIfPassed < 5000
+    plan.confirmationReplicationsPerThetaIfPassed !== 5000
   ) {
     throw new RangeError("Invalid selective decision or content contract.");
   }
