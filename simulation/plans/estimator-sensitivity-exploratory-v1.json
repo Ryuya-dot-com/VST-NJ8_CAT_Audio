@@ -1,0 +1,24 @@
+{
+  "planId": "estimator-sensitivity-exploratory-v1",
+  "seed": 20260812,
+  "replicationsPerTheta": 500,
+  "trueThetas": [-3.5, -3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5],
+  "pathRules": [
+    {
+      "id": "fixed20-randomesque5-common-path",
+      "fixedLength": 20,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5
+    },
+    {
+      "id": "fixed30-randomesque5-common-path",
+      "fixedLength": 30,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5
+    }
+  ],
+  "initialLevelMinimum": 3,
+  "initialLevelMaximum": 5,
+  "highLevelFloor": 7,
+  "minimumHighLevelItems": 2
+}

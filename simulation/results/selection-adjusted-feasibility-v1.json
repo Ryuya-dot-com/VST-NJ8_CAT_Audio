@@ -1,0 +1,623 @@
+{
+  "schemaVersion": "selection-adjusted-feasibility-v1",
+  "engineId": "common-path-selection-rate-pilot-v1",
+  "randomGeneratorId": "mulberry32-v1",
+  "scoreModelId": "paper-3pl-v1",
+  "validationStatus": "planning-only-not-for-score-reporting",
+  "itemBankSha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+  "planSha256": "011f8f1c9ebff857f1212a33871b69efcc1bb4d298732f253e2d53d41e614f22",
+  "provenance": {
+    "nodeVersion": "v24.9.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "sourceSha256": {
+      "scripts/simulate-selection-adjusted-feasibility.ts": "647075dfa4938bd91d87171593f6f66e5581b62d24466508378a0ff9ddab9582",
+      "src/utils/selectionAdjustedFeasibility.ts": "bb4b94def9974bf0dd0e41048cba1e03565da1b541315a23d4d0589de7c8c929",
+      "src/utils/paperScoring.ts": "e01dfe7474a21cfbd547fbfd40680c52604704f8b4d568b5c46cc42f895ffa3e"
+    }
+  },
+  "plan": {
+    "planId": "selection-adjusted-feasibility-v1",
+    "seed": 20260819,
+    "candidate": {
+      "fixedLength": 30,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5,
+      "selectionPriorMean": 0,
+      "selectionPriorStandardDeviation": 1,
+      "reportingPriorMean": 0,
+      "reportingPriorStandardDeviation": 2,
+      "posteriorMassThreshold": 0.95
+    },
+    "informationSupportRange": {
+      "lowerTheta": -2.7578183981455946,
+      "upperTheta": 3.3090556474466313
+    },
+    "operationalCandidates": [
+      {
+        "id": "guard-050",
+        "guardBand": 0.5,
+        "selectionCore": {
+          "lowerTheta": -2.2578183981455946,
+          "upperTheta": 2.8090556474466313
+        },
+        "estimationDomain": {
+          "lowerTheta": -2.7578183981455946,
+          "upperTheta": 3.3090556474466313
+        }
+      },
+      {
+        "id": "guard-075",
+        "guardBand": 0.75,
+        "selectionCore": {
+          "lowerTheta": -2.0078183981455946,
+          "upperTheta": 2.5590556474466313
+        },
+        "estimationDomain": {
+          "lowerTheta": -2.5078183981455946,
+          "upperTheta": 3.0590556474466313
+        }
+      },
+      {
+        "id": "guard-100",
+        "guardBand": 1,
+        "selectionCore": {
+          "lowerTheta": -1.7578183981455946,
+          "upperTheta": 2.3090556474466313
+        },
+        "estimationDomain": {
+          "lowerTheta": -2.2578183981455946,
+          "upperTheta": 2.8090556474466313
+        }
+      }
+    ],
+    "thetaCells": [
+      {
+        "theta": -3.0078183981455946,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": -2.7578183981455946,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": -2.5078183981455946,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": -2.2578183981455946,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": -2.0078183981455946,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": -1.7578183981455946,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": 0,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": 2.3090556474466313,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": 2.5590556474466313,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": 2.8090556474466313,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": 3.0590556474466313,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": 3.3090556474466313,
+        "generatedPaths": 10000
+      },
+      {
+        "theta": 3.5590556474466313,
+        "generatedPaths": 10000
+      }
+    ],
+    "calibrationPlanning": {
+      "targetSelectedPathsPerTheta": 2500,
+      "maximumGeneratedPathsPerTheta": 250000,
+      "selectionRateLowerBound": "wilson-one-sided-90-v1",
+      "z": 1.2815515655446004
+    },
+    "initialLevelMinimum": 3,
+    "initialLevelMaximum": 5,
+    "highLevelFloor": 7,
+    "minimumHighLevelItems": 2
+  },
+  "totalGeneratedPaths": 130000,
+  "commonPathCandidateNestingVerified": true,
+  "cells": [
+    {
+      "trueTheta": -3.0078183981455946,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 24,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": false,
+          "selectedPaths": 1,
+          "selectedRate": 0.0001,
+          "oneSided90WilsonLowerSelectionRate": 0.000029911357240265858,
+          "projectedSelectedPathsLowerBoundAtCap": 7.477839310066464,
+          "calibrationCapFeasible": null
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": false,
+          "selectedPaths": 1,
+          "selectedRate": 0.0001,
+          "oneSided90WilsonLowerSelectionRate": 0.000029911357240265858,
+          "projectedSelectedPathsLowerBoundAtCap": 7.477839310066464,
+          "calibrationCapFeasible": null
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": false,
+          "selectedPaths": 0,
+          "selectedRate": 0,
+          "oneSided90WilsonLowerSelectionRate": 0,
+          "projectedSelectedPathsLowerBoundAtCap": 0,
+          "calibrationCapFeasible": null
+        }
+      ]
+    },
+    {
+      "trueTheta": -2.7578183981455946,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 252,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 2,
+          "selectedRate": 0.0002,
+          "oneSided90WilsonLowerSelectionRate": 0.0000831467700581083,
+          "projectedSelectedPathsLowerBoundAtCap": 20.786692514527076,
+          "calibrationCapFeasible": false
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": false,
+          "selectedPaths": 0,
+          "selectedRate": 0,
+          "oneSided90WilsonLowerSelectionRate": 0,
+          "projectedSelectedPathsLowerBoundAtCap": 0,
+          "calibrationCapFeasible": null
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": false,
+          "selectedPaths": 0,
+          "selectedRate": 0,
+          "oneSided90WilsonLowerSelectionRate": 0,
+          "projectedSelectedPathsLowerBoundAtCap": 0,
+          "calibrationCapFeasible": null
+        }
+      ]
+    },
+    {
+      "trueTheta": -2.5078183981455946,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 2678,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 94,
+          "selectedRate": 0.0094,
+          "oneSided90WilsonLowerSelectionRate": 0.008241384922701631,
+          "projectedSelectedPathsLowerBoundAtCap": 2060.3462306754077,
+          "calibrationCapFeasible": false
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 2,
+          "selectedRate": 0.0002,
+          "oneSided90WilsonLowerSelectionRate": 0.0000831467700581083,
+          "projectedSelectedPathsLowerBoundAtCap": 20.786692514527076,
+          "calibrationCapFeasible": false
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": false,
+          "selectedPaths": 1,
+          "selectedRate": 0.0001,
+          "oneSided90WilsonLowerSelectionRate": 0.000029911357240265858,
+          "projectedSelectedPathsLowerBoundAtCap": 7.477839310066464,
+          "calibrationCapFeasible": null
+        }
+      ]
+    },
+    {
+      "trueTheta": -2.2578183981455946,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 9031,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 4673,
+          "selectedRate": 0.4673,
+          "oneSided90WilsonLowerSelectionRate": 0.46091185279267244,
+          "projectedSelectedPathsLowerBoundAtCap": 115227.96319816812,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 106,
+          "selectedRate": 0.0106,
+          "oneSided90WilsonLowerSelectionRate": 0.009365587519567835,
+          "projectedSelectedPathsLowerBoundAtCap": 2341.3968798919586,
+          "calibrationCapFeasible": false
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": true,
+          "selectedPaths": 3,
+          "selectedRate": 0.0003,
+          "oneSided90WilsonLowerSelectionRate": 0.00014545177733282574,
+          "projectedSelectedPathsLowerBoundAtCap": 36.362944333206435,
+          "calibrationCapFeasible": false
+        }
+      ]
+    },
+    {
+      "trueTheta": -2.0078183981455946,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 9997,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 9951,
+          "selectedRate": 0.9951,
+          "oneSided90WilsonLowerSelectionRate": 0.9941202015334725,
+          "projectedSelectedPathsLowerBoundAtCap": 248530.05038336813,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 6038,
+          "selectedRate": 0.6038,
+          "oneSided90WilsonLowerSelectionRate": 0.5975152893064184,
+          "projectedSelectedPathsLowerBoundAtCap": 149378.8223266046,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": true,
+          "selectedPaths": 414,
+          "selectedRate": 0.0414,
+          "oneSided90WilsonLowerSelectionRate": 0.03892138161167775,
+          "projectedSelectedPathsLowerBoundAtCap": 9730.345402919436,
+          "calibrationCapFeasible": true
+        }
+      ]
+    },
+    {
+      "trueTheta": -1.7578183981455946,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 10000,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 10000,
+          "selectedRate": 1,
+          "oneSided90WilsonLowerSelectionRate": 0.9998357895279929,
+          "projectedSelectedPathsLowerBoundAtCap": 249958.94738199824,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 9898,
+          "selectedRate": 0.9898,
+          "oneSided90WilsonLowerSelectionRate": 0.9884294800285078,
+          "projectedSelectedPathsLowerBoundAtCap": 247107.37000712697,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": true,
+          "selectedPaths": 5570,
+          "selectedRate": 0.557,
+          "oneSided90WilsonLowerSelectionRate": 0.5506251717730447,
+          "projectedSelectedPathsLowerBoundAtCap": 137656.29294326119,
+          "calibrationCapFeasible": true
+        }
+      ]
+    },
+    {
+      "trueTheta": 0,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 10000,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 10000,
+          "selectedRate": 1,
+          "oneSided90WilsonLowerSelectionRate": 0.9998357895279929,
+          "projectedSelectedPathsLowerBoundAtCap": 249958.94738199824,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 10000,
+          "selectedRate": 1,
+          "oneSided90WilsonLowerSelectionRate": 0.9998357895279929,
+          "projectedSelectedPathsLowerBoundAtCap": 249958.94738199824,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": true,
+          "selectedPaths": 10000,
+          "selectedRate": 1,
+          "oneSided90WilsonLowerSelectionRate": 0.9998357895279929,
+          "projectedSelectedPathsLowerBoundAtCap": 249958.94738199824,
+          "calibrationCapFeasible": true
+        }
+      ]
+    },
+    {
+      "trueTheta": 2.3090556474466313,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 9988,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 9950,
+          "selectedRate": 0.995,
+          "oneSided90WilsonLowerSelectionRate": 0.9940112169366071,
+          "projectedSelectedPathsLowerBoundAtCap": 248502.8042341518,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 9172,
+          "selectedRate": 0.9172,
+          "oneSided90WilsonLowerSelectionRate": 0.9135994212064297,
+          "projectedSelectedPathsLowerBoundAtCap": 228399.85530160743,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": true,
+          "selectedPaths": 4596,
+          "selectedRate": 0.4596,
+          "oneSided90WilsonLowerSelectionRate": 0.4532203484651471,
+          "projectedSelectedPathsLowerBoundAtCap": 113305.08711628677,
+          "calibrationCapFeasible": true
+        }
+      ]
+    },
+    {
+      "trueTheta": 2.5590556474466313,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 9769,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 9128,
+          "selectedRate": 0.9128,
+          "oneSided90WilsonLowerSelectionRate": 0.9091162606601861,
+          "projectedSelectedPathsLowerBoundAtCap": 227279.06516504654,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 5206,
+          "selectedRate": 0.5206,
+          "oneSided90WilsonLowerSelectionRate": 0.5141948249301879,
+          "projectedSelectedPathsLowerBoundAtCap": 128548.70623254696,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": true,
+          "selectedPaths": 687,
+          "selectedRate": 0.0687,
+          "oneSided90WilsonLowerSelectionRate": 0.06552871772601605,
+          "projectedSelectedPathsLowerBoundAtCap": 16382.179431504013,
+          "calibrationCapFeasible": true
+        }
+      ]
+    },
+    {
+      "trueTheta": 2.8090556474466313,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 8025,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 5577,
+          "selectedRate": 0.5577,
+          "oneSided90WilsonLowerSelectionRate": 0.551326092363528,
+          "projectedSelectedPathsLowerBoundAtCap": 137831.523090882,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 1196,
+          "selectedRate": 0.1196,
+          "oneSided90WilsonLowerSelectionRate": 0.11550379020784253,
+          "projectedSelectedPathsLowerBoundAtCap": 28875.94755196063,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": true,
+          "selectedPaths": 35,
+          "selectedRate": 0.0035,
+          "oneSided90WilsonLowerSelectionRate": 0.002820365408147572,
+          "projectedSelectedPathsLowerBoundAtCap": 705.091352036893,
+          "calibrationCapFeasible": false
+        }
+      ]
+    },
+    {
+      "trueTheta": 3.0590556474466313,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 3423,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 1298,
+          "selectedRate": 0.1298,
+          "oneSided90WilsonLowerSelectionRate": 0.12555363502220052,
+          "projectedSelectedPathsLowerBoundAtCap": 31388.40875555013,
+          "calibrationCapFeasible": true
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": true,
+          "selectedPaths": 76,
+          "selectedRate": 0.0076,
+          "oneSided90WilsonLowerSelectionRate": 0.006565037948595777,
+          "projectedSelectedPathsLowerBoundAtCap": 1641.2594871489441,
+          "calibrationCapFeasible": false
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": false,
+          "selectedPaths": 1,
+          "selectedRate": 0.0001,
+          "oneSided90WilsonLowerSelectionRate": 0.000029911357240265858,
+          "projectedSelectedPathsLowerBoundAtCap": 7.477839310066464,
+          "calibrationCapFeasible": null
+        }
+      ]
+    },
+    {
+      "trueTheta": 3.3090556474466313,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 501,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": true,
+          "selectedPaths": 101,
+          "selectedRate": 0.0101,
+          "oneSided90WilsonLowerSelectionRate": 0.008896606248881795,
+          "projectedSelectedPathsLowerBoundAtCap": 2224.151562220449,
+          "calibrationCapFeasible": false
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": false,
+          "selectedPaths": 2,
+          "selectedRate": 0.0002,
+          "oneSided90WilsonLowerSelectionRate": 0.0000831467700581083,
+          "projectedSelectedPathsLowerBoundAtCap": 20.786692514527076,
+          "calibrationCapFeasible": null
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": false,
+          "selectedPaths": 0,
+          "selectedRate": 0,
+          "oneSided90WilsonLowerSelectionRate": 0,
+          "projectedSelectedPathsLowerBoundAtCap": 0,
+          "calibrationCapFeasible": null
+        }
+      ]
+    },
+    {
+      "trueTheta": 3.5590556474466313,
+      "generatedPaths": 10000,
+      "posteriorMassPassPaths": 40,
+      "candidates": [
+        {
+          "id": "guard-050",
+          "calibrationDomainCell": false,
+          "selectedPaths": 1,
+          "selectedRate": 0.0001,
+          "oneSided90WilsonLowerSelectionRate": 0.000029911357240265858,
+          "projectedSelectedPathsLowerBoundAtCap": 7.477839310066464,
+          "calibrationCapFeasible": null
+        },
+        {
+          "id": "guard-075",
+          "calibrationDomainCell": false,
+          "selectedPaths": 0,
+          "selectedRate": 0,
+          "oneSided90WilsonLowerSelectionRate": 0,
+          "projectedSelectedPathsLowerBoundAtCap": 0,
+          "calibrationCapFeasible": null
+        },
+        {
+          "id": "guard-100",
+          "calibrationDomainCell": false,
+          "selectedPaths": 0,
+          "selectedRate": 0,
+          "oneSided90WilsonLowerSelectionRate": 0,
+          "projectedSelectedPathsLowerBoundAtCap": 0,
+          "calibrationCapFeasible": null
+        }
+      ]
+    }
+  ],
+  "planningDecision": {
+    "allCalibrationDomainCellsFeasible": false,
+    "infeasibleCandidateThetaCells": [
+      {
+        "candidateId": "guard-050",
+        "theta": -2.7578183981455946
+      },
+      {
+        "candidateId": "guard-050",
+        "theta": -2.5078183981455946
+      },
+      {
+        "candidateId": "guard-075",
+        "theta": -2.5078183981455946
+      },
+      {
+        "candidateId": "guard-075",
+        "theta": -2.2578183981455946
+      },
+      {
+        "candidateId": "guard-100",
+        "theta": -2.2578183981455946
+      },
+      {
+        "candidateId": "guard-100",
+        "theta": 2.8090556474466313
+      },
+      {
+        "candidateId": "guard-075",
+        "theta": 3.0590556474466313
+      },
+      {
+        "candidateId": "guard-050",
+        "theta": 3.3090556474466313
+      }
+    ],
+    "nextStep": "redesign-calibration-before-evaluation"
+  }
+}

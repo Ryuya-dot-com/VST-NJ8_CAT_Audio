@@ -1,0 +1,741 @@
+{
+  "schemaVersion": "selection-adjusted-importance-validation-v1",
+  "engineId": "defensive-adaptive-path-importance-v1",
+  "randomGeneratorId": "mulberry32-v1",
+  "scoreModelId": "paper-3pl-v1",
+  "validationStatus": "method-validation-not-for-score-reporting",
+  "itemBankSha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+  "planSha256": "0a7a30840603c51533c3455c5c4fd76618f727748d0d92277c4755590239689a",
+  "provenance": {
+    "nodeVersion": "v24.9.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "sourceSha256": {
+      "scripts/simulate-selection-adjusted-importance.ts": "33b20ff2727ff3478a5eb9bb5c0014f71e23531be0197f6bfed83e98140dd3ec",
+      "src/utils/selectionAdjustedImportance.ts": "3495274d0eb13172186a4b56985abc46f8f03b4377c7e3901d29331bea160ef8",
+      "src/utils/paperScoring.ts": "e01dfe7474a21cfbd547fbfd40680c52604704f8b4d568b5c46cc42f895ffa3e"
+    }
+  },
+  "plan": {
+    "planId": "selection-adjusted-importance-validation-v1",
+    "mixtureSeed": 20260820,
+    "directSeed": 20260821,
+    "defensiveTargetWeight": 0.2,
+    "mixturePathsPerExperiment": 20000,
+    "directPathsPerOverlapExperiment": 20000,
+    "informationSupportRange": {
+      "lowerTheta": -2.7578183981455946,
+      "upperTheta": 3.3090556474466313
+    },
+    "cat": {
+      "fixedLength": 30,
+      "selectionMethod": "randomesque",
+      "randomesqueSize": 5,
+      "selectionPriorMean": 0,
+      "selectionPriorStandardDeviation": 1,
+      "reportingPriorMean": 0,
+      "reportingPriorStandardDeviation": 2,
+      "posteriorMassThreshold": 0.95,
+      "initialLevelMinimum": 3,
+      "initialLevelMaximum": 5,
+      "highLevelFloor": 7,
+      "minimumHighLevelItems": 2
+    },
+    "experiments": [
+      {
+        "id": "guard-050-lower-endpoint",
+        "candidateId": "guard-050",
+        "side": "lower",
+        "role": "endpoint-stability",
+        "targetTheta": -2.7578183981455946,
+        "auxiliaryTheta": -2.2578183981455946,
+        "coreLowerTheta": -2.2578183981455946,
+        "coreUpperTheta": 2.8090556474466313
+      },
+      {
+        "id": "guard-050-lower-overlap",
+        "candidateId": "guard-050",
+        "side": "lower",
+        "role": "direct-overlap",
+        "targetTheta": -2.5078183981455946,
+        "auxiliaryTheta": -2.2578183981455946,
+        "coreLowerTheta": -2.2578183981455946,
+        "coreUpperTheta": 2.8090556474466313
+      },
+      {
+        "id": "guard-075-lower-endpoint",
+        "candidateId": "guard-075",
+        "side": "lower",
+        "role": "endpoint-stability",
+        "targetTheta": -2.5078183981455946,
+        "auxiliaryTheta": -2.0078183981455946,
+        "coreLowerTheta": -2.0078183981455946,
+        "coreUpperTheta": 2.5590556474466313
+      },
+      {
+        "id": "guard-075-lower-overlap",
+        "candidateId": "guard-075",
+        "side": "lower",
+        "role": "direct-overlap",
+        "targetTheta": -2.2578183981455946,
+        "auxiliaryTheta": -2.0078183981455946,
+        "coreLowerTheta": -2.0078183981455946,
+        "coreUpperTheta": 2.5590556474466313
+      },
+      {
+        "id": "guard-100-lower-endpoint",
+        "candidateId": "guard-100",
+        "side": "lower",
+        "role": "endpoint-stability",
+        "targetTheta": -2.2578183981455946,
+        "auxiliaryTheta": -1.7578183981455946,
+        "coreLowerTheta": -1.7578183981455946,
+        "coreUpperTheta": 2.3090556474466313
+      },
+      {
+        "id": "guard-100-lower-overlap",
+        "candidateId": "guard-100",
+        "side": "lower",
+        "role": "direct-overlap",
+        "targetTheta": -2.0078183981455946,
+        "auxiliaryTheta": -1.7578183981455946,
+        "coreLowerTheta": -1.7578183981455946,
+        "coreUpperTheta": 2.3090556474466313
+      },
+      {
+        "id": "guard-100-upper-overlap",
+        "candidateId": "guard-100",
+        "side": "upper",
+        "role": "direct-overlap",
+        "targetTheta": 2.5590556474466313,
+        "auxiliaryTheta": 2.3090556474466313,
+        "coreLowerTheta": -1.7578183981455946,
+        "coreUpperTheta": 2.3090556474466313
+      },
+      {
+        "id": "guard-100-upper-endpoint",
+        "candidateId": "guard-100",
+        "side": "upper",
+        "role": "endpoint-stability",
+        "targetTheta": 2.8090556474466313,
+        "auxiliaryTheta": 2.3090556474466313,
+        "coreLowerTheta": -1.7578183981455946,
+        "coreUpperTheta": 2.3090556474466313
+      },
+      {
+        "id": "guard-075-upper-overlap",
+        "candidateId": "guard-075",
+        "side": "upper",
+        "role": "direct-overlap",
+        "targetTheta": 2.8090556474466313,
+        "auxiliaryTheta": 2.5590556474466313,
+        "coreLowerTheta": -2.0078183981455946,
+        "coreUpperTheta": 2.5590556474466313
+      },
+      {
+        "id": "guard-075-upper-endpoint",
+        "candidateId": "guard-075",
+        "side": "upper",
+        "role": "endpoint-stability",
+        "targetTheta": 3.0590556474466313,
+        "auxiliaryTheta": 2.5590556474466313,
+        "coreLowerTheta": -2.0078183981455946,
+        "coreUpperTheta": 2.5590556474466313
+      },
+      {
+        "id": "guard-050-upper-overlap",
+        "candidateId": "guard-050",
+        "side": "upper",
+        "role": "direct-overlap",
+        "targetTheta": 3.0590556474466313,
+        "auxiliaryTheta": 2.8090556474466313,
+        "coreLowerTheta": -2.2578183981455946,
+        "coreUpperTheta": 2.8090556474466313
+      },
+      {
+        "id": "guard-050-upper-endpoint",
+        "candidateId": "guard-050",
+        "side": "upper",
+        "role": "endpoint-stability",
+        "targetTheta": 3.3090556474466313,
+        "auxiliaryTheta": 2.8090556474466313,
+        "coreLowerTheta": -2.2578183981455946,
+        "coreUpperTheta": 2.8090556474466313
+      }
+    ],
+    "uncertainty": {
+      "method": "empirical-bernstein-maurer-pontil-theorem4-bonferroni-v1",
+      "familywiseAlpha": 0.05,
+      "simultaneousEstimateCount": 30
+    },
+    "decisionCriteria": {
+      "maximumRawWeight": 5.000000000001,
+      "minimumEndpointSelectedEffectiveSampleSize": 1000,
+      "maximumEndpointSelectedNormalizedWeight": 0.01,
+      "maximumOverlapCombinedProbabilityHalfWidth": 0.025,
+      "calibrationProjectionCap": 250000,
+      "minimumProjectedEndpointSelectedEffectiveSampleSize": 2500
+    }
+  },
+  "pathLikelihoodContract": {
+    "responseLikelihoodRatioIncludesAllAdministeredItems": true,
+    "itemSelectionFactorsCancelConditionally": true,
+    "mixtureWeightBound": 5
+  },
+  "experiments": [
+    {
+      "id": "guard-050-lower-endpoint",
+      "candidateId": "guard-050",
+      "side": "lower",
+      "role": "endpoint-stability",
+      "targetTheta": -2.7578183981455946,
+      "auxiliaryTheta": -2.2578183981455946,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 4018,
+      "maximumRawWeight": 4.9988100382933,
+      "meanRawWeight": {
+        "estimate": 0.9987847514075089,
+        "empiricalBernsteinHalfWidth": 0.051527025455245096,
+        "lower": 0.9472577259522638,
+        "upper": 1.050311776862754
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.0002901008893964257,
+        "empiricalBernsteinHalfWidth": 0.004262342873768681,
+        "lower": 0,
+        "upper": 0.004552443763165107
+      },
+      "selectedEffectiveSampleSize": 74.5866135347329,
+      "selectedEffectiveSampleSizeFraction": 0.0037293306767366453,
+      "maximumSelectedNormalizedWeight": 0.10851082496323332,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 932.3326691841613,
+      "directComparison": null,
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": false,
+        "endpointWeightConcentration": false,
+        "projectedCalibrationEss": false,
+        "overlapPrecision": null,
+        "overlapAgreement": null
+      }
+    },
+    {
+      "id": "guard-050-lower-overlap",
+      "candidateId": "guard-050",
+      "side": "lower",
+      "role": "direct-overlap",
+      "targetTheta": -2.5078183981455946,
+      "auxiliaryTheta": -2.2578183981455946,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 4134,
+      "maximumRawWeight": 4.907296633136056,
+      "meanRawWeight": {
+        "estimate": 1.0078228997409817,
+        "empiricalBernsteinHalfWidth": 0.0422263507793603,
+        "lower": 0.9655965489616214,
+        "upper": 1.050049250520342
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.0098457987134791,
+        "empiricalBernsteinHalfWidth": 0.004699893781258357,
+        "lower": 0.005145904932220743,
+        "upper": 0.014545692494737457
+      },
+      "selectedEffectiveSampleSize": 3555.7074504378415,
+      "selectedEffectiveSampleSizeFraction": 0.17778537252189208,
+      "maximumSelectedNormalizedWeight": 0.004554838873805434,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 44446.34313047302,
+      "directComparison": {
+        "paths": 20000,
+        "selectedPaths": 176,
+        "probability": {
+          "estimate": 0.0088,
+          "empiricalBernsteinHalfWidth": 0.0033141169281638103,
+          "lower": 0.00548588307183619,
+          "upper": 0.01211411692816381
+        },
+        "absoluteDifference": 0.0010457987134790993,
+        "combinedHalfWidth": 0.008014010709422167,
+        "agreesWithinSimultaneousBounds": true
+      },
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": null,
+        "endpointWeightConcentration": null,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": true,
+        "overlapAgreement": true
+      }
+    },
+    {
+      "id": "guard-075-lower-endpoint",
+      "candidateId": "guard-075",
+      "side": "lower",
+      "role": "endpoint-stability",
+      "targetTheta": -2.5078183981455946,
+      "auxiliaryTheta": -2.0078183981455946,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 4001,
+      "maximumRawWeight": 4.9999992262149755,
+      "meanRawWeight": {
+        "estimate": 1.0001285737084091,
+        "empiricalBernsteinHalfWidth": 0.0566740409910201,
+        "lower": 0.943454532717389,
+        "upper": 1.0568026146994292
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.00007414244654458718,
+        "empiricalBernsteinHalfWidth": 0.004239050866180016,
+        "lower": 0,
+        "upper": 0.004313193312724603
+      },
+      "selectedEffectiveSampleSize": 7.350044010528985,
+      "selectedEffectiveSampleSizeFraction": 0.00036750220052644925,
+      "maximumSelectedNormalizedWeight": 0.34430000346938644,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 91.87555013161231,
+      "directComparison": null,
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": false,
+        "endpointWeightConcentration": false,
+        "projectedCalibrationEss": false,
+        "overlapPrecision": null,
+        "overlapAgreement": null
+      }
+    },
+    {
+      "id": "guard-075-lower-overlap",
+      "candidateId": "guard-075",
+      "side": "lower",
+      "role": "direct-overlap",
+      "targetTheta": -2.2578183981455946,
+      "auxiliaryTheta": -2.0078183981455946,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 4013,
+      "maximumRawWeight": 4.999744144635407,
+      "meanRawWeight": {
+        "estimate": 1.0114725787629884,
+        "empiricalBernsteinHalfWidth": 0.04853339385990745,
+        "lower": 0.962939184903081,
+        "upper": 1.0600059726228959
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.012762512956527656,
+        "empiricalBernsteinHalfWidth": 0.004757628786377288,
+        "lower": 0.008004884170150368,
+        "upper": 0.017520141742904942
+      },
+      "selectedEffectiveSampleSize": 4602.972808492675,
+      "selectedEffectiveSampleSizeFraction": 0.23014864042463373,
+      "maximumSelectedNormalizedWeight": 0.0026587504293625313,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 57537.16010615843,
+      "directComparison": {
+        "paths": 20000,
+        "selectedPaths": 251,
+        "probability": {
+          "estimate": 0.01255,
+          "empiricalBernsteinHalfWidth": 0.0037914732705873902,
+          "lower": 0.00875852672941261,
+          "upper": 0.01634147327058739
+        },
+        "absoluteDifference": 0.00021251295652765546,
+        "combinedHalfWidth": 0.008549102056964679,
+        "agreesWithinSimultaneousBounds": true
+      },
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": null,
+        "endpointWeightConcentration": null,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": true,
+        "overlapAgreement": true
+      }
+    },
+    {
+      "id": "guard-100-lower-endpoint",
+      "candidateId": "guard-100",
+      "side": "lower",
+      "role": "endpoint-stability",
+      "targetTheta": -2.2578183981455946,
+      "auxiliaryTheta": -1.7578183981455946,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 4063,
+      "maximumRawWeight": 4.99999999996772,
+      "meanRawWeight": {
+        "estimate": 1.0149676853039609,
+        "empiricalBernsteinHalfWidth": 0.05660919165946314,
+        "lower": 0.9583584936444978,
+        "upper": 1.071576876963424
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.0004497466344967401,
+        "empiricalBernsteinHalfWidth": 0.0042450712682565615,
+        "lower": 0,
+        "upper": 0.004694817902753301
+      },
+      "selectedEffectiveSampleSize": 238.6064463722581,
+      "selectedEffectiveSampleSizeFraction": 0.011930322318612905,
+      "maximumSelectedNormalizedWeight": 0.025043701811981744,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 2982.5805796532263,
+      "directComparison": null,
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": false,
+        "endpointWeightConcentration": false,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": null,
+        "overlapAgreement": null
+      }
+    },
+    {
+      "id": "guard-100-lower-overlap",
+      "candidateId": "guard-100",
+      "side": "lower",
+      "role": "direct-overlap",
+      "targetTheta": -2.0078183981455946,
+      "auxiliaryTheta": -1.7578183981455946,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 4053,
+      "maximumRawWeight": 4.999674708157558,
+      "meanRawWeight": {
+        "estimate": 1.0017878540108276,
+        "empiricalBernsteinHalfWidth": 0.041595912984545166,
+        "lower": 0.9601919410262825,
+        "upper": 1.0433837669953727
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.04379834421882141,
+        "empiricalBernsteinHalfWidth": 0.005901829811736586,
+        "lower": 0.03789651440708482,
+        "upper": 0.04970017403055799
+      },
+      "selectedEffectiveSampleSize": 6074.815591454724,
+      "selectedEffectiveSampleSizeFraction": 0.3037407795727362,
+      "maximumSelectedNormalizedWeight": 0.0007154473672675984,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 75935.19489318405,
+      "directComparison": {
+        "paths": 20000,
+        "selectedPaths": 885,
+        "probability": {
+          "estimate": 0.04425,
+          "empiricalBernsteinHalfWidth": 0.006303238173285341,
+          "lower": 0.03794676182671466,
+          "upper": 0.05055323817328534
+        },
+        "absoluteDifference": 0.0004516557811785893,
+        "combinedHalfWidth": 0.012205067985021927,
+        "agreesWithinSimultaneousBounds": true
+      },
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": null,
+        "endpointWeightConcentration": null,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": true,
+        "overlapAgreement": true
+      }
+    },
+    {
+      "id": "guard-100-upper-overlap",
+      "candidateId": "guard-100",
+      "side": "upper",
+      "role": "direct-overlap",
+      "targetTheta": 2.5590556474466313,
+      "auxiliaryTheta": 2.3090556474466313,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 3947,
+      "maximumRawWeight": 4.716925035254701,
+      "meanRawWeight": {
+        "estimate": 0.9911415344101758,
+        "empiricalBernsteinHalfWidth": 0.030758555185761254,
+        "lower": 0.9603829792244146,
+        "upper": 1.0219000895959371
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.06526014207438939,
+        "empiricalBernsteinHalfWidth": 0.0069920660189661645,
+        "lower": 0.058268076055423224,
+        "upper": 0.07225220809335556
+      },
+      "selectedEffectiveSampleSize": 5403.787098038211,
+      "selectedEffectiveSampleSizeFraction": 0.27018935490191054,
+      "maximumSelectedNormalizedWeight": 0.00038845985127370194,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 67547.33872547763,
+      "directComparison": {
+        "paths": 20000,
+        "selectedPaths": 1280,
+        "probability": {
+          "estimate": 0.064,
+          "empiricalBernsteinHalfWidth": 0.007344464877341256,
+          "lower": 0.056655535122658744,
+          "upper": 0.07134446487734125
+        },
+        "absoluteDifference": 0.0012601420743893893,
+        "combinedHalfWidth": 0.01433653089630742,
+        "agreesWithinSimultaneousBounds": true
+      },
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": null,
+        "endpointWeightConcentration": null,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": true,
+        "overlapAgreement": true
+      }
+    },
+    {
+      "id": "guard-100-upper-endpoint",
+      "candidateId": "guard-100",
+      "side": "upper",
+      "role": "endpoint-stability",
+      "targetTheta": 2.8090556474466313,
+      "auxiliaryTheta": 2.3090556474466313,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 4064,
+      "maximumRawWeight": 4.996552012503804,
+      "meanRawWeight": {
+        "estimate": 1.009600627369265,
+        "empiricalBernsteinHalfWidth": 0.04738252453787969,
+        "lower": 0.9622181028313853,
+        "upper": 1.0569831519071446
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.002581165489930961,
+        "empiricalBernsteinHalfWidth": 0.004295196002538087,
+        "lower": 0,
+        "upper": 0.006876361492469048
+      },
+      "selectedEffectiveSampleSize": 3145.0720928643527,
+      "selectedEffectiveSampleSizeFraction": 0.15725360464321764,
+      "maximumSelectedNormalizedWeight": 0.0014805152917699307,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 39313.40116080441,
+      "directComparison": null,
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": true,
+        "endpointWeightConcentration": true,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": null,
+        "overlapAgreement": null
+      }
+    },
+    {
+      "id": "guard-075-upper-overlap",
+      "candidateId": "guard-075",
+      "side": "upper",
+      "role": "direct-overlap",
+      "targetTheta": 2.8090556474466313,
+      "auxiliaryTheta": 2.5590556474466313,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 3992,
+      "maximumRawWeight": 4.628498957930576,
+      "meanRawWeight": {
+        "estimate": 1.000932942197831,
+        "empiricalBernsteinHalfWidth": 0.029550305142276207,
+        "lower": 0.9713826370555548,
+        "upper": 1.0304832473401073
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.11388360439376259,
+        "empiricalBernsteinHalfWidth": 0.008429065935264978,
+        "lower": 0.10545453845849762,
+        "upper": 0.12231267032902757
+      },
+      "selectedEffectiveSampleSize": 6657.532452651809,
+      "selectedEffectiveSampleSizeFraction": 0.33287662263259044,
+      "maximumSelectedNormalizedWeight": 0.00029733314833731194,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 83219.1556581476,
+      "directComparison": {
+        "paths": 20000,
+        "selectedPaths": 2286,
+        "probability": {
+          "estimate": 0.1143,
+          "empiricalBernsteinHalfWidth": 0.009299545093108345,
+          "lower": 0.10500045490689165,
+          "upper": 0.12359954509310835
+        },
+        "absoluteDifference": 0.00041639560623740746,
+        "combinedHalfWidth": 0.017728611028373323,
+        "agreesWithinSimultaneousBounds": true
+      },
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": null,
+        "endpointWeightConcentration": null,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": true,
+        "overlapAgreement": true
+      }
+    },
+    {
+      "id": "guard-075-upper-endpoint",
+      "candidateId": "guard-075",
+      "side": "upper",
+      "role": "endpoint-stability",
+      "targetTheta": 3.0590556474466313,
+      "auxiliaryTheta": 2.5590556474466313,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 4005,
+      "maximumRawWeight": 4.985784938116247,
+      "meanRawWeight": {
+        "estimate": 0.9961058889082837,
+        "empiricalBernsteinHalfWidth": 0.046334863906989446,
+        "lower": 0.9497710250012942,
+        "upper": 1.042440752815273
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.008456101665540365,
+        "empiricalBernsteinHalfWidth": 0.004581874012013039,
+        "lower": 0.003874227653527326,
+        "upper": 0.013037975677553403
+      },
+      "selectedEffectiveSampleSize": 4065.341315689128,
+      "selectedEffectiveSampleSizeFraction": 0.20326706578445639,
+      "maximumSelectedNormalizedWeight": 0.0011077015501404553,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 50816.766446114096,
+      "directComparison": null,
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": true,
+        "endpointWeightConcentration": true,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": null,
+        "overlapAgreement": null
+      }
+    },
+    {
+      "id": "guard-050-upper-overlap",
+      "candidateId": "guard-050",
+      "side": "upper",
+      "role": "direct-overlap",
+      "targetTheta": 3.0590556474466313,
+      "auxiliaryTheta": 2.8090556474466313,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 3974,
+      "maximumRawWeight": 4.2549548843269065,
+      "meanRawWeight": {
+        "estimate": 1.00300456558662,
+        "empiricalBernsteinHalfWidth": 0.029508522479619,
+        "lower": 0.973496043107001,
+        "upper": 1.032513088066239
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.13161008032055171,
+        "empiricalBernsteinHalfWidth": 0.00882872041993268,
+        "lower": 0.12278135990061903,
+        "upper": 0.1404388007404844
+      },
+      "selectedEffectiveSampleSize": 7160.733832833385,
+      "selectedEffectiveSampleSizeFraction": 0.3580366916416693,
+      "maximumSelectedNormalizedWeight": 0.0003093703962494653,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 89509.17291041733,
+      "directComparison": {
+        "paths": 20000,
+        "selectedPaths": 2623,
+        "probability": {
+          "estimate": 0.13115,
+          "empiricalBernsteinHalfWidth": 0.009815834051644712,
+          "lower": 0.12133416594835528,
+          "upper": 0.1409658340516447
+        },
+        "absoluteDifference": 0.00046008032055172565,
+        "combinedHalfWidth": 0.018644554471577392,
+        "agreesWithinSimultaneousBounds": true
+      },
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": null,
+        "endpointWeightConcentration": null,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": true,
+        "overlapAgreement": true
+      }
+    },
+    {
+      "id": "guard-050-upper-endpoint",
+      "candidateId": "guard-050",
+      "side": "upper",
+      "role": "endpoint-stability",
+      "targetTheta": 3.3090556474466313,
+      "auxiliaryTheta": 2.8090556474466313,
+      "mixturePaths": 20000,
+      "targetComponentPaths": 3970,
+      "maximumRawWeight": 4.874656304676386,
+      "meanRawWeight": {
+        "estimate": 0.9960725143246068,
+        "empiricalBernsteinHalfWidth": 0.045289213337450146,
+        "lower": 0.9507833009871566,
+        "upper": 1.0413617276620568
+      },
+      "weightedSelectionProbability": {
+        "estimate": 0.010322053394088076,
+        "empiricalBernsteinHalfWidth": 0.004704123250192755,
+        "lower": 0.005617930143895321,
+        "upper": 0.01502617664428083
+      },
+      "selectedEffectiveSampleSize": 3794.199215973001,
+      "selectedEffectiveSampleSizeFraction": 0.18970996079865005,
+      "maximumSelectedNormalizedWeight": 0.0011101397462593926,
+      "projectedSelectedEffectiveSampleSizeAtCalibrationCap": 47427.49019966251,
+      "directComparison": null,
+      "gates": {
+        "boundedWeight": true,
+        "meanWeightIdentity": true,
+        "endpointSelectedEss": true,
+        "endpointWeightConcentration": true,
+        "projectedCalibrationEss": true,
+        "overlapPrecision": null,
+        "overlapAgreement": null
+      }
+    }
+  ],
+  "decision": {
+    "passesAllValidationGates": false,
+    "failedExperimentGates": [
+      {
+        "experimentId": "guard-050-lower-endpoint",
+        "gate": "endpointSelectedEss"
+      },
+      {
+        "experimentId": "guard-050-lower-endpoint",
+        "gate": "endpointWeightConcentration"
+      },
+      {
+        "experimentId": "guard-050-lower-endpoint",
+        "gate": "projectedCalibrationEss"
+      },
+      {
+        "experimentId": "guard-075-lower-endpoint",
+        "gate": "endpointSelectedEss"
+      },
+      {
+        "experimentId": "guard-075-lower-endpoint",
+        "gate": "endpointWeightConcentration"
+      },
+      {
+        "experimentId": "guard-075-lower-endpoint",
+        "gate": "projectedCalibrationEss"
+      },
+      {
+        "experimentId": "guard-100-lower-endpoint",
+        "gate": "endpointSelectedEss"
+      },
+      {
+        "experimentId": "guard-100-lower-endpoint",
+        "gate": "endpointWeightConcentration"
+      }
+    ],
+    "nextStep": "abandon-or-redesign-importance-calibration"
+  }
+}

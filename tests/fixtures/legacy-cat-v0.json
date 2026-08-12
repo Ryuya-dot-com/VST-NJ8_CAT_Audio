@@ -1,0 +1,183 @@
+{
+  "modelId": "legacy-cat-v0",
+  "numericalTolerance": 1e-12,
+  "itemBank": {
+    "path": "public/jacet_parameters.csv",
+    "sha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+    "itemCount": 160
+  },
+  "config": {
+    "scoreModelId": "legacy-cat-v0",
+    "itemResponse": { "model": "3PL", "logisticScale": 1 },
+    "abilityEstimator": {
+      "method": "EAP",
+      "uncertainty": "posterior-standard-deviation"
+    },
+    "thetaGrid": { "min": -6, "max": 6, "step": 0.01 },
+    "prior": { "mean": 0, "standardDeviation": 1 },
+    "stopping": {
+      "minimumItems": 20,
+      "maximumItems": 30,
+      "targetPosteriorStandardDeviation": 0.4
+    },
+    "contentConstraint": {
+      "initialLevelMinimum": 3,
+      "initialLevelMaximum": 5,
+      "highLevelFloor": 7,
+      "minimumHighLevelItems": 2
+    },
+    "vocabularyBandSize": 1000,
+    "vocabularyDifficultyThresholds": [
+      -2.206,
+      -1.512,
+      -0.701,
+      -0.075,
+      0.748,
+      1.152,
+      1.504,
+      2.089
+    ]
+  },
+  "abilityScenarios": [
+    {
+      "name": "mixed-eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [1, 0, 1, 1, 0, 1, 0, 1],
+      "theta": -0.09593844389217103,
+      "standardDeviation": 0.6145091192864308
+    },
+    {
+      "name": "all-correct-eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [1, 1, 1, 1, 1, 1, 1, 1],
+      "theta": 1.9155363869037818,
+      "standardDeviation": 0.6490770555543998
+    },
+    {
+      "name": "all-incorrect-eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [0, 0, 0, 0, 0, 0, 0, 0],
+      "theta": -2.0822237865978868,
+      "standardDeviation": 0.6074360258675988
+    },
+    {
+      "name": "mixed-twenty",
+      "administered": [
+        0,
+        8,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56,
+        64,
+        72,
+        80,
+        88,
+        96,
+        104,
+        112,
+        120,
+        128,
+        136,
+        144,
+        152
+      ],
+      "responses": [
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "theta": -1.3339740242310087,
+      "standardDeviation": 0.5057401350993888
+    }
+  ],
+  "vocabularyScenarios": [
+    { "theta": -3, "vocabularySize": 693.2513480125175 },
+    { "theta": -2, "vocabularySize": 1420.2126043558349 },
+    { "theta": -1, "vocabularySize": 2476.1934344331353 },
+    { "theta": 0, "vocabularySize": 3760.676577895929 },
+    { "theta": 1, "vocabularySize": 5130.399597617866 },
+    { "theta": 2, "vocabularySize": 6358.952258067615 },
+    { "theta": 3, "vocabularySize": 7214.332105872863 }
+  ],
+  "selectionScenarios": [
+    { "theta": 0, "administered": [], "needHigh": false, "selected": 70 },
+    { "theta": 0, "administered": [], "needHigh": true, "selected": 154 },
+    {
+      "theta": -2,
+      "administered": [0, 1, 2],
+      "needHigh": false,
+      "selected": 28
+    },
+    {
+      "theta": 2,
+      "administered": [140, 141],
+      "needHigh": true,
+      "selected": 127
+    }
+  ],
+  "itemScenarios": [
+    {
+      "itemIndex": 0,
+      "theta": 0,
+      "probability": 0.9923651736481681,
+      "information": 0.029681168801927043
+    }
+  ],
+  "stoppingScenarios": [
+    {
+      "name": "minimum-length-not-met",
+      "posteriorStandardDeviation": 0.1,
+      "administeredItems": 19,
+      "highLevelItems": 2,
+      "shouldContinue": true
+    },
+    {
+      "name": "precision-boundary-is-inclusive-for-stopping",
+      "posteriorStandardDeviation": 0.4,
+      "administeredItems": 20,
+      "highLevelItems": 2,
+      "shouldContinue": false
+    },
+    {
+      "name": "precision-target-not-met",
+      "posteriorStandardDeviation": 0.4000001,
+      "administeredItems": 20,
+      "highLevelItems": 2,
+      "shouldContinue": true
+    },
+    {
+      "name": "content-constraint-not-met",
+      "posteriorStandardDeviation": 0.2,
+      "administeredItems": 20,
+      "highLevelItems": 1,
+      "shouldContinue": true
+    },
+    {
+      "name": "maximum-length-is-unconditional",
+      "posteriorStandardDeviation": 1,
+      "administeredItems": 30,
+      "highLevelItems": 0,
+      "shouldContinue": false
+    }
+  ]
+}

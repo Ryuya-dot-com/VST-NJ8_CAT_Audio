@@ -5,23 +5,90 @@ import { LandingView } from "./components/LandingView";
 import { ResultsView } from "./components/ResultsView";
 import { TestView } from "./components/TestView";
 import type { Item, OptionChoice } from "./types";
-import { estimateAbilityEap, selectNextItem, vocabFromTheta } from "./utils/cat";
+import {
+  AUDIO_ADMINISTRATION_AUDIT_FIELDS,
+  buildAudioAdministrationAudit,
+  canStartAudioOption,
+  createEmptyAudioPlaybackStatus,
+  isAudioOptionKey,
+  isAudioResponseReady,
+  orderAudioOptions,
+  type AudioPlaybackStatus,
+} from "./utils/audioAdministrationPolicy";
 import { loadItemBank } from "./utils/data";
-import { shuffleArray } from "./utils/random";
+import { estimatePaperPosteriorEap } from "./utils/paperScoring";
 import { playWordAudio } from "./utils/audio";
-import { speakWord } from "./utils/speech";
+import {
+  RESEARCH_ADMINISTRATION_AUDIT_FIELDS,
+  RESEARCH_ADMINISTRATION_POLICY,
+  buildResearchAdministrationAudit,
+  createResearchAdministrationRandom,
+  createResearchAdministrationSeed,
+  selectInitialResearchItem,
+  selectNextResearchItem,
+  shouldContinueResearchAdministration,
+  type ResearchStopReason,
+} from "./utils/researchAdministrationPolicy";
+import {
+  PUBLIC_OBSERVED_RESULT_FIELDS,
+  assertPublicResultFieldsAllowed,
+  buildPublicObservedResult,
+} from "./utils/scoreReportingPolicy";
 
-const TOTAL_ITEMS = 30;
+const TOTAL_ITEMS = RESEARCH_ADMINISTRATION_POLICY.fixedLength;
 const TEST_LABEL = "音声版";
 type DownloadStatus = "idle" | "success" | "error";
 type OptionKey = "a" | "b" | "c" | "d";
 
+const PUBLIC_SUMMARY_FIELDS = Object.freeze([
+  ...PUBLIC_OBSERVED_RESULT_FIELDS,
+  ...RESEARCH_ADMINISTRATION_AUDIT_FIELDS,
+  ...AUDIO_ADMINISTRATION_AUDIT_FIELDS,
+  "総回答時間（秒）",
+  "平均回答時間（秒）",
+  "A選択数",
+  "B選択数",
+  "C選択数",
+  "D選択数",
+  "選択肢音声再生合計",
+  "選択肢A音声再生合計",
+  "選択肢B音声再生合計",
+  "選択肢C音声再生合計",
+  "選択肢D音声再生合計",
+  "音声再生失敗合計",
+]);
+
+const PUBLIC_RESPONSE_FIELDS = Object.freeze([
+  "問題番号",
+  "項目ID",
+  "単語",
+  "品詞",
+  "レベル",
+  "選択ラベル",
+  "選択回答",
+  "正答",
+  "正誤",
+  "回答値",
+  "回答時刻",
+  "回答時間（秒）",
+  "選択肢A",
+  "選択肢B",
+  "選択肢C",
+  "選択肢D",
+  "選択肢A音声再生回数",
+  "選択肢B音声再生回数",
+  "選択肢C音声再生回数",
+  "選択肢D音声再生回数",
+  "音声再生総回数",
+  "音声再生失敗回数",
+]);
+
 interface AudioPlayCounts {
-  question: number;
   a: number;
   b: number;
   c: number;
   d: number;
+  failures: number;
 }
 
 interface ResultSnapshot {
@@ -33,8 +100,8 @@ interface ResultSnapshot {
   responseTimes: number[];
   answerTimestamps: string[];
   audioPlayCounts: AudioPlayCounts[];
-  theta: number;
-  se: number;
+  administrationSeed: number;
+  stopReason: ResearchStopReason;
   testStartedAtMs: number | null;
   testEndedAtMs: number | null;
 }
@@ -58,16 +125,12 @@ function formatTimestampForFilename(date: Date): string {
 
 function createEmptyAudioPlayCounts(): AudioPlayCounts {
   return {
-    question: 0,
     a: 0,
     b: 0,
     c: 0,
     d: 0,
+    failures: 0,
   };
-}
-
-function isOptionKey(value: string): value is OptionKey {
-  return value === "a" || value === "b" || value === "c" || value === "d";
 }
 
 function countSelectedLabels(labels: string[]) {
@@ -82,11 +145,11 @@ function countSelectedLabels(labels: string[]) {
 function sumAudioPlayCounts(counts: AudioPlayCounts[]): AudioPlayCounts {
   return counts.reduce<AudioPlayCounts>(
     (acc, value) => ({
-      question: acc.question + value.question,
       a: acc.a + value.a,
       b: acc.b + value.b,
       c: acc.c + value.c,
       d: acc.d + value.d,
+      failures: acc.failures + value.failures,
     }),
     createEmptyAudioPlayCounts()
   );
@@ -94,20 +157,6 @@ function sumAudioPlayCounts(counts: AudioPlayCounts[]): AudioPlayCounts {
 
 function getOptionText(optionOrder: OptionChoice[], label: OptionKey): string {
   return optionOrder.find((option) => option.label === label)?.text ?? "";
-}
-
-function pickInitialItemIndex(itemBank: Item[]): number | null {
-  const candidates = itemBank
-    .map((item, idx) => ({ item, idx }))
-    .filter(({ item }) => item.Level >= 3 && item.Level <= 5);
-
-  if (candidates.length === 0) {
-    return itemBank.length > 0 ? 0 : null;
-  }
-
-  const randomCandidate =
-    candidates[Math.floor(Math.random() * candidates.length)];
-  return randomCandidate?.idx ?? null;
 }
 
 function App() {
@@ -127,14 +176,20 @@ function App() {
   const [audioPlayCountsHistory, setAudioPlayCountsHistory] = useState<
     AudioPlayCounts[]
   >([]);
-  const [theta, setTheta] = useState(0);
-  const [se, setSe] = useState(Number.POSITIVE_INFINITY);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [questionStartMs, setQuestionStartMs] = useState<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [downloadStatus, setDownloadStatus] = useState<DownloadStatus>("idle");
   const [testStartedAtMs, setTestStartedAtMs] = useState<number | null>(null);
   const [testEndedAtMs, setTestEndedAtMs] = useState<number | null>(null);
+  const [administrationSeed, setAdministrationSeed] = useState<number | null>(null);
+  const [stopReason, setStopReason] = useState<ResearchStopReason | null>(null);
+  const [audioPlaybackStatus, setAudioPlaybackStatus] =
+    useState<AudioPlaybackStatus>(createEmptyAudioPlaybackStatus);
+  const audioPlaybackStatusRef = useRef<AudioPlaybackStatus>(
+    createEmptyAudioPlaybackStatus()
+  );
+  const selectionRandomRef = useRef<(() => number) | null>(null);
   const currentAudioPlayCountsRef = useRef<AudioPlayCounts>(
     createEmptyAudioPlayCounts()
   );
@@ -186,21 +241,20 @@ function App() {
   );
 
   const optionChoices = useMemo<OptionChoice[]>(() => {
-    if (!currentItem) {
+    if (
+      !currentItem ||
+      currentIndex === null ||
+      administrationSeed === null
+    ) {
       return [];
     }
-    const shuffled = shuffleArray([
-      currentItem.CorrectAnswer,
-      currentItem.Distractor_1,
-      currentItem.Distractor_2,
-      currentItem.Distractor_3,
-    ]);
-    const labels = ["a", "b", "c", "d"];
-    return shuffled.map((text, idx) => ({
-      label: labels[idx] ?? "?",
-      text,
-    }));
-  }, [currentItem]);
+    return orderAudioOptions(
+      currentItem,
+      administrationSeed,
+      currentIndex,
+      administered.length + 1
+    );
+  }, [administrationSeed, administered.length, currentIndex, currentItem]);
 
   const progressPct = Math.min(
     100,
@@ -210,20 +264,20 @@ function App() {
   const correctAnswers = responses.reduce<number>((acc, value) => acc + value, 0);
   const accuracy =
     responses.length > 0 ? (correctAnswers / responses.length) * 100 : 0;
-  const vocabSize = vocabFromTheta(theta);
-
   const handleStart = () => {
     if (loading || itemBank.length === 0) {
       return;
     }
-    const initialIndex = pickInitialItemIndex(itemBank);
-    if (initialIndex === null) {
-      setError("No items available to start the test.");
-      return;
-    }
+    const seed = createResearchAdministrationSeed();
+    const selectionRandom = createResearchAdministrationRandom(seed);
+    const initialIndex = selectInitialResearchItem(itemBank, selectionRandom);
 
     const startedAt = Date.now();
+    selectionRandomRef.current = selectionRandom;
     currentAudioPlayCountsRef.current = createEmptyAudioPlayCounts();
+    const emptyAudioStatus = createEmptyAudioPlaybackStatus();
+    audioPlaybackStatusRef.current = emptyAudioStatus;
+    setAudioPlaybackStatus(emptyAudioStatus);
 
     setStarted(true);
     setDone(false);
@@ -235,13 +289,13 @@ function App() {
     setResponseTimes([]);
     setAnswerTimestamps([]);
     setAudioPlayCountsHistory([]);
-    setTheta(0);
-    setSe(Number.POSITIVE_INFINITY);
     setCurrentIndex(initialIndex);
     setQuestionStartMs(startedAt);
     setDownloadStatus("idle");
     setTestStartedAtMs(startedAt);
     setTestEndedAtMs(null);
+    setAdministrationSeed(seed);
+    setStopReason(null);
   };
 
   const handleAnswer = (selectedLabel: string, optionText: string) => {
@@ -250,7 +304,10 @@ function App() {
       currentIndex === null ||
       done ||
       isProcessing ||
-      questionStartMs === null
+      questionStartMs === null ||
+      administrationSeed === null ||
+      selectionRandomRef.current === null ||
+      !isAudioResponseReady(audioPlaybackStatus)
     ) {
       return;
     }
@@ -290,57 +347,70 @@ function App() {
     setAnswerTimestamps(nextAnswerTimestamps);
     setAudioPlayCountsHistory(nextAudioPlayCountsHistory);
 
-    const estimate = estimateAbilityEap(
+    const estimate = estimatePaperPosteriorEap(
       itemBank,
       nextAdministered,
       nextResponses
     );
-    setTheta(estimate.theta);
-    setSe(estimate.se);
-
-    const highCount = nextAdministered.filter(
-      (idx) => itemBank[idx]?.Level >= 7
-    ).length;
-    const needHigh = highCount < 2;
-    const shouldContinue =
-      (estimate.se > 0.4 || nextAdministered.length < 20 || needHigh) &&
-      nextAdministered.length < TOTAL_ITEMS;
-
-    const nextSnapshot: ResultSnapshot = {
-      administered: nextAdministered,
-      responses: nextResponses,
-      selectedLabels: nextSelectedLabels,
-      selectedAnswers: nextSelectedAnswers,
-      optionOrders: nextOptionOrders,
-      responseTimes: nextTimes,
-      answerTimestamps: nextAnswerTimestamps,
-      audioPlayCounts: nextAudioPlayCountsHistory,
-      theta: estimate.theta,
-      se: estimate.se,
-      testStartedAtMs,
-      testEndedAtMs: now,
-    };
+    const shouldContinue = shouldContinueResearchAdministration(
+      nextAdministered.length
+    );
 
     if (shouldContinue) {
-      const nextIndex = selectNextItem(
+      const nextIndex = selectNextResearchItem(
         itemBank,
         estimate.theta,
         nextAdministered,
-        needHigh
+        selectionRandomRef.current
       );
       if (nextIndex === null) {
+        const finalStopReason: ResearchStopReason = "item-bank-exhausted";
+        const nextSnapshot: ResultSnapshot = {
+          administered: nextAdministered,
+          responses: nextResponses,
+          selectedLabels: nextSelectedLabels,
+          selectedAnswers: nextSelectedAnswers,
+          optionOrders: nextOptionOrders,
+          responseTimes: nextTimes,
+          answerTimestamps: nextAnswerTimestamps,
+          audioPlayCounts: nextAudioPlayCountsHistory,
+          administrationSeed,
+          stopReason: finalStopReason,
+          testStartedAtMs,
+          testEndedAtMs: now,
+        };
         setDone(true);
+        setStopReason(finalStopReason);
         setTestEndedAtMs(now);
         setCurrentIndex(null);
         setQuestionStartMs(null);
         downloadResultWorkbook(nextSnapshot);
       } else {
         currentAudioPlayCountsRef.current = createEmptyAudioPlayCounts();
+        const emptyAudioStatus = createEmptyAudioPlaybackStatus();
+        audioPlaybackStatusRef.current = emptyAudioStatus;
+        setAudioPlaybackStatus(emptyAudioStatus);
         setCurrentIndex(nextIndex);
         setQuestionStartMs(Date.now());
       }
     } else {
+      const finalStopReason: ResearchStopReason = "fixed-length";
+      const nextSnapshot: ResultSnapshot = {
+        administered: nextAdministered,
+        responses: nextResponses,
+        selectedLabels: nextSelectedLabels,
+        selectedAnswers: nextSelectedAnswers,
+        optionOrders: nextOptionOrders,
+        responseTimes: nextTimes,
+        answerTimestamps: nextAnswerTimestamps,
+        audioPlayCounts: nextAudioPlayCountsHistory,
+        administrationSeed,
+        stopReason: finalStopReason,
+        testStartedAtMs,
+        testEndedAtMs: now,
+      };
       setDone(true);
+      setStopReason(finalStopReason);
       setTestEndedAtMs(now);
       setCurrentIndex(null);
       setQuestionStartMs(null);
@@ -350,51 +420,42 @@ function App() {
     setIsProcessing(false);
   };
 
-  const playAudioText = (text: string) => {
-    const fallbackToSpeech = () => {
-      const success = speakWord(text);
-      if (!success) {
-        console.warn("Speech synthesis is not supported in this browser.");
-      }
-    };
-
-    playWordAudio(text)
-      .then((played) => {
-        if (!played) {
-          fallbackToSpeech();
-        }
-      })
-      .catch((error) => {
-        console.error("Audio playback failed, falling back to speech synthesis.", error);
-        fallbackToSpeech();
-      });
-  };
-
-  const handlePlayQuestionAudio = () => {
-    if (!currentItem || isProcessing) {
-      return;
-    }
-
-    currentAudioPlayCountsRef.current = {
-      ...currentAudioPlayCountsRef.current,
-      question: currentAudioPlayCountsRef.current.question + 1,
-    };
-    playAudioText(currentItem.Item);
-  };
-
-  const handlePlayOptionAudio = (label: string, text: string) => {
+  const handlePlayOptionAudio = async (label: string, text: string) => {
     if (isProcessing) {
       return;
     }
 
     const optionKey = label.toLowerCase();
-    if (isOptionKey(optionKey)) {
+    if (
+      !isAudioOptionKey(optionKey) ||
+      !canStartAudioOption(optionKey, audioPlaybackStatusRef.current)
+    ) {
+      return;
+    }
+    currentAudioPlayCountsRef.current = {
+      ...currentAudioPlayCountsRef.current,
+      [optionKey]: currentAudioPlayCountsRef.current[optionKey] + 1,
+    };
+    const playingStatus: AudioPlaybackStatus = {
+      ...audioPlaybackStatusRef.current,
+      [optionKey]: "playing",
+    };
+    audioPlaybackStatusRef.current = playingStatus;
+    setAudioPlaybackStatus(playingStatus);
+
+    const result = await playWordAudio(text);
+    if (result !== "completed") {
       currentAudioPlayCountsRef.current = {
         ...currentAudioPlayCountsRef.current,
-        [optionKey]: currentAudioPlayCountsRef.current[optionKey] + 1,
+        failures: currentAudioPlayCountsRef.current.failures + 1,
       };
     }
-    playAudioText(text);
+    const settledStatus: AudioPlaybackStatus = {
+      ...audioPlaybackStatusRef.current,
+      [optionKey]: result === "completed" ? "completed" : "failed",
+    };
+    audioPlaybackStatusRef.current = settledStatus;
+    setAudioPlaybackStatus(settledStatus);
   };
 
   const downloadResultWorkbook = (snapshot: ResultSnapshot) => {
@@ -406,7 +467,6 @@ function App() {
       snapshot.responses.length > 0
         ? (snapshotCorrectAnswers / snapshot.responses.length) * 100
         : 0;
-    const snapshotVocabSize = vocabFromTheta(snapshot.theta);
     const snapshotTotalTimeSeconds = snapshot.responseTimes.reduce(
       (acc, value) => acc + value,
       0
@@ -445,46 +505,52 @@ function App() {
         選択肢B: getOptionText(optionOrder, "b"),
         選択肢C: getOptionText(optionOrder, "c"),
         選択肢D: getOptionText(optionOrder, "d"),
-        問題語音声再生回数: audioCounts.question,
         選択肢A音声再生回数: audioCounts.a,
         選択肢B音声再生回数: audioCounts.b,
         選択肢C音声再生回数: audioCounts.c,
         選択肢D音声再生回数: audioCounts.d,
         音声再生総回数:
-          audioCounts.question + audioCounts.a + audioCounts.b + audioCounts.c + audioCounts.d,
+          audioCounts.a + audioCounts.b + audioCounts.c + audioCounts.d,
+        音声再生失敗回数: audioCounts.failures,
       };
     });
 
     const summarySheet = [
       {
-        テスト形式: TEST_LABEL,
-        受験者氏名: userName,
-        開始日時: snapshot.testStartedAtMs
-          ? new Date(snapshot.testStartedAtMs).toLocaleString("ja-JP")
-          : "",
-        終了日時: snapshot.testEndedAtMs
-          ? new Date(snapshot.testEndedAtMs).toLocaleString("ja-JP")
-          : createdAt.toLocaleString("ja-JP"),
-        "能力値θ": roundFinite(snapshot.theta, 4),
-        標準誤差: roundFinite(snapshot.se, 4),
-        推定語彙サイズ: Math.round(snapshotVocabSize),
-        総問題数: snapshot.administered.length,
-        正答数: snapshotCorrectAnswers,
-        "正答率（%）": roundFinite(snapshotAccuracy, 1),
+        ...buildPublicObservedResult({
+          testLabel: TEST_LABEL,
+          userName,
+          startedAt: snapshot.testStartedAtMs
+            ? new Date(snapshot.testStartedAtMs).toLocaleString("ja-JP")
+            : "",
+          endedAt: snapshot.testEndedAtMs
+            ? new Date(snapshot.testEndedAtMs).toLocaleString("ja-JP")
+            : createdAt.toLocaleString("ja-JP"),
+          administeredItems: snapshot.administered.length,
+          correctAnswers: snapshotCorrectAnswers,
+          accuracyPercent: roundFinite(snapshotAccuracy, 1),
+        }),
+        ...buildResearchAdministrationAudit(
+          snapshot.administrationSeed,
+          snapshot.stopReason
+        ),
+        ...buildAudioAdministrationAudit(),
         "総回答時間（秒）": roundFinite(snapshotTotalTimeSeconds, 2),
         "平均回答時間（秒）": roundFinite(snapshotAverageTimeSeconds, 2),
         A選択数: selectedLabelCounts.A,
         B選択数: selectedLabelCounts.B,
         C選択数: selectedLabelCounts.C,
         D選択数: selectedLabelCounts.D,
-        問題語音声再生合計: audioPlayTotals.question,
         選択肢音声再生合計: totalOptionAudioPlays,
         選択肢A音声再生合計: audioPlayTotals.a,
         選択肢B音声再生合計: audioPlayTotals.b,
         選択肢C音声再生合計: audioPlayTotals.c,
         選択肢D音声再生合計: audioPlayTotals.d,
+        音声再生失敗合計: audioPlayTotals.failures,
       },
     ];
+    assertPublicResultFieldsAllowed(summarySheet, PUBLIC_SUMMARY_FIELDS);
+    assertPublicResultFieldsAllowed(responsesSheet, PUBLIC_RESPONSE_FIELDS);
 
     try {
       const workbook = utils.book_new();
@@ -551,6 +617,10 @@ function App() {
   };
 
   const handleDownload = () => {
+    if (administrationSeed === null || stopReason === null) {
+      setDownloadStatus("error");
+      return;
+    }
     downloadResultWorkbook({
       administered,
       responses,
@@ -560,8 +630,8 @@ function App() {
       responseTimes,
       answerTimestamps,
       audioPlayCounts: audioPlayCountsHistory,
-      theta,
-      se,
+      administrationSeed,
+      stopReason,
       testStartedAtMs,
       testEndedAtMs,
     });
@@ -578,15 +648,19 @@ function App() {
     setResponseTimes([]);
     setAnswerTimestamps([]);
     setAudioPlayCountsHistory([]);
-    setTheta(0);
-    setSe(Number.POSITIVE_INFINITY);
     setCurrentIndex(null);
     setQuestionStartMs(null);
     setIsProcessing(false);
     setDownloadStatus("idle");
     setTestStartedAtMs(null);
     setTestEndedAtMs(null);
+    setAdministrationSeed(null);
+    setStopReason(null);
+    selectionRandomRef.current = null;
     currentAudioPlayCountsRef.current = createEmptyAudioPlayCounts();
+    const emptyAudioStatus = createEmptyAudioPlaybackStatus();
+    audioPlaybackStatusRef.current = emptyAudioStatus;
+    setAudioPlaybackStatus(emptyAudioStatus);
   };
 
   if (!started) {
@@ -605,9 +679,6 @@ function App() {
     return (
       <ResultsView
         userName={userName}
-        theta={theta}
-        se={se}
-        vocabSize={Math.round(vocabSize)}
         totalItems={administered.length}
         correctAnswers={correctAnswers}
         accuracy={Math.round(accuracy * 10) / 10}
@@ -630,8 +701,8 @@ function App() {
       progressPct={progressPct}
       options={optionChoices}
       onSelect={handleAnswer}
-      onPlayQuestionAudio={handlePlayQuestionAudio}
       onPlayOptionAudio={handlePlayOptionAudio}
+      audioPlaybackStatus={audioPlaybackStatus}
       isProcessing={isProcessing}
     />
   );

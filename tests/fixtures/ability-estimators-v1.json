@@ -1,0 +1,63 @@
+{
+  "contractId": "ability-estimators-v1",
+  "generatedBy": "scripts/reference-ability-estimators.R",
+  "referenceRuntime": "R 4.6.1",
+  "tolerance": {
+    "absolute": 1e-5,
+    "relative": 1e-9
+  },
+  "scenarios": [
+    {
+      "name": "mixed_eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [1, 0, 1, 1, 0, 1, 0, 1],
+      "estimates": {
+        "eap-normal-0-1": { "theta": -0.41251582457848235, "posteriorStandardDeviation": 0.5857004061718729, "posteriorCredibleInterval95": { "lower": -1.5, "upper": 0.76 }, "boundaryHit": false },
+        "eap-normal-0-2": { "theta": -0.5404120113021406, "posteriorStandardDeviation": 0.663646595378459, "posteriorCredibleInterval95": { "lower": -1.78, "upper": 0.79 }, "boundaryHit": false },
+        "map-normal-0-1": { "theta": -0.5137940969743361, "boundaryHit": false },
+        "map-normal-0-2": { "theta": -0.6945326559190109, "boundaryHit": false },
+        "mle-bounded": { "theta": -0.7679851630424363, "localInformationEquivalentStandardDeviation": 0.5431022820390494, "boundaryHit": false },
+        "warm-wle-bounded": { "theta": -0.8955728704962413, "localInformationEquivalentStandardDeviation": 0.5148404936275676, "boundaryHit": false }
+      }
+    },
+    {
+      "name": "all_correct_eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [1, 1, 1, 1, 1, 1, 1, 1],
+      "estimates": {
+        "eap-normal-0-1": { "theta": 2.1149040154823813, "posteriorStandardDeviation": 0.5655346629733118, "posteriorCredibleInterval95": { "lower": 1.1, "upper": 3.31 }, "boundaryHit": false },
+        "eap-normal-0-2": { "theta": 3.1756919605171214, "posteriorStandardDeviation": 0.9524127904413228, "posteriorCredibleInterval95": { "lower": 1.58, "upper": 5.3 }, "boundaryHit": false },
+        "map-normal-0-1": { "theta": 2.004021116595917, "boundaryHit": false },
+        "map-normal-0-2": { "theta": 2.8501240016121847, "boundaryHit": false },
+        "mle-bounded": { "theta": 6, "localInformationEquivalentStandardDeviation": 13.381613621478287, "boundaryHit": true },
+        "warm-wle-bounded": { "theta": 2.977263181323919, "localInformationEquivalentStandardDeviation": 1.0655835577099402, "boundaryHit": false }
+      }
+    },
+    {
+      "name": "all_incorrect_eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [0, 0, 0, 0, 0, 0, 0, 0],
+      "estimates": {
+        "eap-normal-0-1": { "theta": -2.2958993423134073, "posteriorStandardDeviation": 0.5188814151036476, "posteriorCredibleInterval95": { "lower": -3.38, "upper": -1.33 }, "boundaryHit": false },
+        "eap-normal-0-2": { "theta": -3.2133095811708654, "posteriorStandardDeviation": 0.880838866948958, "posteriorCredibleInterval95": { "lower": -5.26, "upper": -1.79 }, "boundaryHit": false },
+        "map-normal-0-1": { "theta": -2.258226117569471, "boundaryHit": false },
+        "map-normal-0-2": { "theta": -2.810451378151516, "boundaryHit": false },
+        "mle-bounded": { "theta": -6, "localInformationEquivalentStandardDeviation": 3940.832519780282, "boundaryHit": true },
+        "warm-wle-bounded": { "theta": -2.636931660580942, "localInformationEquivalentStandardDeviation": 0.7756840305261274, "boundaryHit": false }
+      }
+    },
+    {
+      "name": "mixed_twenty",
+      "administered": [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152],
+      "responses": [1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1],
+      "estimates": {
+        "eap-normal-0-1": { "theta": -1.7008002905808226, "posteriorStandardDeviation": 0.34510720589430216, "posteriorCredibleInterval95": { "lower": -2.42, "upper": -1.05 }, "boundaryHit": false },
+        "eap-normal-0-2": { "theta": -1.9443317859826177, "posteriorStandardDeviation": 0.5284343008788405, "posteriorCredibleInterval95": { "lower": -3.29, "upper": -1.19 }, "boundaryHit": false },
+        "map-normal-0-1": { "theta": -1.670134057433175, "boundaryHit": false },
+        "map-normal-0-2": { "theta": -1.7839294145339197, "boundaryHit": false },
+        "mle-bounded": { "theta": -1.832497789891271, "localInformationEquivalentStandardDeviation": 0.31146487937128947, "boundaryHit": false },
+        "warm-wle-bounded": { "theta": -1.7404995670056185, "localInformationEquivalentStandardDeviation": 0.28234424535002184, "boundaryHit": false }
+      }
+    }
+  ]
+}

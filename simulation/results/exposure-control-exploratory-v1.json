@@ -1,0 +1,2629 @@
+{
+  "schemaVersion": "exposure-simulation-v1",
+  "engineId": "sympson-hetter-blueprint-v1",
+  "randomGeneratorId": "mulberry32-v1",
+  "scoreModelId": "paper-3pl-v1",
+  "exposureMethod": "unconditional-sympson-hetter",
+  "itemBankSha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+  "planSha256": "8b5a1891b43959e80653709b2cf5477bf5010f5dce8a4cdb6c1ef16207d05789",
+  "provenance": {
+    "nodeVersion": "v24.9.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "sourceSha256": {
+      "scripts/simulate-exposure-control.ts": "ccf78f6c6ec69054f65b2353b06a7962caa49d835676f59999c1d86e791da0d8",
+      "src/utils/exposureSimulation.ts": "1aa0e7f16203a9fa8f494085afef0227198d734471cf9b6b92a4188e29f1710c",
+      "src/utils/sympsonHetter.ts": "91481a91de0321602b8ad7250873914b27e6de540b3c5f0e2c894039aece6c4b",
+      "src/utils/abilityEstimators.ts": "a3ece0c811d84c1f68192295c2bdc2eac1b62550b9a442a9fe5d40f32106287b",
+      "src/utils/paperScoring.ts": "e01dfe7474a21cfbd547fbfd40680c52604704f8b4d568b5c46cc42f895ffa3e"
+    }
+  },
+  "plan": {
+    "planId": "exposure-control-exploratory-v1",
+    "seed": 20260813,
+    "calibrationCycles": 8,
+    "calibrationReplicationsPerTheta": 200,
+    "evaluationReplicationsPerTheta": 500,
+    "trueThetas": [
+      -3.5,
+      -3,
+      -2.5,
+      -2,
+      -1.5,
+      -1,
+      -0.5,
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3,
+      3.5
+    ],
+    "initialLevelMinimum": 3,
+    "initialLevelMaximum": 5,
+    "estimatorIds": [
+      "eap-normal-0-1",
+      "warm-wle-bounded"
+    ],
+    "designs": [
+      {
+        "id": "fixed20-sh025-high2",
+        "fixedLength": 20,
+        "targetMaximumExposure": 0.25,
+        "levelBands": [
+          {
+            "id": "high",
+            "levels": [
+              7,
+              8
+            ],
+            "minimumItems": 2
+          }
+        ]
+      },
+      {
+        "id": "fixed20-sh025-three-band",
+        "fixedLength": 20,
+        "targetMaximumExposure": 0.25,
+        "levelBands": [
+          {
+            "id": "low",
+            "levels": [
+              1,
+              2
+            ],
+            "minimumItems": 2
+          },
+          {
+            "id": "middle",
+            "levels": [
+              3,
+              4,
+              5,
+              6
+            ],
+            "minimumItems": 2
+          },
+          {
+            "id": "high",
+            "levels": [
+              7,
+              8
+            ],
+            "minimumItems": 2
+          }
+        ]
+      },
+      {
+        "id": "fixed20-sh025-each-level1",
+        "fixedLength": 20,
+        "targetMaximumExposure": 0.25,
+        "levelBands": [
+          {
+            "id": "level-1",
+            "levels": [
+              1
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-2",
+            "levels": [
+              2
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-3",
+            "levels": [
+              3
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-4",
+            "levels": [
+              4
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-5",
+            "levels": [
+              5
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-6",
+            "levels": [
+              6
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-7",
+            "levels": [
+              7
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-8",
+            "levels": [
+              8
+            ],
+            "minimumItems": 1
+          }
+        ]
+      }
+    ]
+  },
+  "results": [
+    {
+      "design": {
+        "id": "fixed20-sh025-high2",
+        "fixedLength": 20,
+        "targetMaximumExposure": 0.25,
+        "levelBands": [
+          {
+            "id": "high",
+            "levels": [
+              7,
+              8
+            ],
+            "minimumItems": 2
+          }
+        ]
+      },
+      "calibration": {
+        "cycles": [
+          {
+            "cycle": 1,
+            "maximumExposureRate": 0.5283333333333333,
+            "itemsAboveTarget": 16,
+            "maximumSelectionRate": 0.5283333333333333,
+            "minimumAdministrationParameterBefore": 1,
+            "minimumAdministrationParameterAfter": 0.47318611987381703,
+            "meanRejectionsPerTest": 0,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 2,
+            "maximumExposureRate": 0.3313333333333333,
+            "itemsAboveTarget": 17,
+            "maximumSelectionRate": 0.529,
+            "minimumAdministrationParameterBefore": 0.47318611987381703,
+            "minimumAdministrationParameterAfter": 0.47258979206049145,
+            "meanRejectionsPerTest": 1.7143333333333333,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 3,
+            "maximumExposureRate": 0.2623333333333333,
+            "itemsAboveTarget": 10,
+            "maximumSelectionRate": 0.5293333333333333,
+            "minimumAdministrationParameterBefore": 0.47258979206049145,
+            "minimumAdministrationParameterAfter": 0.4722921914357683,
+            "meanRejectionsPerTest": 2.0073333333333334,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 4,
+            "maximumExposureRate": 0.262,
+            "itemsAboveTarget": 15,
+            "maximumSelectionRate": 0.528,
+            "minimumAdministrationParameterBefore": 0.4722921914357683,
+            "minimumAdministrationParameterAfter": 0.47348484848484845,
+            "meanRejectionsPerTest": 2.005333333333333,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 5,
+            "maximumExposureRate": 0.26033333333333336,
+            "itemsAboveTarget": 7,
+            "maximumSelectionRate": 0.528,
+            "minimumAdministrationParameterBefore": 0.47348484848484845,
+            "minimumAdministrationParameterAfter": 0.47348484848484845,
+            "meanRejectionsPerTest": 2.0376666666666665,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 6,
+            "maximumExposureRate": 0.26033333333333336,
+            "itemsAboveTarget": 12,
+            "maximumSelectionRate": 0.5313333333333333,
+            "minimumAdministrationParameterBefore": 0.47348484848484845,
+            "minimumAdministrationParameterAfter": 0.47051442910915936,
+            "meanRejectionsPerTest": 1.9943333333333333,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 7,
+            "maximumExposureRate": 0.26266666666666666,
+            "itemsAboveTarget": 9,
+            "maximumSelectionRate": 0.5303333333333333,
+            "minimumAdministrationParameterBefore": 0.47051442910915936,
+            "minimumAdministrationParameterAfter": 0.4714016341923319,
+            "meanRejectionsPerTest": 2.019,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 8,
+            "maximumExposureRate": 0.26266666666666666,
+            "itemsAboveTarget": 6,
+            "maximumSelectionRate": 0.5273333333333333,
+            "minimumAdministrationParameterBefore": 0.4714016341923319,
+            "minimumAdministrationParameterAfter": 0.47408343868520864,
+            "meanRejectionsPerTest": 2.0236666666666667,
+            "forcedFallbackRate": 0
+          }
+        ],
+        "administrationParameters": [
+          1,
+          1,
+          1,
+          1,
+          0.8187772925764192,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.7731958762886598,
+          1,
+          0.6696428571428571,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.7433102081268583,
+          1,
+          1,
+          1,
+          0.6637168141592921,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9590792838874681,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.556379821958457,
+          1,
+          1,
+          1,
+          0.8741258741258742,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.5952380952380952,
+          1,
+          1,
+          0.9328358208955223,
+          1,
+          0.8038585209003215,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9247842170160296,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9907529722589167,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.47408343868520864,
+          0.9375,
+          0.5270555165144062,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.8751458576429404,
+          1,
+          1,
+          0.708215297450425,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.7149666348903717,
+          1,
+          0.4804612427930814,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "evaluation": {
+        "exposure": {
+          "maximumExposureRate": 0.256,
+          "maximumExposureItemIndex": 154,
+          "itemsAboveTarget": 11,
+          "unusedItemRate": 0.04375,
+          "expectedPairwiseOverlapFromMarginals": 3.483912533333333,
+          "expectedPairwiseOverlapRateFromMarginals": 0.17419562666666666,
+          "maximumConditionalExposureRate": 1,
+          "maximumConditionalExposureItemIndex": 106,
+          "maximumConditionalExposureTheta": 2,
+          "topExposedItems": [
+            {
+              "itemIndex": 154,
+              "level": 8,
+              "administrations": 1920,
+              "exposureRate": 0.256
+            },
+            {
+              "itemIndex": 152,
+              "level": 8,
+              "administrations": 1915,
+              "exposureRate": 0.25533333333333336
+            },
+            {
+              "itemIndex": 73,
+              "level": 4,
+              "administrations": 1911,
+              "exposureRate": 0.2548
+            },
+            {
+              "itemIndex": 32,
+              "level": 2,
+              "administrations": 1910,
+              "exposureRate": 0.25466666666666665
+            },
+            {
+              "itemIndex": 4,
+              "level": 1,
+              "administrations": 1908,
+              "exposureRate": 0.2544
+            },
+            {
+              "itemIndex": 83,
+              "level": 5,
+              "administrations": 1893,
+              "exposureRate": 0.2524
+            },
+            {
+              "itemIndex": 34,
+              "level": 2,
+              "administrations": 1886,
+              "exposureRate": 0.25146666666666667
+            },
+            {
+              "itemIndex": 58,
+              "level": 3,
+              "administrations": 1885,
+              "exposureRate": 0.25133333333333335
+            },
+            {
+              "itemIndex": 110,
+              "level": 6,
+              "administrations": 1882,
+              "exposureRate": 0.25093333333333334
+            },
+            {
+              "itemIndex": 120,
+              "level": 7,
+              "administrations": 1882,
+              "exposureRate": 0.25093333333333334
+            }
+          ]
+        },
+        "blueprint": {
+          "violationRate": 0,
+          "meanItemsByBand": {
+            "high": 6.005733333333334
+          }
+        },
+        "meanRejectionsPerTest": 1.9925333333333333,
+        "forcedFallbackRate": 0,
+        "estimators": [
+          {
+            "specification": {
+              "estimatorId": "eap-normal-0-1",
+              "method": "EAP",
+              "prior": {
+                "mean": 0,
+                "standardDeviation": 1
+              }
+            },
+            "worstAbsoluteConditionalBias": 0.40745720275132824,
+            "maximumConditionalRmse": 0.5126039843703797,
+            "maximumBoundaryRate": 0,
+            "minimumPosteriorCoverage95": 0.808,
+            "conditional": [
+              {
+                "trueTheta": -3.5,
+                "trials": 500,
+                "thetaBias": 0.40745720275132824,
+                "thetaRmse": 0.5126039843703797,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.808,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.013923745430397812,
+                  "thetaRmse": 0.023364331132602674,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.017614539448989292
+                }
+              },
+              {
+                "trueTheta": -3,
+                "trials": 500,
+                "thetaBias": 0.15153000037336767,
+                "thetaRmse": 0.25931926210370243,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.94,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.009420603638596783,
+                  "thetaRmse": 0.008140996304942628,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.010620734437881408
+                }
+              },
+              {
+                "trueTheta": -2.5,
+                "trials": 500,
+                "thetaBias": -0.01860269020599977,
+                "thetaRmse": 0.1680587328000912,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.97,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007477109703219021,
+                  "thetaRmse": 0.01931588770657487,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.007628892449104264
+                }
+              },
+              {
+                "trueTheta": -2,
+                "trials": 500,
+                "thetaBias": 0.0744185357307531,
+                "thetaRmse": 0.17514954809446953,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.938,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007097834174924382,
+                  "thetaRmse": 0.02000943169152768,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.010784804124322337
+                }
+              },
+              {
+                "trueTheta": -1.5,
+                "trials": 500,
+                "thetaBias": 0.0331360894647961,
+                "thetaRmse": 0.1463976850281227,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.97,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006383577652103072,
+                  "thetaRmse": 0.005145589861428955,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.007628892449104264
+                }
+              },
+              {
+                "trueTheta": -1,
+                "trials": 500,
+                "thetaBias": 0.02481430482712152,
+                "thetaRmse": 0.16657800641967185,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.936,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007373853295410911,
+                  "thetaRmse": 0.005427255791776261,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.01094568408095172
+                }
+              },
+              {
+                "trueTheta": -0.5,
+                "trials": 500,
+                "thetaBias": -0.006738381790614847,
+                "thetaRmse": 0.12777393497527983,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.98,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0057119873019551865,
+                  "thetaRmse": 0.004379503206978895,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.006260990336999414
+                }
+              },
+              {
+                "trueTheta": 0,
+                "trials": 500,
+                "thetaBias": 0.026269246183225077,
+                "thetaRmse": 0.1258607412393373,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.952,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.005510211487941706,
+                  "thetaRmse": 0.004434672340439612,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.009559916317625384
+                }
+              },
+              {
+                "trueTheta": 0.5,
+                "trials": 500,
+                "thetaBias": 0.011439345437092453,
+                "thetaRmse": 0.15305192786074848,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.97,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0068323810532961455,
+                  "thetaRmse": 0.005713943646161484,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.007628892449104264
+                }
+              },
+              {
+                "trueTheta": 1,
+                "trials": 500,
+                "thetaBias": -0.05206941738151664,
+                "thetaRmse": 0.18215700738123292,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.924,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.00781421949242684,
+                  "thetaRmse": 0.005350536351308862,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.01185107590052481
+                }
+              },
+              {
+                "trueTheta": 1.5,
+                "trials": 500,
+                "thetaBias": -0.027717008244010227,
+                "thetaRmse": 0.14461617832166196,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.974,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006353893049658722,
+                  "thetaRmse": 0.005256621321493451,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.007116740827092135
+                }
+              },
+              {
+                "trueTheta": 2,
+                "trials": 500,
+                "thetaBias": -0.040239241241348804,
+                "thetaRmse": 0.17463571583065737,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.912,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007607405513926541,
+                  "thetaRmse": 0.005884748665447143,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.012669333052690657
+                }
+              },
+              {
+                "trueTheta": 2.5,
+                "trials": 500,
+                "thetaBias": -0.06724624206777154,
+                "thetaRmse": 0.18510228602877962,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.966,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007720155441554865,
+                  "thetaRmse": 0.006290962980370725,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.008104813384649892
+                }
+              },
+              {
+                "trueTheta": 3,
+                "trials": 500,
+                "thetaBias": -0.13544027795850658,
+                "thetaRmse": 0.26470142083743664,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.914,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.010181004484056037,
+                  "thetaRmse": 0.006900182782284602,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.01253826144248077
+                }
+              },
+              {
+                "trueTheta": 3.5,
+                "trials": 500,
+                "thetaBias": -0.20832990472939497,
+                "thetaRmse": 0.28669142465294,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.908,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008816843027517897,
+                  "thetaRmse": 0.009030259830612012,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.012925633446759966
+                }
+              }
+            ]
+          },
+          {
+            "specification": {
+              "estimatorId": "warm-wle-bounded",
+              "method": "WARM_WLE"
+            },
+            "worstAbsoluteConditionalBias": 0.13802192215721637,
+            "maximumConditionalRmse": 0.5310182750483855,
+            "maximumBoundaryRate": 0,
+            "minimumPosteriorCoverage95": null,
+            "conditional": [
+              {
+                "trueTheta": -3.5,
+                "trials": 500,
+                "thetaBias": 0.13802192215721637,
+                "thetaRmse": 0.5310182750483855,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.022954619229399422,
+                  "thetaRmse": 0.025934514138392237,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -3,
+                "trials": 500,
+                "thetaBias": 0.06665676157510018,
+                "thetaRmse": 0.3563660917976745,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.01567158358632413,
+                  "thetaRmse": 0.013826463018539733,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -2.5,
+                "trials": 500,
+                "thetaBias": 0.02509389123511225,
+                "thetaRmse": 0.19363892348132333,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008595371979052965,
+                  "thetaRmse": 0.028112421049495222,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -2,
+                "trials": 500,
+                "thetaBias": 0.01803036508025856,
+                "thetaRmse": 0.1600700000428503,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007120113322485215,
+                  "thetaRmse": 0.022466233577948656,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -1.5,
+                "trials": 500,
+                "thetaBias": 0.0081074952877158,
+                "thetaRmse": 0.16293534691195008,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007284952481125659,
+                  "thetaRmse": 0.00525966526465777,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -1,
+                "trials": 500,
+                "thetaBias": 0.008432069863069394,
+                "thetaRmse": 0.1598914247399724,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007147763065469176,
+                  "thetaRmse": 0.007267302671386796,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -0.5,
+                "trials": 500,
+                "thetaBias": 0.018637360662550076,
+                "thetaRmse": 0.1674246905058701,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007448376210516465,
+                  "thetaRmse": 0.004462246342071716,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 0,
+                "trials": 500,
+                "thetaBias": 0.005621442202166596,
+                "thetaRmse": 0.11172401049035217,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.004995118640803585,
+                  "thetaRmse": 0.0039090012245064755,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 0.5,
+                "trials": 500,
+                "thetaBias": 0.01475367362576042,
+                "thetaRmse": 0.18964879778822125,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008464116834123198,
+                  "thetaRmse": 0.006310165485316941,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 1,
+                "trials": 500,
+                "thetaBias": 0.0009884460253235152,
+                "thetaRmse": 0.1641514582867608,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007348295268356621,
+                  "thetaRmse": 0.005975713808404131,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 1.5,
+                "trials": 500,
+                "thetaBias": 0.014830873495749177,
+                "thetaRmse": 0.16863357718894625,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007519823973936141,
+                  "thetaRmse": 0.0050599626184734715,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 2,
+                "trials": 500,
+                "thetaBias": -0.005555837627861129,
+                "thetaRmse": 0.14172666687747548,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006339680168129291,
+                  "thetaRmse": 0.007577011836901487,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 2.5,
+                "trials": 500,
+                "thetaBias": -0.0001688842934657595,
+                "thetaRmse": 0.2308620327168348,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.01033480118277384,
+                  "thetaRmse": 0.006781450466689086,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 3,
+                "trials": 500,
+                "thetaBias": -0.004782361543251031,
+                "thetaRmse": 0.21788551145592955,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.009751545288413897,
+                  "thetaRmse": 0.008060843094660163,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 3.5,
+                "trials": 500,
+                "thetaBias": -0.10143368626422049,
+                "thetaRmse": 0.23108551846424444,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.00929495781329763,
+                  "thetaRmse": 0.006047509008644319,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "design": {
+        "id": "fixed20-sh025-three-band",
+        "fixedLength": 20,
+        "targetMaximumExposure": 0.25,
+        "levelBands": [
+          {
+            "id": "low",
+            "levels": [
+              1,
+              2
+            ],
+            "minimumItems": 2
+          },
+          {
+            "id": "middle",
+            "levels": [
+              3,
+              4,
+              5,
+              6
+            ],
+            "minimumItems": 2
+          },
+          {
+            "id": "high",
+            "levels": [
+              7,
+              8
+            ],
+            "minimumItems": 2
+          }
+        ]
+      },
+      "calibration": {
+        "cycles": [
+          {
+            "cycle": 1,
+            "maximumExposureRate": 0.5286666666666666,
+            "itemsAboveTarget": 19,
+            "maximumSelectionRate": 0.5286666666666666,
+            "minimumAdministrationParameterBefore": 1,
+            "minimumAdministrationParameterAfter": 0.47288776796973525,
+            "meanRejectionsPerTest": 0,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 2,
+            "maximumExposureRate": 0.32266666666666666,
+            "itemsAboveTarget": 16,
+            "maximumSelectionRate": 0.531,
+            "minimumAdministrationParameterBefore": 0.47288776796973525,
+            "minimumAdministrationParameterAfter": 0.4708097928436911,
+            "meanRejectionsPerTest": 2.1786666666666665,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 3,
+            "maximumExposureRate": 0.264,
+            "itemsAboveTarget": 13,
+            "maximumSelectionRate": 0.5293333333333333,
+            "minimumAdministrationParameterBefore": 0.4708097928436911,
+            "minimumAdministrationParameterAfter": 0.4722921914357683,
+            "meanRejectionsPerTest": 2.462666666666667,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 4,
+            "maximumExposureRate": 0.2683333333333333,
+            "itemsAboveTarget": 13,
+            "maximumSelectionRate": 0.5273333333333333,
+            "minimumAdministrationParameterBefore": 0.4722921914357683,
+            "minimumAdministrationParameterAfter": 0.47408343868520864,
+            "meanRejectionsPerTest": 2.499,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 5,
+            "maximumExposureRate": 0.2633333333333333,
+            "itemsAboveTarget": 16,
+            "maximumSelectionRate": 0.5276666666666666,
+            "minimumAdministrationParameterBefore": 0.47408343868520864,
+            "minimumAdministrationParameterAfter": 0.47378395451674044,
+            "meanRejectionsPerTest": 2.4656666666666665,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 6,
+            "maximumExposureRate": 0.261,
+            "itemsAboveTarget": 14,
+            "maximumSelectionRate": 0.529,
+            "minimumAdministrationParameterBefore": 0.47378395451674044,
+            "minimumAdministrationParameterAfter": 0.47258979206049145,
+            "meanRejectionsPerTest": 2.53,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 7,
+            "maximumExposureRate": 0.26066666666666666,
+            "itemsAboveTarget": 14,
+            "maximumSelectionRate": 0.5273333333333333,
+            "minimumAdministrationParameterBefore": 0.47258979206049145,
+            "minimumAdministrationParameterAfter": 0.47408343868520864,
+            "meanRejectionsPerTest": 2.589,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 8,
+            "maximumExposureRate": 0.256,
+            "itemsAboveTarget": 9,
+            "maximumSelectionRate": 0.5283333333333333,
+            "minimumAdministrationParameterBefore": 0.47408343868520864,
+            "minimumAdministrationParameterAfter": 0.47318611987381703,
+            "meanRejectionsPerTest": 2.6213333333333333,
+            "forcedFallbackRate": 0
+          }
+        ],
+        "administrationParameters": [
+          1,
+          1,
+          1,
+          1,
+          0.8012820512820513,
+          0.872093023255814,
+          1,
+          1,
+          0.520471894517696,
+          1,
+          1,
+          0.5490483162518301,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.8029978586723768,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.7560483870967742,
+          1,
+          0.6607929515418501,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.7115749525616698,
+          1,
+          1,
+          1,
+          0.641025641025641,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9652509652509652,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.5535055350553506,
+          1,
+          1,
+          1,
+          0.8700696055684455,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.6,
+          1,
+          1,
+          0.9247842170160296,
+          1,
+          0.8241758241758241,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9351620947630923,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9791122715404699,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.47318611987381703,
+          0.9505703422053231,
+          0.5263157894736842,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.8917954815695601,
+          1,
+          1,
+          0.7367387033398821,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.7288629737609329,
+          1,
+          0.47438330170777987,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "evaluation": {
+        "exposure": {
+          "maximumExposureRate": 0.25906666666666667,
+          "maximumExposureItemIndex": 8,
+          "itemsAboveTarget": 14,
+          "unusedItemRate": 0.05625,
+          "expectedPairwiseOverlapFromMarginals": 3.5859692444444433,
+          "expectedPairwiseOverlapRateFromMarginals": 0.17929846222222218,
+          "maximumConditionalExposureRate": 1,
+          "maximumConditionalExposureItemIndex": 149,
+          "maximumConditionalExposureTheta": 3.5,
+          "topExposedItems": [
+            {
+              "itemIndex": 8,
+              "level": 1,
+              "administrations": 1943,
+              "exposureRate": 0.25906666666666667
+            },
+            {
+              "itemIndex": 103,
+              "level": 6,
+              "administrations": 1908,
+              "exposureRate": 0.2544
+            },
+            {
+              "itemIndex": 4,
+              "level": 1,
+              "administrations": 1906,
+              "exposureRate": 0.2541333333333333
+            },
+            {
+              "itemIndex": 110,
+              "level": 6,
+              "administrations": 1902,
+              "exposureRate": 0.2536
+            },
+            {
+              "itemIndex": 73,
+              "level": 4,
+              "administrations": 1900,
+              "exposureRate": 0.25333333333333335
+            },
+            {
+              "itemIndex": 127,
+              "level": 7,
+              "administrations": 1897,
+              "exposureRate": 0.25293333333333334
+            },
+            {
+              "itemIndex": 136,
+              "level": 7,
+              "administrations": 1894,
+              "exposureRate": 0.25253333333333333
+            },
+            {
+              "itemIndex": 154,
+              "level": 8,
+              "administrations": 1894,
+              "exposureRate": 0.25253333333333333
+            },
+            {
+              "itemIndex": 126,
+              "level": 7,
+              "administrations": 1893,
+              "exposureRate": 0.2524
+            },
+            {
+              "itemIndex": 21,
+              "level": 2,
+              "administrations": 1891,
+              "exposureRate": 0.2521333333333333
+            }
+          ]
+        },
+        "blueprint": {
+          "violationRate": 0,
+          "meanItemsByBand": {
+            "low": 7.02,
+            "middle": 7.548266666666667,
+            "high": 5.431733333333334
+          }
+        },
+        "meanRejectionsPerTest": 2.5508,
+        "forcedFallbackRate": 0,
+        "estimators": [
+          {
+            "specification": {
+              "estimatorId": "eap-normal-0-1",
+              "method": "EAP",
+              "prior": {
+                "mean": 0,
+                "standardDeviation": 1
+              }
+            },
+            "worstAbsoluteConditionalBias": 0.39917775398552396,
+            "maximumConditionalRmse": 0.48340007662940543,
+            "maximumBoundaryRate": 0,
+            "minimumPosteriorCoverage95": 0.822,
+            "conditional": [
+              {
+                "trueTheta": -3.5,
+                "trials": 500,
+                "thetaBias": 0.39917775398552396,
+                "thetaRmse": 0.48340007662940543,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.822,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.012205057824105326,
+                  "thetaRmse": 0.013227767640262476,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.01710648999648964
+                }
+              },
+              {
+                "trueTheta": -3,
+                "trials": 500,
+                "thetaBias": 0.16651453456053664,
+                "thetaRmse": 0.2878774850716263,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.94,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.010512551539099774,
+                  "thetaRmse": 0.016068205212437334,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.010620734437881408
+                }
+              },
+              {
+                "trueTheta": -2.5,
+                "trials": 500,
+                "thetaBias": -0.02104158480378018,
+                "thetaRmse": 0.16528385370550894,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.97,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007338918684949945,
+                  "thetaRmse": 0.008513408940917684,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.007628892449104264
+                }
+              },
+              {
+                "trueTheta": -2,
+                "trials": 500,
+                "thetaBias": 0.07605549542999923,
+                "thetaRmse": 0.1635549030209107,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.922,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006481941604804067,
+                  "thetaRmse": 0.006734767672413005,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.01199299795714149
+                }
+              },
+              {
+                "trueTheta": -1.5,
+                "trials": 500,
+                "thetaBias": 0.05341802715509231,
+                "thetaRmse": 0.17089945377537957,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.936,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007267179586982887,
+                  "thetaRmse": 0.006200797409456095,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.01094568408095172
+                }
+              },
+              {
+                "trueTheta": -1,
+                "trials": 500,
+                "thetaBias": 0.03774530155172643,
+                "thetaRmse": 0.17596267799954143,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.932,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007693809324575502,
+                  "thetaRmse": 0.0068877302336217226,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.01125841907196565
+                }
+              },
+              {
+                "trueTheta": -0.5,
+                "trials": 500,
+                "thetaBias": -0.003939812092017652,
+                "thetaRmse": 0.14574199856572292,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.974,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006521923568033905,
+                  "thetaRmse": 0.005175843348735677,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.007116740827092135
+                }
+              },
+              {
+                "trueTheta": 0,
+                "trials": 500,
+                "thetaBias": 0.021529714913049506,
+                "thetaRmse": 0.12885766925428224,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.954,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0056873748838067225,
+                  "thetaRmse": 0.0056248252690713485,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.009368457717255283
+                }
+              },
+              {
+                "trueTheta": 0.5,
+                "trials": 500,
+                "thetaBias": 0.005498339732666938,
+                "thetaRmse": 0.15285901699665536,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.968,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0068384811415534855,
+                  "thetaRmse": 0.005305753158197541,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.007870959280799264
+                }
+              },
+              {
+                "trueTheta": 1,
+                "trials": 500,
+                "thetaBias": -0.06599508224806941,
+                "thetaRmse": 0.18563405887443332,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.95,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0077672366899773655,
+                  "thetaRmse": 0.0055978551430748745,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.00974679434480897
+                }
+              },
+              {
+                "trueTheta": 1.5,
+                "trials": 500,
+                "thetaBias": -0.03049078088109465,
+                "thetaRmse": 0.15363274382309494,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.966,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006740737318048334,
+                  "thetaRmse": 0.005282512127086626,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.008104813384649892
+                }
+              },
+              {
+                "trueTheta": 2,
+                "trials": 500,
+                "thetaBias": -0.029767010943948357,
+                "thetaRmse": 0.18563873564632077,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.916,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008202798441275467,
+                  "thetaRmse": 0.006201653691324873,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.012405160216619531
+                }
+              },
+              {
+                "trueTheta": 2.5,
+                "trials": 500,
+                "thetaBias": -0.07740638690734562,
+                "thetaRmse": 0.18837964488661385,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.962,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007688205300888584,
+                  "thetaRmse": 0.005930363643712936,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.008550555537507495
+                }
+              },
+              {
+                "trueTheta": 3,
+                "trials": 500,
+                "thetaBias": -0.15280220251679522,
+                "thetaRmse": 0.29031632995720047,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.886,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.01105053597715666,
+                  "thetaRmse": 0.007216793433538405,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.014212951839783317
+                }
+              },
+              {
+                "trueTheta": 3.5,
+                "trials": 500,
+                "thetaBias": -0.21353883557641573,
+                "thetaRmse": 0.28287014821290984,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.912,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008304897081384509,
+                  "thetaRmse": 0.009192459938348456,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.012669333052690657
+                }
+              }
+            ]
+          },
+          {
+            "specification": {
+              "estimatorId": "warm-wle-bounded",
+              "method": "WARM_WLE"
+            },
+            "worstAbsoluteConditionalBias": 0.12595559276150886,
+            "maximumConditionalRmse": 0.5218107521033531,
+            "maximumBoundaryRate": 0,
+            "minimumPosteriorCoverage95": null,
+            "conditional": [
+              {
+                "trueTheta": -3.5,
+                "trials": 500,
+                "thetaBias": 0.12595559276150886,
+                "thetaRmse": 0.5218107521033531,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0226687238592812,
+                  "thetaRmse": 0.018261204037580116,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -3,
+                "trials": 500,
+                "thetaBias": 0.09078819165182256,
+                "thetaRmse": 0.37948383601853936,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.01649469982620443,
+                  "thetaRmse": 0.015755849555164236,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -2.5,
+                "trials": 500,
+                "thetaBias": 0.017615804614004957,
+                "thetaRmse": 0.19273639291353933,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008591952307313463,
+                  "thetaRmse": 0.012748021387580558,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -2,
+                "trials": 500,
+                "thetaBias": 0.019584752505289068,
+                "thetaRmse": 0.14241264276687463,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0063146929674252365,
+                  "thetaRmse": 0.007632716657697681,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -1.5,
+                "trials": 500,
+                "thetaBias": 0.03054276145800314,
+                "thetaRmse": 0.18375772713675742,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.00811170039983766,
+                  "thetaRmse": 0.005781071046815159,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -1,
+                "trials": 500,
+                "thetaBias": 0.021369111317182922,
+                "thetaRmse": 0.16860088517465827,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0074867444066165564,
+                  "thetaRmse": 0.00829421836712144,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -0.5,
+                "trials": 500,
+                "thetaBias": 0.016610867549091368,
+                "thetaRmse": 0.18264581825699175,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008142465689647048,
+                  "thetaRmse": 0.004893466189025858,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 0,
+                "trials": 500,
+                "thetaBias": -0.0013523598650067002,
+                "thetaRmse": 0.11674189549251937,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.005225734318763659,
+                  "thetaRmse": 0.005629501142374122,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 0.5,
+                "trials": 500,
+                "thetaBias": 0.005004720082183758,
+                "thetaRmse": 0.18654005090419384,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008347673570795971,
+                  "thetaRmse": 0.006166308814308668,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 1,
+                "trials": 500,
+                "thetaBias": -0.01143622025392489,
+                "thetaRmse": 0.16387526955232748,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.00731817908804046,
+                  "thetaRmse": 0.006296257426503829,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 1.5,
+                "trials": 500,
+                "thetaBias": 0.013970029737804309,
+                "thetaRmse": 0.17961120583444273,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008016143972586402,
+                  "thetaRmse": 0.005194995480050613,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 2,
+                "trials": 500,
+                "thetaBias": 0.00904477531477047,
+                "thetaRmse": 0.1497099986052022,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006689697717749259,
+                  "thetaRmse": 0.008694391407707065,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 2.5,
+                "trials": 500,
+                "thetaBias": -0.011139188450005076,
+                "thetaRmse": 0.23393295488476915,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.010460398251824017,
+                  "thetaRmse": 0.006809865461925994,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 3,
+                "trials": 500,
+                "thetaBias": -0.01923907950444483,
+                "thetaRmse": 0.2384730913034186,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.010640723480272748,
+                  "thetaRmse": 0.007649374818460806,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 3.5,
+                "trials": 500,
+                "thetaBias": -0.12287954192081234,
+                "thetaRmse": 0.21209386969860858,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007738774628299922,
+                  "thetaRmse": 0.007283832410609025,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "design": {
+        "id": "fixed20-sh025-each-level1",
+        "fixedLength": 20,
+        "targetMaximumExposure": 0.25,
+        "levelBands": [
+          {
+            "id": "level-1",
+            "levels": [
+              1
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-2",
+            "levels": [
+              2
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-3",
+            "levels": [
+              3
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-4",
+            "levels": [
+              4
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-5",
+            "levels": [
+              5
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-6",
+            "levels": [
+              6
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-7",
+            "levels": [
+              7
+            ],
+            "minimumItems": 1
+          },
+          {
+            "id": "level-8",
+            "levels": [
+              8
+            ],
+            "minimumItems": 1
+          }
+        ]
+      },
+      "calibration": {
+        "cycles": [
+          {
+            "cycle": 1,
+            "maximumExposureRate": 0.532,
+            "itemsAboveTarget": 20,
+            "maximumSelectionRate": 0.532,
+            "minimumAdministrationParameterBefore": 1,
+            "minimumAdministrationParameterAfter": 0.4699248120300752,
+            "meanRejectionsPerTest": 0,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 2,
+            "maximumExposureRate": 0.37366666666666665,
+            "itemsAboveTarget": 15,
+            "maximumSelectionRate": 0.531,
+            "minimumAdministrationParameterBefore": 0.4699248120300752,
+            "minimumAdministrationParameterAfter": 0.4708097928436911,
+            "meanRejectionsPerTest": 2.189,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 3,
+            "maximumExposureRate": 0.265,
+            "itemsAboveTarget": 10,
+            "maximumSelectionRate": 0.5306666666666666,
+            "minimumAdministrationParameterBefore": 0.4708097928436911,
+            "minimumAdministrationParameterAfter": 0.471105527638191,
+            "meanRejectionsPerTest": 2.44,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 4,
+            "maximumExposureRate": 0.262,
+            "itemsAboveTarget": 11,
+            "maximumSelectionRate": 0.5313333333333333,
+            "minimumAdministrationParameterBefore": 0.471105527638191,
+            "minimumAdministrationParameterAfter": 0.47051442910915936,
+            "meanRejectionsPerTest": 2.434,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 5,
+            "maximumExposureRate": 0.266,
+            "itemsAboveTarget": 8,
+            "maximumSelectionRate": 0.5393333333333333,
+            "minimumAdministrationParameterBefore": 0.47051442910915936,
+            "minimumAdministrationParameterAfter": 0.4635352286773795,
+            "meanRejectionsPerTest": 2.447,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 6,
+            "maximumExposureRate": 0.261,
+            "itemsAboveTarget": 13,
+            "maximumSelectionRate": 0.5326666666666666,
+            "minimumAdministrationParameterBefore": 0.4635352286773795,
+            "minimumAdministrationParameterAfter": 0.46933667083854824,
+            "meanRejectionsPerTest": 2.4683333333333333,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 7,
+            "maximumExposureRate": 0.26366666666666666,
+            "itemsAboveTarget": 12,
+            "maximumSelectionRate": 0.5323333333333333,
+            "minimumAdministrationParameterBefore": 0.46933667083854824,
+            "minimumAdministrationParameterAfter": 0.469630557294928,
+            "meanRejectionsPerTest": 2.453333333333333,
+            "forcedFallbackRate": 0
+          },
+          {
+            "cycle": 8,
+            "maximumExposureRate": 0.263,
+            "itemsAboveTarget": 17,
+            "maximumSelectionRate": 0.5423333333333333,
+            "minimumAdministrationParameterBefore": 0.469630557294928,
+            "minimumAdministrationParameterAfter": 0.46097111247695144,
+            "meanRejectionsPerTest": 2.4443333333333332,
+            "forcedFallbackRate": 0
+          }
+        ],
+        "administrationParameters": [
+          1,
+          1,
+          1,
+          1,
+          0.7796257796257796,
+          1,
+          1,
+          1,
+          0.5151098901098901,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.5060728744939271,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.949367088607595,
+          0.7637474541751528,
+          0.6963788300835655,
+          0.6805807622504537,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.744047619047619,
+          1,
+          1,
+          1,
+          0.6578947368421053,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9615384615384615,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9689922480620154,
+          1,
+          0.5547337278106509,
+          1,
+          1,
+          1,
+          0.8660508083140878,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.5995203836930456,
+          1,
+          1,
+          0.9689922480620154,
+          0.9907529722589167,
+          0.8152173913043479,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.9328358208955223,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.47051442910915936,
+          0.9529860228716647,
+          0.9328358208955223,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.8741258741258742,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.6255212677231026,
+          1,
+          1,
+          1,
+          1,
+          0.7232401157184185,
+          1,
+          0.46097111247695144,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "evaluation": {
+        "exposure": {
+          "maximumExposureRate": 0.26,
+          "maximumExposureItemIndex": 101,
+          "itemsAboveTarget": 12,
+          "unusedItemRate": 0.04375,
+          "expectedPairwiseOverlapFromMarginals": 3.6043716977777778,
+          "expectedPairwiseOverlapRateFromMarginals": 0.1802185848888889,
+          "maximumConditionalExposureRate": 0.998,
+          "maximumConditionalExposureItemIndex": 153,
+          "maximumConditionalExposureTheta": 3.5,
+          "topExposedItems": [
+            {
+              "itemIndex": 101,
+              "level": 6,
+              "administrations": 1950,
+              "exposureRate": 0.26
+            },
+            {
+              "itemIndex": 103,
+              "level": 6,
+              "administrations": 1921,
+              "exposureRate": 0.2561333333333333
+            },
+            {
+              "itemIndex": 127,
+              "level": 7,
+              "administrations": 1918,
+              "exposureRate": 0.2557333333333333
+            },
+            {
+              "itemIndex": 126,
+              "level": 7,
+              "administrations": 1910,
+              "exposureRate": 0.25466666666666665
+            },
+            {
+              "itemIndex": 31,
+              "level": 2,
+              "administrations": 1901,
+              "exposureRate": 0.2534666666666667
+            },
+            {
+              "itemIndex": 34,
+              "level": 2,
+              "administrations": 1896,
+              "exposureRate": 0.2528
+            },
+            {
+              "itemIndex": 33,
+              "level": 2,
+              "administrations": 1894,
+              "exposureRate": 0.25253333333333333
+            },
+            {
+              "itemIndex": 8,
+              "level": 1,
+              "administrations": 1892,
+              "exposureRate": 0.25226666666666664
+            },
+            {
+              "itemIndex": 98,
+              "level": 5,
+              "administrations": 1891,
+              "exposureRate": 0.2521333333333333
+            },
+            {
+              "itemIndex": 58,
+              "level": 3,
+              "administrations": 1889,
+              "exposureRate": 0.2518666666666667
+            }
+          ]
+        },
+        "blueprint": {
+          "violationRate": 0,
+          "meanItemsByBand": {
+            "level-1": 3.023066666666667,
+            "level-2": 3.311733333333333,
+            "level-3": 1.8821333333333334,
+            "level-4": 2.2028,
+            "level-5": 2.3338666666666668,
+            "level-6": 2.1132,
+            "level-7": 2.2044,
+            "level-8": 2.9288
+          }
+        },
+        "meanRejectionsPerTest": 2.4790666666666668,
+        "forcedFallbackRate": 0,
+        "estimators": [
+          {
+            "specification": {
+              "estimatorId": "eap-normal-0-1",
+              "method": "EAP",
+              "prior": {
+                "mean": 0,
+                "standardDeviation": 1
+              }
+            },
+            "worstAbsoluteConditionalBias": 0.4403170271650942,
+            "maximumConditionalRmse": 0.5352044812777635,
+            "maximumBoundaryRate": 0,
+            "minimumPosteriorCoverage95": 0.8,
+            "conditional": [
+              {
+                "trueTheta": -3.5,
+                "trials": 500,
+                "thetaBias": 0.4403170271650942,
+                "thetaRmse": 0.5352044812777635,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.8,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.013619857038459818,
+                  "thetaRmse": 0.023132050760926955,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.017888543819998316
+                }
+              },
+              {
+                "trueTheta": -3,
+                "trials": 500,
+                "thetaBias": 0.16122851023750553,
+                "thetaRmse": 0.29450201935887915,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.936,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.011032544941302897,
+                  "thetaRmse": 0.027134512302488197,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.01094568408095172
+                }
+              },
+              {
+                "trueTheta": -2.5,
+                "trials": 500,
+                "thetaBias": -0.03717752870520445,
+                "thetaRmse": 0.19454658657446322,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.962,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008548600385525133,
+                  "thetaRmse": 0.014997481054700307,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.008550555537507495
+                }
+              },
+              {
+                "trueTheta": -2,
+                "trials": 500,
+                "thetaBias": 0.07813111522796568,
+                "thetaRmse": 0.16916631978737112,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.92,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006716827876365179,
+                  "thetaRmse": 0.007267626762783471,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.012132600710482479
+                }
+              },
+              {
+                "trueTheta": -1.5,
+                "trials": 500,
+                "thetaBias": 0.04140195056724073,
+                "thetaRmse": 0.15266164608658503,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.964,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006577951980266837,
+                  "thetaRmse": 0.005182595478308162,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.008331146379700699
+                }
+              },
+              {
+                "trueTheta": -1,
+                "trials": 500,
+                "thetaBias": 0.037939774895914026,
+                "thetaRmse": 0.17544393152252083,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.946,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007668108825765336,
+                  "thetaRmse": 0.006205051956990515,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.010107818755794947
+                }
+              },
+              {
+                "trueTheta": -0.5,
+                "trials": 500,
+                "thetaBias": 0.00409856156639048,
+                "thetaRmse": 0.13190458860996065,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.984,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.005902009149679857,
+                  "thetaRmse": 0.00418519153506896,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.00561141693336006
+                }
+              },
+              {
+                "trueTheta": 0,
+                "trials": 500,
+                "thetaBias": 0.0359777160977776,
+                "thetaRmse": 0.13169515973912452,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.948,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.00567122240909571,
+                  "thetaRmse": 0.005284059295134385,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.009929350431926557
+                }
+              },
+              {
+                "trueTheta": 0.5,
+                "trials": 500,
+                "thetaBias": 0.02112651595536295,
+                "thetaRmse": 0.16299204264339043,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.976,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007234973549490616,
+                  "thetaRmse": 0.004951062803820515,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.006844559883586383
+                }
+              },
+              {
+                "trueTheta": 1,
+                "trials": 500,
+                "thetaBias": -0.0692238043734551,
+                "thetaRmse": 0.1955341876577903,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.926,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008186415681207876,
+                  "thetaRmse": 0.005803631283746931,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.011706750189527404
+                }
+              },
+              {
+                "trueTheta": 1.5,
+                "trials": 500,
+                "thetaBias": -0.019148115860172264,
+                "thetaRmse": 0.15605588701464213,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.972,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.0069332329038380115,
+                  "thetaRmse": 0.0046214055397025755,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.0073778045514909145
+                }
+              },
+              {
+                "trueTheta": 2,
+                "trials": 500,
+                "thetaBias": -0.03731633808213363,
+                "thetaRmse": 0.19106077080210396,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.916,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008388333946384116,
+                  "thetaRmse": 0.005776272767199669,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.012405160216619531
+                }
+              },
+              {
+                "trueTheta": 2.5,
+                "trials": 500,
+                "thetaBias": -0.07804675668876072,
+                "thetaRmse": 0.17925400792938181,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.958,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007223972439998109,
+                  "thetaRmse": 0.006344212324061313,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.00897061870775924
+                }
+              },
+              {
+                "trueTheta": 3,
+                "trials": 500,
+                "thetaBias": -0.17658122448998062,
+                "thetaRmse": 0.3093871054584428,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.878,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.01137266809162167,
+                  "thetaRmse": 0.007798129955440927,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.014636666287102402
+                }
+              },
+              {
+                "trueTheta": 3.5,
+                "trials": 500,
+                "thetaBias": -0.2495465487857216,
+                "thetaRmse": 0.3247493482105041,
+                "boundaryRate": 0,
+                "posteriorCoverage95": 0.856,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.009303247773914823,
+                  "thetaRmse": 0.011146228443428718,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": 0.015701210144444283
+                }
+              }
+            ]
+          },
+          {
+            "specification": {
+              "estimatorId": "warm-wle-bounded",
+              "method": "WARM_WLE"
+            },
+            "worstAbsoluteConditionalBias": 0.17850565953985262,
+            "maximumConditionalRmse": 0.5552171198217924,
+            "maximumBoundaryRate": 0,
+            "minimumPosteriorCoverage95": null,
+            "conditional": [
+              {
+                "trueTheta": -3.5,
+                "trials": 500,
+                "thetaBias": 0.17850565953985262,
+                "thetaRmse": 0.5552171198217924,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.02353532200916418,
+                  "thetaRmse": 0.02732856728438955,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -3,
+                "trials": 500,
+                "thetaBias": 0.07274274482911311,
+                "thetaRmse": 0.3995009571947327,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.01758514972156701,
+                  "thetaRmse": 0.02505592847146956,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -2.5,
+                "trials": 500,
+                "thetaBias": -0.0003426957529289494,
+                "thetaRmse": 0.2311075044780148,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.010345781399046997,
+                  "thetaRmse": 0.017480705277906836,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -2,
+                "trials": 500,
+                "thetaBias": 0.02163623722426225,
+                "thetaRmse": 0.15073304081487512,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006677861433933034,
+                  "thetaRmse": 0.008149928662053002,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -1.5,
+                "trials": 500,
+                "thetaBias": 0.014885231205381318,
+                "thetaRmse": 0.17261680992193804,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007698605261026692,
+                  "thetaRmse": 0.005373084446097094,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -1,
+                "trials": 500,
+                "thetaBias": 0.020482688924676102,
+                "thetaRmse": 0.16505240276674302,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007331644853612264,
+                  "thetaRmse": 0.007355118330030447,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": -0.5,
+                "trials": 500,
+                "thetaBias": 0.03215596993188212,
+                "thetaRmse": 0.17259873281995705,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007591303452887209,
+                  "thetaRmse": 0.004383635656451191,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 0,
+                "trials": 500,
+                "thetaBias": 0.013010563874348591,
+                "thetaRmse": 0.1174681968900069,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.005226244567668453,
+                  "thetaRmse": 0.0052561629050713165,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 0.5,
+                "trials": 500,
+                "thetaBias": 0.02501446195818597,
+                "thetaRmse": 0.20258712742939025,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008999646051048745,
+                  "thetaRmse": 0.006113220585800468,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 1,
+                "trials": 500,
+                "thetaBias": -0.011080295706784763,
+                "thetaRmse": 0.17664474535297073,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007892132647845863,
+                  "thetaRmse": 0.0076637010678593746,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 1.5,
+                "trials": 500,
+                "thetaBias": 0.03101782860013423,
+                "thetaRmse": 0.19238728019781048,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.008499765397074066,
+                  "thetaRmse": 0.005236120293416554,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 2,
+                "trials": 500,
+                "thetaBias": 0.004603527859778957,
+                "thetaRmse": 0.1526035715042699,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.006828364977851404,
+                  "thetaRmse": 0.008182174853930425,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 2.5,
+                "trials": 500,
+                "thetaBias": -0.010691802305801492,
+                "thetaRmse": 0.22978195103820276,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.010275311422161284,
+                  "thetaRmse": 0.006508220705796328,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 3,
+                "trials": 500,
+                "thetaBias": -0.03908908066419523,
+                "thetaRmse": 0.2526741335142331,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.01117507438969529,
+                  "thetaRmse": 0.008628880723166697,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              },
+              {
+                "trueTheta": 3.5,
+                "trials": 500,
+                "thetaBias": -0.16231111234512796,
+                "thetaRmse": 0.2378073187734319,
+                "boundaryRate": 0,
+                "posteriorCoverage95": null,
+                "monteCarloStandardErrors": {
+                  "thetaBias": 0.007780483222869549,
+                  "thetaRmse": 0.010085954374528203,
+                  "boundaryRate": 0,
+                  "posteriorCoverage95": null
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "planId": "selection-adjusted-feasibility-v1",
+  "seed": 20260819,
+  "candidate": {
+    "fixedLength": 30,
+    "selectionMethod": "randomesque",
+    "randomesqueSize": 5,
+    "selectionPriorMean": 0,
+    "selectionPriorStandardDeviation": 1,
+    "reportingPriorMean": 0,
+    "reportingPriorStandardDeviation": 2,
+    "posteriorMassThreshold": 0.95
+  },
+  "informationSupportRange": {
+    "lowerTheta": -2.7578183981455946,
+    "upperTheta": 3.3090556474466313
+  },
+  "operationalCandidates": [
+    {
+      "id": "guard-050",
+      "guardBand": 0.5,
+      "selectionCore": {
+        "lowerTheta": -2.2578183981455946,
+        "upperTheta": 2.8090556474466313
+      },
+      "estimationDomain": {
+        "lowerTheta": -2.7578183981455946,
+        "upperTheta": 3.3090556474466313
+      }
+    },
+    {
+      "id": "guard-075",
+      "guardBand": 0.75,
+      "selectionCore": {
+        "lowerTheta": -2.0078183981455946,
+        "upperTheta": 2.5590556474466313
+      },
+      "estimationDomain": {
+        "lowerTheta": -2.5078183981455946,
+        "upperTheta": 3.0590556474466313
+      }
+    },
+    {
+      "id": "guard-100",
+      "guardBand": 1,
+      "selectionCore": {
+        "lowerTheta": -1.7578183981455946,
+        "upperTheta": 2.3090556474466313
+      },
+      "estimationDomain": {
+        "lowerTheta": -2.2578183981455946,
+        "upperTheta": 2.8090556474466313
+      }
+    }
+  ],
+  "thetaCells": [
+    { "theta": -3.0078183981455946, "generatedPaths": 10000 },
+    { "theta": -2.7578183981455946, "generatedPaths": 10000 },
+    { "theta": -2.5078183981455946, "generatedPaths": 10000 },
+    { "theta": -2.2578183981455946, "generatedPaths": 10000 },
+    { "theta": -2.0078183981455946, "generatedPaths": 10000 },
+    { "theta": -1.7578183981455946, "generatedPaths": 10000 },
+    { "theta": 0, "generatedPaths": 10000 },
+    { "theta": 2.3090556474466313, "generatedPaths": 10000 },
+    { "theta": 2.5590556474466313, "generatedPaths": 10000 },
+    { "theta": 2.8090556474466313, "generatedPaths": 10000 },
+    { "theta": 3.0590556474466313, "generatedPaths": 10000 },
+    { "theta": 3.3090556474466313, "generatedPaths": 10000 },
+    { "theta": 3.5590556474466313, "generatedPaths": 10000 }
+  ],
+  "calibrationPlanning": {
+    "targetSelectedPathsPerTheta": 2500,
+    "maximumGeneratedPathsPerTheta": 250000,
+    "selectionRateLowerBound": "wilson-one-sided-90-v1",
+    "z": 1.2815515655446004
+  },
+  "initialLevelMinimum": 3,
+  "initialLevelMaximum": 5,
+  "highLevelFloor": 7,
+  "minimumHighLevelItems": 2
+}

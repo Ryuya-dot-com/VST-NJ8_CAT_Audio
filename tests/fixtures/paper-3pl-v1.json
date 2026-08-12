@@ -1,0 +1,269 @@
+{
+  "modelId": "paper-3pl-v1",
+  "generatedBy": "scripts/reference-paper-3pl.R",
+  "referenceRuntime": "R 4.6.1 base",
+  "tolerance": {
+    "absolute": 1e-10,
+    "relative": 1e-12
+  },
+  "itemBank": {
+    "path": "public/jacet_parameters.csv",
+    "sha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+    "itemCount": 160
+  },
+  "config": {
+    "scoreModelId": "paper-3pl-v1",
+    "itemResponse": { "model": "3PL", "logisticScale": 1.702 },
+    "abilityEstimator": {
+      "method": "EAP",
+      "uncertainty": "posterior-standard-deviation"
+    },
+    "thetaGrid": { "min": -6, "max": 6, "step": 0.01 },
+    "prior": { "mean": 0, "standardDeviation": 1 },
+    "vocabularyScale": {
+      "frequencyLevels": 8,
+      "itemsPerLevel": 20,
+      "wordsPerLevel": 1000,
+      "credibleMass": 0.95
+    },
+    "contentConstraint": { "highLevelFloor": 7 }
+  },
+  "levelMeans": [
+    {
+      "level": 1,
+      "itemCount": 20,
+      "discrimination": 2.2090213949500002,
+      "difficulty": -2.2059903202499997,
+      "guessing": 0.074242312850000006
+    },
+    {
+      "level": 2,
+      "itemCount": 20,
+      "discrimination": 2.8727162356,
+      "difficulty": -1.5119769646000001,
+      "guessing": 0.080056818350000003
+    },
+    {
+      "level": 3,
+      "itemCount": 20,
+      "discrimination": 2.00527959775,
+      "difficulty": -0.70113100480000001,
+      "guessing": 0.1201794754
+    },
+    {
+      "level": 4,
+      "itemCount": 20,
+      "discrimination": 2.7198668711499998,
+      "difficulty": -0.075032390800000015,
+      "guessing": 0.1302141111
+    },
+    {
+      "level": 5,
+      "itemCount": 20,
+      "discrimination": 2.1835344938499999,
+      "difficulty": 0.74840637104999996,
+      "guessing": 0.096807558700000004
+    },
+    {
+      "level": 6,
+      "itemCount": 20,
+      "discrimination": 1.9353717756,
+      "difficulty": 1.1517996563999999,
+      "guessing": 0.082983762050000007
+    },
+    {
+      "level": 7,
+      "itemCount": 20,
+      "discrimination": 2.2150429274499999,
+      "difficulty": 1.50361475985,
+      "guessing": 0.12342419709999999
+    },
+    {
+      "level": 8,
+      "itemCount": 20,
+      "discrimination": 2.2096119955,
+      "difficulty": 2.0889973051499999,
+      "guessing": 0.14763353065000001
+    }
+  ],
+  "paperLowerAsymptote": 855.54176619999998,
+  "levelFourExample": {
+    "theta": 0,
+    "expectedProbability": 0.63988482556886106
+  },
+  "vocabularyScenarios": [
+    {
+      "theta": -3,
+      "paperVocabulary": 901.04995533163969,
+      "deguessedVocabulary": 228.73506516859493
+    },
+    {
+      "theta": -2,
+      "paperVocabulary": 1577.2137882613761,
+      "deguessedVocabulary": 899.15005937117394
+    },
+    {
+      "theta": -1,
+      "paperVocabulary": 2869.0592822674057,
+      "deguessedVocabulary": 2111.3990509437422
+    },
+    {
+      "theta": 0,
+      "paperVocabulary": 4092.5060462652345,
+      "deguessedVocabulary": 3761.1516567172275
+    },
+    {
+      "theta": 1,
+      "paperVocabulary": 5565.1648146974649,
+      "deguessedVocabulary": 5309.6312794131945
+    },
+    {
+      "theta": 2,
+      "paperVocabulary": 7324.6788697444072,
+      "deguessedVocabulary": 6945.1400747350153
+    },
+    {
+      "theta": 3,
+      "paperVocabulary": 7967.7691497474161,
+      "deguessedVocabulary": 7756.7645329680008
+    }
+  ],
+  "itemScenarios": [
+    {
+      "itemIndex": 0,
+      "theta": 0,
+      "probability": 0.99972096795151111,
+      "information": 0.0031727238292184037
+    }
+  ],
+  "abilityScenarios": [
+    {
+      "name": "prior-only",
+      "administered": [],
+      "responses": [],
+      "theta": -1.4484629451318985e-16,
+      "thetaStandardDeviation": 0.99999996459795659,
+      "vocabulary": {
+        "posteriorMean": 4181.9813509858686,
+        "posteriorStandardDeviation": 1385.6696455565495,
+        "credibleIntervalLower": 1622.9953790757606,
+        "credibleIntervalUpper": 7269.4656883989392,
+        "plugInAtThetaMean": 4092.5060462652345
+      }
+    },
+    {
+      "name": "mixed-eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [1, 0, 1, 1, 0, 1, 0, 1],
+      "theta": -0.41251582457848246,
+      "thetaStandardDeviation": 0.58570040617187302,
+      "vocabulary": {
+        "posteriorMean": 3570.7014885441727,
+        "posteriorStandardDeviation": 746.9769545981859,
+        "credibleIntervalLower": 2249.4940967674934,
+        "credibleIntervalUpper": 5141.9817521910418,
+        "plugInAtThetaMean": 3505.1699696158867
+      }
+    },
+    {
+      "name": "all-correct-eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [1, 1, 1, 1, 1, 1, 1, 1],
+      "theta": 2.1149040154823808,
+      "thetaStandardDeviation": 0.56553466297331167,
+      "vocabulary": {
+        "posteriorMean": 7277.9755228652848,
+        "posteriorStandardDeviation": 630.46812379776986,
+        "credibleIntervalLower": 5752.7408295478663,
+        "credibleIntervalUpper": 7989.6670861464827,
+        "plugInAtThetaMean": 7472.4529565123657
+      }
+    },
+    {
+      "name": "all-incorrect-eight",
+      "administered": [0, 20, 40, 60, 80, 100, 120, 140],
+      "responses": [0, 0, 0, 0, 0, 0, 0, 0],
+      "theta": -2.2958993423134051,
+      "thetaStandardDeviation": 0.5188814151036476,
+      "vocabulary": {
+        "posteriorMean": 1386.0868705187586,
+        "posteriorStandardDeviation": 445.80551587704423,
+        "credibleIntervalLower": 866.80980691382649,
+        "credibleIntervalUpper": 2495.6296511075388,
+        "plugInAtThetaMean": 1264.2571313051353
+      }
+    },
+    {
+      "name": "mixed-twenty",
+      "administered": [
+        0,
+        8,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56,
+        64,
+        72,
+        80,
+        88,
+        96,
+        104,
+        112,
+        120,
+        128,
+        136,
+        144,
+        152
+      ],
+      "responses": [
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "theta": -1.7008002905808237,
+      "thetaStandardDeviation": 0.3451072058943021,
+      "vocabulary": {
+        "posteriorMean": 1982.4793529563856,
+        "posteriorStandardDeviation": 430.91684644528266,
+        "credibleIntervalLower": 1154.880750295742,
+        "credibleIntervalUpper": 2818.7712891878928,
+        "plugInAtThetaMean": 1951.0681881513178
+      }
+    }
+  ],
+  "selectionScenarios": [
+    { "theta": 0, "administered": [], "needHigh": false, "selected": 66 },
+    { "theta": 0, "administered": [], "needHigh": true, "selected": 154 },
+    {
+      "theta": -2,
+      "administered": [0, 1, 2],
+      "needHigh": false,
+      "selected": 14
+    },
+    {
+      "theta": 2,
+      "administered": [140, 141],
+      "needHigh": true,
+      "selected": 127
+    }
+  ]
+}

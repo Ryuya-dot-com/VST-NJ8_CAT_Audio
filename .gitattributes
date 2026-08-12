@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Preserve the research item-bank artifact byte-for-byte for SHA-256 auditability.
+public/jacet_parameters.csv -text whitespace=cr-at-eol

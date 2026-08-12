@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "measurement-range-diagnostic-v1",
+  "policyId": "information-support-exploratory-v1",
+  "validationStatus": "exploratory-not-for-score-reporting",
+  "itemBankSha256": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47",
+  "planSha256": "c04e7757dce62213b6e251baefccb022c2b8681cbedafa4d9216c3b79fb0c490",
+  "provenance": {
+    "nodeVersion": "v24.9.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "sourceSha256": {
+      "scripts/diagnose-measurement-range.ts": "8f76e181aa5f8216eae7995622d93a2233e40ca160698bfccd82fa5de00bb388",
+      "src/utils/measurementRange.ts": "5d096d841a447c2c39df0817c0f9baa47d7a2530e42a0e434dc1b7579096b374",
+      "src/utils/paperScoring.ts": "e01dfe7474a21cfbd547fbfd40680c52604704f8b4d568b5c46cc42f895ffa3e"
+    }
+  },
+  "plan": {
+    "planId": "measurement-range-diagnostic-v1",
+    "anchorTheta": 0,
+    "informationEquivalentStandardDeviationThreshold": 0.3,
+    "sensitivityStandardDeviationThresholds": [
+      0.25,
+      0.3,
+      0.35
+    ],
+    "posteriorMassThreshold": 0.95,
+    "search": {
+      "minimumTheta": -6,
+      "maximumTheta": 6,
+      "step": 0.01,
+      "rootTolerance": 1e-12
+    }
+  },
+  "defaultRange": {
+    "policyId": "information-support-exploratory-v1",
+    "definition": "connected-full-bank-information-component",
+    "anchorTheta": 0,
+    "informationEquivalentStandardDeviationThreshold": 0.3,
+    "informationThreshold": 11.11111111111111,
+    "lowerTheta": -2.903164749367261,
+    "upperTheta": 3.4279929070156925,
+    "lowerPaperVocabularyScore": 919.8000249714802,
+    "upperPaperVocabularyScore": 7993.3231316941165,
+    "lowerBoundaryInformation": 11.111111111096273,
+    "upperBoundaryInformation": 11.111111111106979
+  },
+  "sensitivityRanges": [
+    {
+      "policyId": "information-support-exploratory-v1",
+      "definition": "connected-full-bank-information-component",
+      "anchorTheta": 0,
+      "informationEquivalentStandardDeviationThreshold": 0.25,
+      "informationThreshold": 16,
+      "lowerTheta": -2.7578183981455946,
+      "upperTheta": 3.3090556474466313,
+      "lowerPaperVocabularyScore": 961.705144402829,
+      "upperPaperVocabularyScore": 7989.630961606619,
+      "lowerBoundaryInformation": 15.999999999987487,
+      "upperBoundaryInformation": 15.999999999984775
+    },
+    {
+      "policyId": "information-support-exploratory-v1",
+      "definition": "connected-full-bank-information-component",
+      "anchorTheta": 0,
+      "informationEquivalentStandardDeviationThreshold": 0.3,
+      "informationThreshold": 11.11111111111111,
+      "lowerTheta": -2.903164749367261,
+      "upperTheta": 3.4279929070156925,
+      "lowerPaperVocabularyScore": 919.8000249714802,
+      "upperPaperVocabularyScore": 7993.3231316941165,
+      "lowerBoundaryInformation": 11.111111111096273,
+      "upperBoundaryInformation": 11.111111111106979
+    },
+    {
+      "policyId": "information-support-exploratory-v1",
+      "definition": "connected-full-bank-information-component",
+      "anchorTheta": 0,
+      "informationEquivalentStandardDeviationThreshold": 0.35,
+      "informationThreshold": 8.163265306122451,
+      "lowerTheta": -3.0532850368966833,
+      "upperTheta": 3.523954564813143,
+      "lowerPaperVocabularyScore": 893.083996834016,
+      "upperPaperVocabularyScore": 7995.322192381338,
+      "lowerBoundaryInformation": 8.16326530611875,
+      "upperBoundaryInformation": 8.163265306126638
+    }
+  ],
+  "interpretation": {
+    "informationRangeIsOperationalReportingRange": false,
+    "informationEquivalentStandardDeviationIsObservedCatRmse": false,
+    "posteriorClassifierIsProductionApproved": false,
+    "requiredNextEvidence": "Pre-specified common-path simulation of classification errors, bias, RMSE, and interval coverage, followed by a frozen independent confirmation run."
+  }
+}

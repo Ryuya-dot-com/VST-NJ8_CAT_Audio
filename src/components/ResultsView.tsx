@@ -1,8 +1,11 @@
+import {
+  OBSERVED_RESULT_CAUTION,
+  PUBLIC_SCORE_REPORTING_POLICY,
+  SCORE_REPORT_WITHHELD_MESSAGE,
+} from "../utils/scoreReportingPolicy";
+
 interface ResultsViewProps {
   userName: string;
-  theta: number;
-  se: number;
-  vocabSize: number;
   totalItems: number;
   correctAnswers: number;
   accuracy: number;
@@ -13,9 +16,6 @@ interface ResultsViewProps {
 
 export function ResultsView({
   userName,
-  theta,
-  se,
-  vocabSize,
   totalItems,
   correctAnswers,
   accuracy,
@@ -40,9 +40,16 @@ export function ResultsView({
                 <span className="eyebrow text-uppercase">Result</span>
                 <h2 className="hero-title mb-2">テスト結果</h2>
                 <p className="hero-subtitle mb-0">
-                  お疲れさまでした！推定結果は以下のとおりです。
+                  お疲れさまでした。回答の集計は以下のとおりです。
                   受験者: <strong>{userName || "（未入力）"}</strong>
                 </p>
+                <div className="modern-alert mt-4 text-start" role="note">
+                  <strong>数値得点の報告を保留しています。</strong>
+                  <p className="mb-1 mt-2">{SCORE_REPORT_WITHHELD_MESSAGE}</p>
+                  <small>
+                    {OBSERVED_RESULT_CAUTION}（ポリシー: {PUBLIC_SCORE_REPORTING_POLICY.policyId}）
+                  </small>
+                </div>
                 <p
                   className={`download-status mt-3 mb-0 ${
                     downloadStatus === "error" ? "status-error" : "status-success"
@@ -55,23 +62,17 @@ export function ResultsView({
 
               <div className="stat-grid mb-4">
                 <div className="stat-card">
-                  <span className="stat-label">推定語彙サイズ</span>
-                  <span className="stat-value">{vocabSize.toLocaleString()} 語</span>
+                  <span className="stat-label">実施項目数</span>
+                  <span className="stat-value">{totalItems} 問</span>
                 </div>
                 <div className="stat-card">
-                  <span className="stat-label">能力値 θ</span>
-                  <span className="stat-value">
-                    {theta.toFixed(2)}
-                    <span className="stat-sub">（SE {se.toFixed(2)}）</span>
-                  </span>
+                  <span className="stat-label">実施項目の正答数</span>
+                  <span className="stat-value">{correctAnswers} 問</span>
                 </div>
                 <div className="stat-card">
-                  <span className="stat-label">正答率</span>
+                  <span className="stat-label">実施項目の正答率</span>
                   <span className="stat-value">
                     {accuracy.toFixed(1)}%
-                    <span className="stat-sub">
-                      （{correctAnswers} / {totalItems}）
-                    </span>
                   </span>
                 </div>
               </div>
