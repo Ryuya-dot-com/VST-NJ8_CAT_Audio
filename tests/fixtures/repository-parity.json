@@ -16,7 +16,7 @@
     "src/utils/selectiveReportingPlan.ts": "c29198ccd06eaee68bc22570e545451d9c449708f6630c39b1fbb69e3bc9bdd9",
     "src/utils/selectiveReportingSimulation.ts": "62b7603e13a0ce9074297672f8cb151f79576a490ded48923cf0b56e3f397083",
     "src/utils/selectionAdjustedFeasibility.ts": "bb4b94def9974bf0dd0e41048cba1e03565da1b541315a23d4d0589de7c8c929",
-    "src/utils/selectionAdjustedImportance.ts": "3a4ecdffe6116383ac11947d0bb71a79a43291d57b73bfe86252ca049bf4b75f",
+    "src/utils/selectionAdjustedImportance.ts": "3495274d0eb13172186a4b56985abc46f8f03b4377c7e3901d29331bea160ef8",
     "scripts/reference-paper-3pl.R": "25691d969e792df60794aa19d749001c0075358fcbe01be2fe8c1281fb92ce8f",
     "scripts/simulate-cat.ts": "7419d163bc27034b9b84b5ea8aa648821afe426962a1e09d3779543d761de919",
     "scripts/evaluate-confirmation.ts": "5e4a56d7682a76ac20330dd8671b50e381af7600c28dcfb4e495b7dc9efb7e5e",
@@ -106,7 +106,7 @@
     "simulation/results/selective-reporting-exploratory-v1-summary.md": "4d4cda5898acc8c5511d36e0408cddd00e3649455e36cfa6e7856c5536b2d8d9",
     "simulation/results/selection-adjusted-feasibility-v1.json": "1efe227e9362c1ff5d51dcdb3cee9a46fb4120e9f321c811deca35b4fd0e938e",
     "simulation/results/selection-adjusted-feasibility-v1-summary.md": "674627410821a8136e131e469cdf96535cffd0e206426e0b151972a581b89c29",
-    "simulation/results/selection-adjusted-importance-validation-v1.json": "bc61740bc3c6c88053c00ccefcc47ecf21b25b999f015a04308615d0f0a2459f",
+    "simulation/results/selection-adjusted-importance-validation-v1.json": "fe991f470323ea15193b8ee8dea2f66e4fc805e23a08494b10208951677fb0a6",
     "simulation/results/selection-adjusted-importance-validation-v1-summary.md": "fc849b9bb708337856476ea986992bd462621b35146d2f7807986c80eddf138e",
     "public/jacet_parameters.csv": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47"
   }

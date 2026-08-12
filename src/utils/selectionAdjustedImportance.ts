@@ -152,7 +152,6 @@ export function validateSelectionAdjustedImportancePlan(
     plan.planId !== "selection-adjusted-importance-validation-v1" ||
     plan.mixtureSeed !== 20260820 ||
     plan.directSeed !== 20260821 ||
-    plan.mixtureSeed === plan.directSeed ||
     plan.defensiveTargetWeight !== 0.2 ||
     plan.mixturePathsPerExperiment !== 20000 ||
     plan.directPathsPerOverlapExperiment !== 20000
