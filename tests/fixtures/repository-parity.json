@@ -25,6 +25,7 @@
     "scripts/reference-measurement-range.R": "81319c0a176acb4aaff82cbc1e41a48b1e179bc6f9ff4a8b204a94e408574c07",
     "scripts/diagnose-measurement-range.ts": "82c1464ca69bcfab0588613780f0c04a94d78329c6a6c5f1b48f9ff58f00ac4a",
     "scripts/simulate-range-reporting.ts": "6c7a99cdd48e47f50980c1ea40f86496d72aaf485d79dff8578b41bb6d1ec788",
+    "scripts/verify-range-reporting.ts": "f6e6deee6efdc189d977d8433fdb9c43e0423de03cb2536bd54c61a1b31b7464",
     "tests/fixtures/legacy-cat-v0.json": "c6f219db2a9a2ccbe1032f960e9c72d55161855a9500da538d76001817c0bbb1",
     "tests/fixtures/paper-3pl-v1.json": "0a0cb4d6e240a879ba2a5ca10313af02b9b246b8f7385b84803a403358d86f0a",
     "tests/paperScoring.test.ts": "bdcbeaa274fb31e6e3e8a9ef0e32ad49cc8c811e223b1f4536355dbe0d5d2d82",
@@ -42,6 +43,7 @@
     "docs/adr/0002-estimator-candidates.md": "a0a6c199fc5fedf89ff0b01c9ad168bfd37de88977e1dc365581fbcc05b16b61",
     "docs/adr/0003-exposure-control.md": "ec57b738f808717c3d1c13e62e424bf006531f67c93b4385b6ca0b2e02a9f0dc",
     "docs/adr/0004-measurement-range.md": "76f8402e11546cf8a614d82ab3df2495e5ee91322f44cb43a7010d0deca569e3",
+    "docs/adr/0005-range-reporting-exploration.md": "e3bd4c92fc55de0e58c879593512ca6b9b4d3793086d59a2ebcace1959001932",
     "simulation/decision-criteria-v1.md": "13ef1524c4c05c16bf33ac938bc7a124f9efc581298f30e4f723e47acf7ac8ad",
     "simulation/range-reporting-decision-criteria-v1.md": "498a78e0b4ecc8563e0bf0380728266c85181ec4895d5abdaf3ef0003c97d9f0",
     "simulation/plans/pilot-v1.json": "826e63a900ac87c9d07bf3625ebf1207cfa5ee5e080e9756339a7000bb2c404e",
@@ -63,6 +65,8 @@
     "simulation/results/exposure-control-exploratory-v1-summary.md": "3888741c2e45a1c8622df70cd89d6904e2c9d1bf977357284d4784b6e72dd1d8",
     "simulation/results/measurement-range-diagnostic-v1.json": "8195e9becb38d6596645bcdd453b2f7e1334471f02ba65a67b1af3d1c3791804",
     "simulation/results/measurement-range-diagnostic-v1-summary.md": "6087ffe7904e76b1e1b8373283bab5d96c33342aa2731ccc5b0cbf8025660f38",
+    "simulation/results/range-reporting-exploratory-v1.json": "7010e24beaf5c20c4d8fe20c1fc910e8915bee441653677e7dc7c716f778f0ff",
+    "simulation/results/range-reporting-exploratory-v1-summary.md": "d502b829eadfb08b522f717a0860e321eeaad9626eb56c05dcfa2262bb064ba3",
     "public/jacet_parameters.csv": "ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47"
   }
 }
