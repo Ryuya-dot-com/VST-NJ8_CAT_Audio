@@ -1,0 +1,46 @@
+{
+  "planId": "exposure-control-exploratory-v1",
+  "seed": 20260813,
+  "calibrationCycles": 8,
+  "calibrationReplicationsPerTheta": 200,
+  "evaluationReplicationsPerTheta": 500,
+  "trueThetas": [-3.5, -3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5],
+  "initialLevelMinimum": 3,
+  "initialLevelMaximum": 5,
+  "estimatorIds": ["eap-normal-0-1", "warm-wle-bounded"],
+  "designs": [
+    {
+      "id": "fixed20-sh025-high2",
+      "fixedLength": 20,
+      "targetMaximumExposure": 0.25,
+      "levelBands": [
+        { "id": "high", "levels": [7, 8], "minimumItems": 2 }
+      ]
+    },
+    {
+      "id": "fixed20-sh025-three-band",
+      "fixedLength": 20,
+      "targetMaximumExposure": 0.25,
+      "levelBands": [
+        { "id": "low", "levels": [1, 2], "minimumItems": 2 },
+        { "id": "middle", "levels": [3, 4, 5, 6], "minimumItems": 2 },
+        { "id": "high", "levels": [7, 8], "minimumItems": 2 }
+      ]
+    },
+    {
+      "id": "fixed20-sh025-each-level1",
+      "fixedLength": 20,
+      "targetMaximumExposure": 0.25,
+      "levelBands": [
+        { "id": "level-1", "levels": [1], "minimumItems": 1 },
+        { "id": "level-2", "levels": [2], "minimumItems": 1 },
+        { "id": "level-3", "levels": [3], "minimumItems": 1 },
+        { "id": "level-4", "levels": [4], "minimumItems": 1 },
+        { "id": "level-5", "levels": [5], "minimumItems": 1 },
+        { "id": "level-6", "levels": [6], "minimumItems": 1 },
+        { "id": "level-7", "levels": [7], "minimumItems": 1 },
+        { "id": "level-8", "levels": [8], "minimumItems": 1 }
+      ]
+    }
+  ]
+}
