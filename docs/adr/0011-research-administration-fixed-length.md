@@ -16,7 +16,7 @@
 - 以後はpaper-3PL項目情報量の上位5項目から一様無作為抽出するrandomesque-5とする。同情報量は項目index昇順でtie-breakする。
 - Level 7–8が2問未満の間は、利用可能なら同レベル候補内でrandomesque-5を行う。
 - 1実施につき暗号学的乱数源から32-bit seedを1個生成し、その後の初問・項目選択は`mulberry32-v1`で再現可能にする。
-- Excelへ実施規則ID、妥当化状態、得点モデルID、内部推定法ID、項目バンクSHA-256、確認計画・結果・判定の各SHA-256、選択法、固定長、乱数生成器ID、seed、停止理由を保存する。
+- Excelへ実施規則ID、妥当化状態、得点モデルID、内部推定法ID、項目バンク論理スキーマ・論理SHA-256・成果物SHA-256、確認計画・結果・判定の各SHA-256、選択法、固定長、乱数生成器ID、seed、停止理由を保存する。
 
 これは得点規則の採用ではない。ADR 0010の潜在得点default-denyを維持し、theta・SE・0–8000尺度・範囲分類は受験者へ返さない。
 
@@ -44,7 +44,7 @@
 - `scripts/verify-research-administration.ts` が実アプリから旧EAP・旧選択・旧SE停止への参照が消えていることを確認する。
 - 同スクリプトが `confirmation-v1/fixed30-randomesque5` と全構造フィールドを照合する。
 - 確認計画、シミュレーション結果、判定結果のSHA-256を照合し、合格候補が0件かつfixed-30がbias・RMSE・被覆率ゲートに不合格であることを強制する。
-- 項目バンクSHA-256 `ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47` を照合する。
+- 項目バンク論理SHA-256 `d94031e23515d7ed4a4d7db01d6202027874d3c9c9140cc75df93d6f58ec04f4` と、配布成果物SHA-256 `ed058c8b87ef951c70512f89ac2ba708f18db983dd5b449b201e9b2dc97d0d47` を別々に照合する。意味はADR 0013に従う。
 - 筆記版・音声版の共通実装をrepository parity manifestで固定する。
 
 ## 音声版

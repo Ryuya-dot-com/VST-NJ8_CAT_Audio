@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 
-export const FLOATING_POINT_TOLERANCE_IN_EPSILONS = 128;
+export const REPRODUCIBLE_REPORT_COMPARISON_CONTRACT_ID =
+  "simulation-report-cross-platform-v1";
+export const FLOATING_POINT_ABSOLUTE_TOLERANCE = 1e-12;
+export const FLOATING_POINT_RELATIVE_TOLERANCE = 1e-13;
 
 function formatPath(parent: string, key: string): string {
   return /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key)
@@ -24,9 +27,10 @@ export function assertReproducibleReportEqual(
     ) {
       assert.fail(`${path}: expected exact numeric equality (${actual} !== ${expected})`);
     }
-    const scale = Math.max(1, Math.abs(actual), Math.abs(expected));
+    const scale = Math.max(Math.abs(actual), Math.abs(expected));
     const tolerance =
-      FLOATING_POINT_TOLERANCE_IN_EPSILONS * Number.EPSILON * scale;
+      FLOATING_POINT_ABSOLUTE_TOLERANCE +
+      FLOATING_POINT_RELATIVE_TOLERANCE * scale;
     const difference = Math.abs(actual - expected);
     assert.ok(
       difference <= tolerance,

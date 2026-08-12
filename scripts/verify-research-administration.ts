@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 
 import { RESEARCH_ADMINISTRATION_POLICY } from "../src/utils/researchAdministrationPolicy.ts";
+import { identifyItemBank } from "./item-bank-identity.ts";
 
 const appSource = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
 const planBytes = readFileSync(
@@ -76,7 +77,10 @@ assert.equal(plan.initialLevelMinimum, policy.initialLevelMinimum);
 assert.equal(plan.initialLevelMaximum, policy.initialLevelMaximum);
 assert.equal(plan.highLevelFloor, policy.highLevelFloor);
 assert.equal(plan.minimumHighLevelItems, policy.minimumHighLevelItems);
-assert.equal(createHash("sha256").update(bankBytes).digest("hex"), policy.itemBankSha256);
+const bankIdentity = identifyItemBank(bankBytes);
+assert.equal(bankIdentity.logicalSchemaVersion, policy.itemBankLogicalSchemaVersion);
+assert.equal(bankIdentity.logicalSha256, policy.itemBankLogicalSha256);
+assert.equal(bankIdentity.artifactSha256, policy.itemBankArtifactSha256);
 
 for (const requiredPattern of [
   /RESEARCH_ADMINISTRATION_POLICY/u,

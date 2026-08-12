@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
@@ -17,6 +16,7 @@ import {
   selectNextResearchItem,
   shouldContinueResearchAdministration,
 } from "../src/utils/researchAdministrationPolicy.ts";
+import { identifyItemBank } from "../scripts/item-bank-identity.ts";
 
 const itemBankBytes = readFileSync(
   new URL("../public/jacet_parameters.csv", import.meta.url)
@@ -52,10 +52,10 @@ test("research administration is fixed-length and explicitly not score-valid", (
   assert.equal(policy.evidenceReportSha256, "5af908caffebccd9d295133277d95a01a56085a7e9e1c55b0ef0d2ae5c785752");
   assert.equal(policy.evidenceEvaluationSha256, "d0c20daa6b7a678162e20c11d292695241722ef0b97a0109ef16e49a076d566c");
   assert.equal(policy.scoreModelId, "paper-3pl-v1");
-  assert.equal(
-    createHash("sha256").update(itemBankBytes).digest("hex"),
-    policy.itemBankSha256
-  );
+  const bankIdentity = identifyItemBank(itemBankBytes);
+  assert.equal(bankIdentity.logicalSchemaVersion, policy.itemBankLogicalSchemaVersion);
+  assert.equal(bankIdentity.logicalSha256, policy.itemBankLogicalSha256);
+  assert.equal(bankIdentity.artifactSha256, policy.itemBankArtifactSha256);
   assert.equal(policy.fixedLength, 30);
   assert.equal(policy.randomesqueSize, 5);
   assert.equal(policy.precisionStoppingEnabled, false);
@@ -142,6 +142,14 @@ test("administration audit is complete and rejects invalid contracts", () => {
   assert.equal(audit.項目選択seed, 123);
   assert.equal(audit.停止理由, "fixed-length");
   assert.equal(audit.内部推定法ID, "eap-normal-0-1");
+  assert.equal(
+    audit["項目バンク論理SHA-256"],
+    RESEARCH_ADMINISTRATION_POLICY.itemBankLogicalSha256
+  );
+  assert.equal(
+    audit["項目バンク成果物SHA-256"],
+    RESEARCH_ADMINISTRATION_POLICY.itemBankArtifactSha256
+  );
   assert.equal(
     audit["確認判定SHA-256"],
     RESEARCH_ADMINISTRATION_POLICY.evidenceEvaluationSha256
