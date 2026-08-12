@@ -4,13 +4,13 @@ Status: design decision before implementation; not an executable simulation plan
 
 ## Primary inferential target
 
-For fixed true ability `theta`, let `Y` denote the complete adaptive response path and let `S(Y)=1` mean that the predeclared posterior range classifier returns `within-range`. The primary interval target is
+For fixed true ability `theta`, let `Y` denote the complete adaptive response path and let `S(Y)=1` mean that the predeclared posterior range classifier returns `within-range` and the EAP point estimate lies inside the fixed information-support range. The primary interval target is
 
 `P_theta(theta in C(Y) | S(Y)=1) = .95`.
 
 This is selective conditional coverage: the long-run coverage claim is explicitly restricted to paths on which a numerical interval is actually reported. The selection event must be computable before and independently of the candidate interval. In particular, interval width, interval endpoints, connectivity, and containment of the point estimate must not decide whether the interval is shown.
 
-The aggregate false coverage-statement rate (FCR) will be reported as a secondary diagnostic, not used as the primary gate. FCR is appropriate for a family of parameters selected for reporting, but average control could conceal serious undercoverage at a particular ability level. This test reports one person parameter per selected examinee and makes a conditional 95% claim across fixed theta, so per-theta selective coverage is the stronger and relevant requirement.
+The aggregate false coverage-statement rate (FCR) will be reported as a secondary diagnostic, not used as the primary gate. FCR is appropriate for a family of parameters selected for reporting, but average control could conceal serious undercoverage at a particular ability level. This test reports one person parameter per selected examinee and makes a conditional 95% claim across fixed theta, so per-theta selective coverage is the stronger and relevant requirement. The extra EAP containment clause is interval-independent and prevents a displayed point estimate from falling outside the supported numerical interval.
 
 ## Frozen scope for the next implementation
 
@@ -28,6 +28,8 @@ The only selection-eligible interval construction will be a conditional central 
 8. intersect the final interval with the fixed information-support range.
 
 For a true theta inside the information-support range, the final intersection cannot remove the true value from an otherwise covering interval. If inversion yields an empty set, the full information-support interval is returned. That fallback is deliberately safe but will be penalized by the frozen width gates. Therefore every path with `S(Y)=1` receives an interval and the reporting event remains exactly `S`, avoiding the circular selection rule in the preceding experiment.
+
+The fraction of selected paths requiring an empty-inversion full-range fallback is separately gated at `.01` using the upper 90% Wilson bound. It is not allowed to disappear inside an always-valid interval flag.
 
 The current equal-tail EAP posterior interval may be retained only as a diagnostic baseline. It cannot be selected, and no likelihood/Warm variant will be added to this experiment. The point estimator, acceptance statistic, and interval are thereby aligned around the same EAP estimand instead of combining an EAP point with an unrelated likelihood center.
 
