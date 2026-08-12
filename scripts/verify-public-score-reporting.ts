@@ -2,10 +2,10 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 import {
-  PUBLIC_SCORE_REPORTING_POLICY,
-  assertPublicResultFieldsAllowed,
-  assertPublicResultContainsNoLatentScores,
-  buildPublicObservedResult,
+  CAT_SCORE_REPORTING_METHOD,
+  PUBLIC_CAT_SCORE_RESULT_FIELDS,
+  assertResultFieldsAllowed,
+  buildPublicCatScoreResult,
 } from "../src/utils/scoreReportingPolicy.ts";
 
 const appSource = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
@@ -18,53 +18,57 @@ const landingSource = readFileSync(
   "utf8"
 );
 
-assert.equal(PUBLIC_SCORE_REPORTING_POLICY.allowsTheta, false);
-assert.equal(PUBLIC_SCORE_REPORTING_POLICY.allowsStandardError, false);
-assert.equal(PUBLIC_SCORE_REPORTING_POLICY.allowsVocabularyScale, false);
-assert.equal(PUBLIC_SCORE_REPORTING_POLICY.allowsRangeClassification, false);
+assert.equal(CAT_SCORE_REPORTING_METHOD.scoreModelId, "paper-3pl-v1");
+assert.equal(CAT_SCORE_REPORTING_METHOD.abilityEstimator, "EAP");
+assert.equal(CAT_SCORE_REPORTING_METHOD.administeredItemCount, 30);
 
-for (const forbiddenAppPattern of [
-  /\bvocabFromTheta\b/u,
-  /const \[theta, setTheta\]/u,
-  /const \[se, setSe\]/u,
-  /theta:\s*estimate\.theta/u,
-  /se:\s*estimate\.se/u,
-  /["']能力値θ["']\s*:/u,
-  /\b標準誤差\s*:/u,
-  /\b推定語彙サイズ\s*:/u,
+for (const requiredAppPattern of [
+  /estimatePaperPosteriorEap/u,
+  /summarizePaperVocabularyPosterior/u,
+  /buildPublicCatScoreResult/u,
+  /PUBLIC_SUMMARY_FIELDS/u,
+  /PUBLIC_RESPONSE_FIELDS/u,
 ]) {
-  assert.doesNotMatch(appSource, forbiddenAppPattern);
+  assert.match(appSource, requiredAppPattern);
 }
-assert.match(appSource, /buildPublicObservedResult/u);
-assert.match(appSource, /assertPublicResultFieldsAllowed/u);
-assert.match(appSource, /PUBLIC_SUMMARY_FIELDS/u);
-assert.match(appSource, /PUBLIC_RESPONSE_FIELDS/u);
 
-for (const forbiddenResultsPattern of [
-  /\btheta\s*:\s*number/u,
-  /\bse\s*:\s*number/u,
-  /\bvocabSize\b/u,
-  />推定語彙サイズ</u,
-  />能力値 θ</u,
+for (const requiredResultPattern of [
+  /推定語彙サイズ/u,
+  /能力値/u,
+  /95%推定範囲/u,
+  /VST-NJ8原論文の式/u,
 ]) {
-  assert.doesNotMatch(resultsSource, forbiddenResultsPattern);
+  assert.match(resultsSource, requiredResultPattern);
 }
-assert.match(resultsSource, /PUBLIC_SCORE_REPORTING_POLICY/u);
-assert.doesNotMatch(landingSource, /語彙サイズを推定/u);
-assert.match(landingSource, /適応的に出題/u);
 
-const publicRecord = buildPublicObservedResult({
+for (const internalPresentationPattern of [
+  /妥当化未完了/u,
+  /報告手続/u,
+  /ポリシー:/u,
+  /数値得点の報告を保留/u,
+  /研究用の固定規則/u,
+]) {
+  assert.doesNotMatch(resultsSource, internalPresentationPattern);
+  assert.doesNotMatch(landingSource, internalPresentationPattern);
+}
+
+const publicRecord = buildPublicCatScoreResult({
   testLabel: "verification",
   userName: "",
   startedAt: "",
   endedAt: "",
-  administeredItems: 1,
-  correctAnswers: 1,
-  accuracyPercent: 100,
+  administeredItems: 30,
+  correctAnswers: 20,
+  accuracyPercent: 66.7,
+  thetaEap: 0.25,
+  thetaPosteriorStandardDeviation: 0.32,
+  estimatedVocabularySize: 4000,
+  vocabularyPosteriorStandardDeviation: 600,
+  vocabularyIntervalLower: 2800,
+  vocabularyIntervalUpper: 5200,
 });
-assertPublicResultContainsNoLatentScores([publicRecord]);
-assertPublicResultFieldsAllowed([publicRecord], Object.keys(publicRecord));
+assertResultFieldsAllowed([publicRecord], PUBLIC_CAT_SCORE_RESULT_FIELDS);
 
 console.log(
-  `Public score reporting verifier passed (${PUBLIC_SCORE_REPORTING_POLICY.policyId}).`
+  `Public CAT score reporting verifier passed (${CAT_SCORE_REPORTING_METHOD.methodId}).`
 );

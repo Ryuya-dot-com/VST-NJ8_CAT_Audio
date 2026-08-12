@@ -19,7 +19,7 @@
 - 選択肢順は研究実施seed、項目index、問題番号から `fnv1a32-domain-audio-options-v1` でseedを導出し、`mulberry32-v1` Fisher–Yatesで再現可能にする。
 - Excelへ実施規則、資産manifest、選択肢順seed導出法、再生回数、失敗回数を保存する。
 
-この決定は、筆記項目パラメータが音声条件で妥当であることを意味しない。潜在得点default-denyと `audio-mode-requires-independent-calibration` を維持する。
+この決定は、筆記項目パラメータが音声条件で同一に機能することを意味しない。その限界は `audio-mode-requires-independent-calibration` として技術報告に残すが、ADR 0014に従うCAT得点表示のゲートにはしない。
 
 ## 修正した不具合
 

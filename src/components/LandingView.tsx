@@ -36,8 +36,8 @@ export function LandingView({
                 </span>
                 <h1 className="hero-title mt-2 mb-3">JACET Vocabulary Size CAT</h1>
                 <p className="hero-subtitle mb-0">
-                  研究用の固定規則により30問を適応的に出題します。
-                  終了時に回答集計ファイルを自動で保存します。
+                  回答に応じて30問を出題します。
+                  終了後に推定語彙サイズと推定範囲を表示します。
                 </p>
               </div>
 
@@ -50,7 +50,7 @@ export function LandingView({
                       <li>日本語の問題語を画面で確認します</li>
                       <li>英語選択肢をAからDの順に1回ずつ聞きます</li>
                       <li>選択すると自動で次の問題へ進みます</li>
-                      <li>終了時にExcelファイルが保存されます</li>
+                      <li>終了時に結果を表示し、Excelファイルを保存します</li>
                     </ul>
                   </div>
                 </div>

@@ -1,27 +1,13 @@
-export const PUBLIC_SCORE_REPORTING_POLICY = Object.freeze({
-  policyId: "latent-score-reporting-default-deny-v1",
-  status: "withheld-pending-confirmatory-validation",
-  decision: "withhold-all-latent-score-values",
-  allowsTheta: false,
-  allowsStandardError: false,
-  allowsVocabularyScale: false,
-  allowsRangeClassification: false,
-  evidenceRequirements: Object.freeze([
-    "frozen-estimand-model-and-population",
-    "predeclared-conditional-operating-characteristics",
-    "stable-rare-event-calibration-with-monte-carlo-error",
-    "independent-confirmation-on-fresh-random-seeds",
-    "mode-specific-calibration-and-validation",
-  ]),
+export const CAT_SCORE_REPORTING_METHOD = Object.freeze({
+  methodId: "paper-3pl-cat-eap-v1",
+  scoreModelId: "paper-3pl-v1",
+  abilityEstimator: "EAP",
+  vocabularyPointEstimate: "posterior-mean-after-paper-scale-transformation",
+  uncertainty: "equal-tail-95-percent-posterior-credible-interval",
+  administeredItemCount: 30,
 } as const);
 
-export const SCORE_REPORT_WITHHELD_MESSAGE =
-  "推定語彙サイズ・能力値・測定範囲分類は、報告手続の確認的妥当化が完了していないため表示していません。";
-
-export const OBSERVED_RESULT_CAUTION =
-  "以下は適応的に出題された項目の回答集計であり、語彙サイズや能力値を表す得点ではありません。";
-
-export interface PublicObservedResultInput {
+export interface PublicCatScoreResultInput {
   testLabel: string;
   userName: string;
   startedAt: string;
@@ -29,78 +15,90 @@ export interface PublicObservedResultInput {
   administeredItems: number;
   correctAnswers: number;
   accuracyPercent: number | null;
+  thetaEap: number;
+  thetaPosteriorStandardDeviation: number;
+  estimatedVocabularySize: number;
+  vocabularyPosteriorStandardDeviation: number;
+  vocabularyIntervalLower: number;
+  vocabularyIntervalUpper: number;
 }
 
-export type PublicResultValue = string | number | null;
-export type PublicResultRecord = Record<string, PublicResultValue>;
+export type ResultValue = string | number | null;
+export type ResultRecord = Record<string, ResultValue>;
 
-export const PUBLIC_OBSERVED_RESULT_FIELDS = Object.freeze([
+export const PUBLIC_CAT_SCORE_RESULT_FIELDS = Object.freeze([
   "テスト形式",
   "受験者氏名",
   "開始日時",
   "終了日時",
-  "数値得点報告",
-  "得点報告ポリシーID",
-  "報告保留理由",
+  "推定語彙サイズ（0–8000語）",
+  "推定語彙サイズ事後標準偏差",
+  "推定語彙サイズ95%区間下限",
+  "推定語彙サイズ95%区間上限",
+  "能力値θ（EAP）",
+  "能力値事後標準偏差",
+  "推定方法",
   "実施項目数",
-  "実施項目の正答数",
-  "実施項目の正答率（%）",
-  "集計上の注意",
+  "正答数",
+  "正答率（%）",
 ] as const);
 
-const FORBIDDEN_LATENT_FIELD_PATTERN =
-  /(?:能力値|標準誤差|推定語彙|語彙サイズ|8000.*尺度|theta|vocab|latent.*score|standard.*error)/iu;
-
-export function assertPublicResultContainsNoLatentScores(
-  records: readonly PublicResultRecord[]
-): void {
-  for (const record of records) {
-    for (const fieldName of Object.keys(record)) {
-      if (FORBIDDEN_LATENT_FIELD_PATTERN.test(fieldName)) {
-        throw new Error(
-          `Public result field "${fieldName}" violates ${PUBLIC_SCORE_REPORTING_POLICY.policyId}.`
-        );
-      }
-    }
-  }
-}
-
-export function assertPublicResultFieldsAllowed(
-  records: readonly PublicResultRecord[],
+export function assertResultFieldsAllowed(
+  records: readonly ResultRecord[],
   allowedFields: readonly string[]
 ): void {
   if (allowedFields.length === 0 || new Set(allowedFields).size !== allowedFields.length) {
-    throw new Error("Public result field allowlist must be non-empty and unique.");
+    throw new Error("Result field allowlist must be non-empty and unique.");
   }
   const allowed = new Set(allowedFields);
-  assertPublicResultContainsNoLatentScores(records);
   for (const record of records) {
     for (const fieldName of Object.keys(record)) {
       if (!allowed.has(fieldName)) {
-        throw new Error(
-          `Public result field "${fieldName}" is not explicitly allowed by ${PUBLIC_SCORE_REPORTING_POLICY.policyId}.`
-        );
+        throw new Error(`Result field "${fieldName}" is not explicitly allowed.`);
       }
     }
   }
 }
 
-export function buildPublicObservedResult(
-  input: PublicObservedResultInput
-): PublicResultRecord {
-  const record: PublicResultRecord = {
+function assertFiniteScore(value: number, label: string): void {
+  if (!Number.isFinite(value)) {
+    throw new RangeError(`${label} must be finite.`);
+  }
+}
+
+export function buildPublicCatScoreResult(
+  input: PublicCatScoreResultInput
+): ResultRecord {
+  for (const [label, value] of [
+    ["theta EAP", input.thetaEap],
+    ["theta posterior standard deviation", input.thetaPosteriorStandardDeviation],
+    ["estimated vocabulary size", input.estimatedVocabularySize],
+    ["vocabulary posterior standard deviation", input.vocabularyPosteriorStandardDeviation],
+    ["vocabulary interval lower", input.vocabularyIntervalLower],
+    ["vocabulary interval upper", input.vocabularyIntervalUpper],
+  ] as const) {
+    assertFiniteScore(value, label);
+  }
+  if (input.vocabularyIntervalLower > input.vocabularyIntervalUpper) {
+    throw new RangeError("Vocabulary interval lower bound must not exceed its upper bound.");
+  }
+
+  const record: ResultRecord = {
     テスト形式: input.testLabel,
     受験者氏名: input.userName,
     開始日時: input.startedAt,
     終了日時: input.endedAt,
-    数値得点報告: "保留（妥当化未完了）",
-    得点報告ポリシーID: PUBLIC_SCORE_REPORTING_POLICY.policyId,
-    報告保留理由: SCORE_REPORT_WITHHELD_MESSAGE,
+    "推定語彙サイズ（0–8000語）": input.estimatedVocabularySize,
+    推定語彙サイズ事後標準偏差: input.vocabularyPosteriorStandardDeviation,
+    "推定語彙サイズ95%区間下限": input.vocabularyIntervalLower,
+    "推定語彙サイズ95%区間上限": input.vocabularyIntervalUpper,
+    "能力値θ（EAP）": input.thetaEap,
+    能力値事後標準偏差: input.thetaPosteriorStandardDeviation,
+    推定方法: "3PL・EAP（30問のCAT回答）",
     実施項目数: input.administeredItems,
-    実施項目の正答数: input.correctAnswers,
-    "実施項目の正答率（%）": input.accuracyPercent,
-    集計上の注意: OBSERVED_RESULT_CAUTION,
+    正答数: input.correctAnswers,
+    "正答率（%）": input.accuracyPercent,
   };
-  assertPublicResultFieldsAllowed([record], PUBLIC_OBSERVED_RESULT_FIELDS);
+  assertResultFieldsAllowed([record], PUBLIC_CAT_SCORE_RESULT_FIELDS);
   return record;
 }

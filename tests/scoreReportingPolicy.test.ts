@@ -2,70 +2,71 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
-  PUBLIC_SCORE_REPORTING_POLICY,
-  assertPublicResultFieldsAllowed,
-  assertPublicResultContainsNoLatentScores,
-  buildPublicObservedResult,
+  CAT_SCORE_REPORTING_METHOD,
+  PUBLIC_CAT_SCORE_RESULT_FIELDS,
+  assertResultFieldsAllowed,
+  buildPublicCatScoreResult,
 } from "../src/utils/scoreReportingPolicy.ts";
 
-test("public latent-score reporting is closed by an immutable default-deny policy", () => {
-  assert.equal(
-    PUBLIC_SCORE_REPORTING_POLICY.policyId,
-    "latent-score-reporting-default-deny-v1"
-  );
-  assert.equal(PUBLIC_SCORE_REPORTING_POLICY.allowsTheta, false);
-  assert.equal(PUBLIC_SCORE_REPORTING_POLICY.allowsStandardError, false);
-  assert.equal(PUBLIC_SCORE_REPORTING_POLICY.allowsVocabularyScale, false);
-  assert.equal(PUBLIC_SCORE_REPORTING_POLICY.allowsRangeClassification, false);
-  assert.equal(Object.isFrozen(PUBLIC_SCORE_REPORTING_POLICY), true);
-  assert.equal(Object.isFrozen(PUBLIC_SCORE_REPORTING_POLICY.evidenceRequirements), true);
+const validInput = {
+  testLabel: "筆記版",
+  userName: "test user",
+  startedAt: "2026/8/12 10:00:00",
+  endedAt: "2026/8/12 10:10:00",
+  administeredItems: 30,
+  correctAnswers: 21,
+  accuracyPercent: 70,
+  thetaEap: 0.42,
+  thetaPosteriorStandardDeviation: 0.31,
+  estimatedVocabularySize: 4210.25,
+  vocabularyPosteriorStandardDeviation: 612.5,
+  vocabularyIntervalLower: 3025.4,
+  vocabularyIntervalUpper: 5388.8,
+};
+
+test("CAT score reporting method fixes the paper-model transformation contract", () => {
+  assert.equal(CAT_SCORE_REPORTING_METHOD.methodId, "paper-3pl-cat-eap-v1");
+  assert.equal(CAT_SCORE_REPORTING_METHOD.scoreModelId, "paper-3pl-v1");
+  assert.equal(CAT_SCORE_REPORTING_METHOD.abilityEstimator, "EAP");
+  assert.equal(CAT_SCORE_REPORTING_METHOD.administeredItemCount, 30);
+  assert.equal(Object.isFrozen(CAT_SCORE_REPORTING_METHOD), true);
 });
 
-test("public result contains observed response summaries and no latent-score fields", () => {
-  const record = buildPublicObservedResult({
-    testLabel: "音声版",
-    userName: "test user",
-    startedAt: "2026/8/12 10:00:00",
-    endedAt: "2026/8/12 10:10:00",
-    administeredItems: 20,
-    correctAnswers: 14,
-    accuracyPercent: 70,
-  });
+test("public result includes the estimated vocabulary scale, interval, and theta", () => {
+  const record = buildPublicCatScoreResult(validInput);
 
-  assert.deepEqual(
-    [record.実施項目数, record.実施項目の正答数, record["実施項目の正答率（%）"]],
-    [20, 14, 70]
-  );
-  assert.equal(record.数値得点報告, "保留（妥当化未完了）");
-  assertPublicResultContainsNoLatentScores([record]);
+  assert.equal(record["推定語彙サイズ（0–8000語）"], 4210.25);
+  assert.equal(record["推定語彙サイズ95%区間下限"], 3025.4);
+  assert.equal(record["推定語彙サイズ95%区間上限"], 5388.8);
+  assert.equal(record["能力値θ（EAP）"], 0.42);
+  assert.equal(record.実施項目数, 30);
+  assertResultFieldsAllowed([record], PUBLIC_CAT_SCORE_RESULT_FIELDS);
 });
 
-test("public export guard rejects latent-score field names", () => {
-  for (const forbiddenField of [
-    "能力値θ",
-    "標準誤差",
-    "推定語彙サイズ",
-    "8000語尺度",
-    "theta",
-    "vocabularyScore",
-    "latentScore",
-    "standardError",
-  ]) {
-    assert.throws(
-      () => assertPublicResultContainsNoLatentScores([{ [forbiddenField]: 1 }]),
-      /latent-score-reporting-default-deny-v1/
-    );
-  }
-});
-
-test("public export allowlist rejects unreviewed aliases and malformed contracts", () => {
+test("score export rejects non-finite values and reversed intervals", () => {
   assert.throws(
-    () => assertPublicResultFieldsAllowed([{ スコア: 1 }], ["実施項目数"]),
+    () => buildPublicCatScoreResult({ ...validInput, thetaEap: Number.NaN }),
+    /must be finite/
+  );
+  assert.throws(
+    () =>
+      buildPublicCatScoreResult({
+        ...validInput,
+        vocabularyIntervalLower: 6000,
+        vocabularyIntervalUpper: 5000,
+      }),
+    /must not exceed/
+  );
+});
+
+test("result export allowlist rejects unknown fields and malformed contracts", () => {
+  assert.throws(
+    () => assertResultFieldsAllowed([{ 未審査列: 1 }], ["実施項目数"]),
     /not explicitly allowed/
   );
-  assert.throws(() => assertPublicResultFieldsAllowed([], []), /non-empty and unique/);
+  assert.throws(() => assertResultFieldsAllowed([], []), /non-empty and unique/);
   assert.throws(
-    () => assertPublicResultFieldsAllowed([], ["field", "field"]),
+    () => assertResultFieldsAllowed([], ["field", "field"]),
     /non-empty and unique/
   );
 });
