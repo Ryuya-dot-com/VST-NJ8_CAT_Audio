@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "check": "npm run lint && npm run test && npm run verify:bank && npm run verify:range && npm run verify:range-reporting && npm run verify:interval-calibration && npm run verify:simulation && npm run verify:estimators && npm run verify:exposure && npm run build",
+    "check": "npm run lint && npm run test && npm run verify:bank && npm run verify:range && npm run verify:range-reporting && npm run verify:interval-calibration && npm run verify:selective-reporting && npm run verify:simulation && npm run verify:estimators && npm run verify:exposure && npm run build",
     "diagnose:bank": "node scripts/diagnose-bank.ts",
     "diagnose:range": "node scripts/diagnose-measurement-range.ts",
     "lint": "eslint .",
@@ -26,6 +26,7 @@
     "verify:range": "node scripts/diagnose-measurement-range.ts --plan=simulation/plans/measurement-range-diagnostic-v1.json --expected=simulation/results/measurement-range-diagnostic-v1.json",
     "verify:range-reporting": "node scripts/verify-range-reporting.ts",
     "verify:interval-calibration": "node scripts/verify-interval-calibration.ts",
+    "verify:selective-reporting": "node scripts/verify-selective-reporting.ts",
     "verify:estimators": "node scripts/verify-estimator-sensitivity.ts",
     "verify:exposure": "node scripts/verify-exposure-control.ts",
     "verify:simulation": "node scripts/evaluate-confirmation.ts --report=simulation/results/confirmation-v1.json --expected=simulation/results/confirmation-v1-evaluation.json",
