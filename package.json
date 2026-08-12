@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "check": "npm run lint && npm run test && npm run verify:public-score-reporting && npm run verify:bank && npm run verify:range && npm run verify:range-reporting && npm run verify:interval-calibration && npm run verify:selective-reporting && npm run verify:selection-adjusted-feasibility && npm run verify:selection-adjusted-importance && npm run verify:simulation && npm run verify:estimators && npm run verify:exposure && npm run build",
+    "check": "npm run lint && npm run test && npm run verify:public-score-reporting && npm run verify:research-administration && npm run verify:bank && npm run verify:range && npm run verify:range-reporting && npm run verify:interval-calibration && npm run verify:selective-reporting && npm run verify:selection-adjusted-feasibility && npm run verify:selection-adjusted-importance && npm run verify:simulation && npm run verify:estimators && npm run verify:exposure && npm run build",
     "diagnose:bank": "node scripts/diagnose-bank.ts",
     "diagnose:range": "node scripts/diagnose-measurement-range.ts",
     "lint": "eslint .",
@@ -32,6 +32,7 @@
     "verify:selection-adjusted-feasibility": "node scripts/verify-selection-adjusted-feasibility.ts",
     "verify:selection-adjusted-importance": "node scripts/verify-selection-adjusted-importance.ts",
     "verify:public-score-reporting": "node scripts/verify-public-score-reporting.ts",
+    "verify:research-administration": "node scripts/verify-research-administration.ts",
     "verify:estimators": "node scripts/verify-estimator-sensitivity.ts",
     "verify:exposure": "node scripts/verify-exposure-control.ts",
     "verify:simulation": "node scripts/evaluate-confirmation.ts --report=simulation/results/confirmation-v1.json --expected=simulation/results/confirmation-v1-evaluation.json",

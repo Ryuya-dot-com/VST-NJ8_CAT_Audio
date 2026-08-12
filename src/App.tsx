@@ -5,29 +5,36 @@ import { LandingView } from "./components/LandingView";
 import { ResultsView } from "./components/ResultsView";
 import { TestView } from "./components/TestView";
 import type { Item, OptionChoice } from "./types";
-import { estimateAbilityEap, selectNextItem } from "./utils/cat";
-import {
-  LEGACY_CAT_CONFIG,
-  needsHighLevelItems,
-  shouldContinueTest,
-} from "./utils/catConfig";
 import { loadItemBank } from "./utils/data";
+import { estimatePaperPosteriorEap } from "./utils/paperScoring";
 import { shuffleArray } from "./utils/random";
 import { playWordAudio } from "./utils/audio";
 import { speakWord } from "./utils/speech";
+import {
+  RESEARCH_ADMINISTRATION_AUDIT_FIELDS,
+  RESEARCH_ADMINISTRATION_POLICY,
+  buildResearchAdministrationAudit,
+  createResearchAdministrationRandom,
+  createResearchAdministrationSeed,
+  selectInitialResearchItem,
+  selectNextResearchItem,
+  shouldContinueResearchAdministration,
+  type ResearchStopReason,
+} from "./utils/researchAdministrationPolicy";
 import {
   PUBLIC_OBSERVED_RESULT_FIELDS,
   assertPublicResultFieldsAllowed,
   buildPublicObservedResult,
 } from "./utils/scoreReportingPolicy";
 
-const TOTAL_ITEMS = LEGACY_CAT_CONFIG.stopping.maximumItems;
+const TOTAL_ITEMS = RESEARCH_ADMINISTRATION_POLICY.fixedLength;
 const TEST_LABEL = "音声版";
 type DownloadStatus = "idle" | "success" | "error";
 type OptionKey = "a" | "b" | "c" | "d";
 
 const PUBLIC_SUMMARY_FIELDS = Object.freeze([
   ...PUBLIC_OBSERVED_RESULT_FIELDS,
+  ...RESEARCH_ADMINISTRATION_AUDIT_FIELDS,
   "総回答時間（秒）",
   "平均回答時間（秒）",
   "A選択数",
@@ -84,6 +91,8 @@ interface ResultSnapshot {
   responseTimes: number[];
   answerTimestamps: string[];
   audioPlayCounts: AudioPlayCounts[];
+  administrationSeed: number;
+  stopReason: ResearchStopReason;
   testStartedAtMs: number | null;
   testEndedAtMs: number | null;
 }
@@ -145,25 +154,6 @@ function getOptionText(optionOrder: OptionChoice[], label: OptionKey): string {
   return optionOrder.find((option) => option.label === label)?.text ?? "";
 }
 
-function pickInitialItemIndex(itemBank: Item[]): number | null {
-  const { initialLevelMaximum, initialLevelMinimum } =
-    LEGACY_CAT_CONFIG.contentConstraint;
-  const candidates = itemBank
-    .map((item, idx) => ({ item, idx }))
-    .filter(
-      ({ item }) =>
-        item.Level >= initialLevelMinimum && item.Level <= initialLevelMaximum
-    );
-
-  if (candidates.length === 0) {
-    return itemBank.length > 0 ? 0 : null;
-  }
-
-  const randomCandidate =
-    candidates[Math.floor(Math.random() * candidates.length)];
-  return randomCandidate?.idx ?? null;
-}
-
 function App() {
   const [itemBank, setItemBank] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
@@ -187,6 +177,9 @@ function App() {
   const [downloadStatus, setDownloadStatus] = useState<DownloadStatus>("idle");
   const [testStartedAtMs, setTestStartedAtMs] = useState<number | null>(null);
   const [testEndedAtMs, setTestEndedAtMs] = useState<number | null>(null);
+  const [administrationSeed, setAdministrationSeed] = useState<number | null>(null);
+  const [stopReason, setStopReason] = useState<ResearchStopReason | null>(null);
+  const selectionRandomRef = useRef<(() => number) | null>(null);
   const currentAudioPlayCountsRef = useRef<AudioPlayCounts>(
     createEmptyAudioPlayCounts()
   );
@@ -266,13 +259,12 @@ function App() {
     if (loading || itemBank.length === 0) {
       return;
     }
-    const initialIndex = pickInitialItemIndex(itemBank);
-    if (initialIndex === null) {
-      setError("No items available to start the test.");
-      return;
-    }
+    const seed = createResearchAdministrationSeed();
+    const selectionRandom = createResearchAdministrationRandom(seed);
+    const initialIndex = selectInitialResearchItem(itemBank, selectionRandom);
 
     const startedAt = Date.now();
+    selectionRandomRef.current = selectionRandom;
     currentAudioPlayCountsRef.current = createEmptyAudioPlayCounts();
 
     setStarted(true);
@@ -290,6 +282,8 @@ function App() {
     setDownloadStatus("idle");
     setTestStartedAtMs(startedAt);
     setTestEndedAtMs(null);
+    setAdministrationSeed(seed);
+    setStopReason(null);
   };
 
   const handleAnswer = (selectedLabel: string, optionText: string) => {
@@ -298,7 +292,9 @@ function App() {
       currentIndex === null ||
       done ||
       isProcessing ||
-      questionStartMs === null
+      questionStartMs === null ||
+      administrationSeed === null ||
+      selectionRandomRef.current === null
     ) {
       return;
     }
@@ -338,46 +334,40 @@ function App() {
     setAnswerTimestamps(nextAnswerTimestamps);
     setAudioPlayCountsHistory(nextAudioPlayCountsHistory);
 
-    const estimate = estimateAbilityEap(
+    const estimate = estimatePaperPosteriorEap(
       itemBank,
       nextAdministered,
       nextResponses
     );
-
-    const highCount = nextAdministered.filter(
-      (idx) =>
-        itemBank[idx]?.Level >=
-        LEGACY_CAT_CONFIG.contentConstraint.highLevelFloor
-    ).length;
-    const needHigh = needsHighLevelItems(highCount);
-    const shouldContinue = shouldContinueTest({
-      posteriorStandardDeviation: estimate.se,
-      administeredItems: nextAdministered.length,
-      highLevelItems: highCount,
-    });
-
-    const nextSnapshot: ResultSnapshot = {
-      administered: nextAdministered,
-      responses: nextResponses,
-      selectedLabels: nextSelectedLabels,
-      selectedAnswers: nextSelectedAnswers,
-      optionOrders: nextOptionOrders,
-      responseTimes: nextTimes,
-      answerTimestamps: nextAnswerTimestamps,
-      audioPlayCounts: nextAudioPlayCountsHistory,
-      testStartedAtMs,
-      testEndedAtMs: now,
-    };
+    const shouldContinue = shouldContinueResearchAdministration(
+      nextAdministered.length
+    );
 
     if (shouldContinue) {
-      const nextIndex = selectNextItem(
+      const nextIndex = selectNextResearchItem(
         itemBank,
         estimate.theta,
         nextAdministered,
-        needHigh
+        selectionRandomRef.current
       );
       if (nextIndex === null) {
+        const finalStopReason: ResearchStopReason = "item-bank-exhausted";
+        const nextSnapshot: ResultSnapshot = {
+          administered: nextAdministered,
+          responses: nextResponses,
+          selectedLabels: nextSelectedLabels,
+          selectedAnswers: nextSelectedAnswers,
+          optionOrders: nextOptionOrders,
+          responseTimes: nextTimes,
+          answerTimestamps: nextAnswerTimestamps,
+          audioPlayCounts: nextAudioPlayCountsHistory,
+          administrationSeed,
+          stopReason: finalStopReason,
+          testStartedAtMs,
+          testEndedAtMs: now,
+        };
         setDone(true);
+        setStopReason(finalStopReason);
         setTestEndedAtMs(now);
         setCurrentIndex(null);
         setQuestionStartMs(null);
@@ -388,7 +378,23 @@ function App() {
         setQuestionStartMs(Date.now());
       }
     } else {
+      const finalStopReason: ResearchStopReason = "fixed-length";
+      const nextSnapshot: ResultSnapshot = {
+        administered: nextAdministered,
+        responses: nextResponses,
+        selectedLabels: nextSelectedLabels,
+        selectedAnswers: nextSelectedAnswers,
+        optionOrders: nextOptionOrders,
+        responseTimes: nextTimes,
+        answerTimestamps: nextAnswerTimestamps,
+        audioPlayCounts: nextAudioPlayCountsHistory,
+        administrationSeed,
+        stopReason: finalStopReason,
+        testStartedAtMs,
+        testEndedAtMs: now,
+      };
       setDone(true);
+      setStopReason(finalStopReason);
       setTestEndedAtMs(now);
       setCurrentIndex(null);
       setQuestionStartMs(null);
@@ -517,6 +523,10 @@ function App() {
           correctAnswers: snapshotCorrectAnswers,
           accuracyPercent: roundFinite(snapshotAccuracy, 1),
         }),
+        ...buildResearchAdministrationAudit(
+          snapshot.administrationSeed,
+          snapshot.stopReason
+        ),
         "総回答時間（秒）": roundFinite(snapshotTotalTimeSeconds, 2),
         "平均回答時間（秒）": roundFinite(snapshotAverageTimeSeconds, 2),
         A選択数: selectedLabelCounts.A,
@@ -599,6 +609,10 @@ function App() {
   };
 
   const handleDownload = () => {
+    if (administrationSeed === null || stopReason === null) {
+      setDownloadStatus("error");
+      return;
+    }
     downloadResultWorkbook({
       administered,
       responses,
@@ -608,6 +622,8 @@ function App() {
       responseTimes,
       answerTimestamps,
       audioPlayCounts: audioPlayCountsHistory,
+      administrationSeed,
+      stopReason,
       testStartedAtMs,
       testEndedAtMs,
     });
@@ -630,6 +646,9 @@ function App() {
     setDownloadStatus("idle");
     setTestStartedAtMs(null);
     setTestEndedAtMs(null);
+    setAdministrationSeed(null);
+    setStopReason(null);
+    selectionRandomRef.current = null;
     currentAudioPlayCountsRef.current = createEmptyAudioPlayCounts();
   };
 
